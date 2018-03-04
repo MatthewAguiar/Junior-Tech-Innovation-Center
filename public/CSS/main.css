@@ -1,0 +1,80 @@
+/*
+
+Jr. Tech Innovation Center (JTIC): LANDING PAGE
+Copyright (C) 2018 Matthew Aguiar
+
+  Jr Tech's Mission:
+  Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Computer Game Programming and Development with GameMaker-Studio 1.4",
+  "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
+
+  JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
+
+*/
+
+/*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+html{
+  background-color: #FEFAEB;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-------- Chained Rules ------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+header.main-header{
+  border-bottom: 3px solid #58B947;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.main-header nav{
+  position: relative;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.purple-banner{
+  background-color: #D80B8C;
+  height: 34.6px;
+}
+
+.jr-tech-logo{
+  width: 15%;
+  height: auto;
+  margin: 20px 0px 20px 20px;
+}
+
+.title{
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.STEM-blue{
+  color: #00A8D5;
+}
+
+.STEM-orange{
+  color: #F58220;
+}
+
+.STEM-green{
+  color: #58B947;
+}
+
+.STEM-purple{
+  color: #D80B8C;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+#test{
+  width: 12%;
+  height: auto;
+  display: block;
+  margin: 25px auto;
+}
