@@ -16,13 +16,51 @@ Copyright (C) 2018 Matthew Aguiar
 
 /*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 html{
-  background-color: #FEFAEB;
+  background-color: #FEFAEB; /*Set the default background color to a very light tan color.*/
   font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
+  color: #474747; /*Set the default text color to a shade of grey.*/
+}
+
+fieldset{
+  /*Controls the dimensions, positioning and border around user sign-in form.*/
+  width: 32%;
+  border: 1.1px solid #6669;
+  border-radius: 5px;
+  margin: 0px auto;
+}
+
+legend{
+  /*Positions and adjusts font of the caption for the form.*/
+  margin-left: 20px;
+  font-weight: 400;
+}
+
+form{
+  /*Center all items in the form.*/
+  text-align: center;
+}
+
+label{
+  /*Position username and password labels on the input textboxes.*/
+  font-size: 12px;
+  margin: 20px 0px 5px 0px;
+}
+
+input{
+  /*Defines overall dimensions and posiitoning of all input tags as well as font.*/
+  display: block;
+  margin: auto;
+  width: 300px;
+  height: 20px;
+  font-size: 14px;
+  color: #474747;
+  font-family: "Open Sans";
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-------- Chained Rules ------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 header.main-header{
+  /*Make a green border along the bottom of the main title bar.*/
   border-bottom: 3px solid #58B947;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
 }
@@ -30,23 +68,39 @@ header.main-header{
 
 /*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .main-header nav{
+  /*Position the navigation tag within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
   position: relative;
+}
+
+.JTIC-logo img{
+  /*Define dimensions of the JTIC logo.*/
+  width: 12%;
+  height: auto;
+}
+
+form header{
+  /*Resize "Welcome Innovators" caption at the top of the form.*/
+  font-size: 21px;
+  margin-top: 8px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .purple-banner{
+  /*Set dimensions of the purple banner at the very top of the main title bar.*/
   background-color: #D80B8C;
   height: 34.6px;
 }
 
 .jr-tech-logo{
-  width: 15%;
+  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
+  width: 14%;
   height: auto;
   margin: 20px 0px 20px 20px;
 }
 
 .title{
+  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
   font-size: 32px;
   font-weight: bold;
   position: absolute;
@@ -55,6 +109,7 @@ header.main-header{
   transform: translate(-50%, -50%);
 }
 
+/*Classes for all STEM colors which can be used with any text.*/
 .STEM-blue{
   color: #00A8D5;
 }
@@ -70,11 +125,61 @@ header.main-header{
 .STEM-purple{
   color: #D80B8C;
 }
+
+.JTIC-logo{
+  text-align: center;
+  margin: 25px 0px;
+}
+
+.username-and-password-flex-box{
+  /*This makes the larger parent "section" tag a flex box, arranging all other flex items on the cross axis.*/
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.username-and-password-mini-flex{
+  /*These are mini flex boxes that will end up each containing one label and one input textbox each. (There are two of these in the HTML document)*/
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.general-button-format{
+  /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
+  width: 205px;
+  height: 32px;
+  border: none;
+  color: white;
+  transition: background-color 100ms linear;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.general-button-format:hover{
+  /*Forces a little "hand" icon to appear when hovering over the buttons. (Used mainly to indicate to users that they are actually hovering over the button)*/
+  cursor: pointer;
+}
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-#test{
-  width: 12%;
-  height: auto;
-  display: block;
-  margin: 25px auto;
+/*-------- id Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#sign-in-button{
+  /*Position the sign-in button and make its color STEM blue.*/
+  background-color: #00A8D5;
+  margin: 37px auto 0px auto;
 }
+
+#sign-in-button:hover{
+  /*When hovering over the button, change the sign-in button to STEM green.*/
+  background-color: #58B947;
+}
+
+#reset-password-button{
+  /*Position the reset password button and make its color STEM purple.*/
+  background-color: #D80B8C;
+  margin: 10px auto 37px auto;
+}
+
+#reset-password-button:hover{
+  /*When hovering over the button, change the sign-in button to STEM orange.*/
+  background-color: #F58220;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

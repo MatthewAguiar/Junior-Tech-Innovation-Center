@@ -23,15 +23,15 @@ Copyright (C) 2018 Matthew Aguiar
     3. Link this HTML document's to a CSS stylesheet for styling the landing page.
     4. Find the JTIC favicon and display it in the browser tab.
     -->
-
     <title>Jr. Tech Innovation</title>
     <link href="CSS/reset.css" type = "text/css" rel = "stylesheet">
     <link href="CSS/main.css" type = "text/css" rel = "stylesheet">
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
 
+  <!-- Begin laying out actual page content. -->
   <body>
-
+    <!-- Creates the main title bar at the top of the page containing the Jr Tech Logo and "Jr Tech Innovation Center" Title. -->
     <header class = "main-header">
       <div class = "purple-banner"></div>
       <nav>
@@ -41,7 +41,32 @@ Copyright (C) 2018 Matthew Aguiar
       </nav>
     </header>
 
-    <img id = "test" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg">
+    <!-- Begins the main part of the page under the title bar starting at the JTIC logo. -->
+    <header class = "JTIC-logo">
+      <img src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg">
+    </header>
+    <!-- User sign-in form starts here. -->
+    <fieldset>
+      <legend>Sign-In</legend>
+      <form class = "" action = "index.html" method = "post">
+        <header>Welcome Innovators</header>
+        <!-- One large section tag(Flex Box) containing all input fields and buttons. -->
+        <section class = "username-and-password-flex-box">
+          <!-- Two smaller section tags(Column Flex Boxes) each containing a label and input textbox. -->
+          <section class = "username-and-password-mini-flex">
+            <label for = "username-id">Username:</label>
+            <input id = "username-id" type = "text" name = "username" autofocus>
+          </section>
+          <section class = "username-and-password-mini-flex">
+            <label for = "password-id">Password:</label>
+            <input id = "password-id" type = "password" name = "password">
+          </section>
+          <!-- Sign in and reset password buttons. -->
+          <input class = "general-button-format" id = "sign-in-button" type = "submit" name = "login_button" value = "Sign In">
+          <input class = "general-button-format" id = "reset-password-button" type = "submit" name = "reset_password_button" value = "Reset Password">
+        </section>
+      </form>
+    </fieldset>
 
   </body>
 </html>
