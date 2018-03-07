@@ -6,12 +6,11 @@ Copyright (C) 2018 Matthew Aguiar
   Jr Tech's Mission:
   Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
-  in STEM related fields. Some of Jr. Tech's technological classes include, "Computer Game Programming and Development with GameMaker-Studio 1.4",
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
   "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
   JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
-
 -->
 
 <!DOCTYPE html>
@@ -20,12 +19,14 @@ Copyright (C) 2018 Matthew Aguiar
     <!--
     1. Give the website's browser tab a name.
     2. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
-    3. Link this HTML document's to a CSS stylesheet for styling the landing page.
-    4. Find the JTIC favicon and display it in the browser tab.
+    3. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
+    4. Link this HTML document's to a CSS stylesheet for styling the landing page specifically.
+    5. Find the JTIC favicon and display it in the browser tab.
     -->
     <title>Jr. Tech Innovation</title>
     <link href="CSS/reset.css" type = "text/css" rel = "stylesheet">
-    <link href="CSS/main.css" type = "text/css" rel = "stylesheet">
+    <link href="CSS/font_and_color_theme.css" type = "text/css" rel = "stylesheet">
+    <link href="CSS/landing_page.css" type = "text/css" rel = "stylesheet">
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
 
@@ -35,9 +36,8 @@ Copyright (C) 2018 Matthew Aguiar
     <header class = "main-header">
       <div class = "purple-banner"></div>
       <nav>
-        <a href = "#"><img class = "jr-tech-logo" src = "Images/Main Header/Junior-Tech-Logo.png"></a>
-        <a href = "#"><h1 class = "title"><span class = "STEM-blue">Junior </span><span class = "STEM-orange">Tech </span><span class = "STEM-green">Innovation </span>
-          <span class = "STEM-purple">Center</span></h1></a>
+        <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" alt = "HEY THERE!" src = "Images/Main Header/Junior-Tech-Logo.png"></a>
+        <h1 class = "title normal-cursor"><span class = "STEM-blue">Junior </span><span class = "STEM-orange">Tech </span><span class = "STEM-green">Innovation </span><span class = "STEM-purple">Center</span></h1>
       </nav>
     </header>
 
@@ -49,13 +49,13 @@ Copyright (C) 2018 Matthew Aguiar
     <fieldset>
       <legend>Sign-In</legend>
       <form class = "" action = "index.html" method = "post">
-        <header>Welcome Innovators</header>
+        <header>Welcome Innovators</header> <!--TODO: DONT OVER USE HEADER!!! -->
         <!-- One large section tag(Flex Box) containing all input fields and buttons. -->
         <section class = "username-and-password-flex-box">
           <!-- Two smaller section tags(Column Flex Boxes) each containing a label and input textbox. -->
           <section class = "username-and-password-mini-flex">
             <label for = "username-id">Username:</label>
-            <input id = "username-id" type = "text" name = "username" autofocus>
+            <input id = "username-id" type = "text" name = "username">
           </section>
           <section class = "username-and-password-mini-flex">
             <label for = "password-id">Password:</label>

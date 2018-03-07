@@ -1,17 +1,16 @@
 /*
 
-Jr. Tech Innovation Center (JTIC): LANDING PAGE
+Jr. Tech Innovation Center (JTIC): OVERALL WEBSITE THEME
 Copyright (C) 2018 Matthew Aguiar
 
   Jr Tech's Mission:
   Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
-  in STEM related fields. Some of Jr. Tech's technological classes include, "Computer Game Programming and Development with GameMaker-Studio 1.4",
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
   "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
   JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
-
 */
 
 /*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -19,42 +18,6 @@ html{
   background-color: #FEFAEB; /*Set the default background color to a very light tan color.*/
   font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
   color: #474747; /*Set the default text color to a shade of grey.*/
-}
-
-fieldset{
-  /*Controls the dimensions, positioning and border around user sign-in form.*/
-  width: 32%;
-  border: 1.1px solid #6669;
-  border-radius: 5px;
-  margin: 0px auto;
-}
-
-legend{
-  /*Positions and adjusts font of the caption for the form.*/
-  margin-left: 20px;
-  font-weight: 400;
-}
-
-form{
-  /*Center all items in the form.*/
-  text-align: center;
-}
-
-label{
-  /*Position username and password labels on the input textboxes.*/
-  font-size: 12px;
-  margin: 20px 0px 5px 0px;
-}
-
-input{
-  /*Defines overall dimensions and posiitoning of all input tags as well as font.*/
-  display: block;
-  margin: auto;
-  width: 300px;
-  height: 20px;
-  font-size: 14px;
-  color: #474747;
-  font-family: "Open Sans";
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -70,18 +33,6 @@ header.main-header{
 .main-header nav{
   /*Position the navigation tag within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
   position: relative;
-}
-
-.JTIC-logo img{
-  /*Define dimensions of the JTIC logo.*/
-  width: 12%;
-  height: auto;
-}
-
-form header{
-  /*Resize "Welcome Innovators" caption at the top of the form.*/
-  font-size: 21px;
-  margin-top: 8px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -126,24 +77,6 @@ form header{
   color: #D80B8C;
 }
 
-.JTIC-logo{
-  text-align: center;
-  margin: 25px 0px;
-}
-
-.username-and-password-flex-box{
-  /*This makes the larger parent "section" tag a flex box, arranging all other flex items on the cross axis.*/
-  display: inline-flex;
-  flex-direction: column;
-}
-
-.username-and-password-mini-flex{
-  /*These are mini flex boxes that will end up each containing one label and one input textbox each. (There are two of these in the HTML document)*/
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .general-button-format{
   /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
   width: 205px;
@@ -151,35 +84,15 @@ form header{
   border: none;
   color: white;
   transition: background-color 100ms linear;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
 }
 
 .general-button-format:hover{
   /*Forces a little "hand" icon to appear when hovering over the buttons. (Used mainly to indicate to users that they are actually hovering over the button)*/
   cursor: pointer;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-/*-------- id Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#sign-in-button{
-  /*Position the sign-in button and make its color STEM blue.*/
-  background-color: #00A8D5;
-  margin: 37px auto 0px auto;
-}
-
-#sign-in-button:hover{
-  /*When hovering over the button, change the sign-in button to STEM green.*/
-  background-color: #58B947;
-}
-
-#reset-password-button{
-  /*Position the reset password button and make its color STEM purple.*/
-  background-color: #D80B8C;
-  margin: 10px auto 37px auto;
-}
-
-#reset-password-button:hover{
-  /*When hovering over the button, change the sign-in button to STEM orange.*/
-  background-color: #F58220;
+.normal-cursor:hover{
+  cursor: default;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
