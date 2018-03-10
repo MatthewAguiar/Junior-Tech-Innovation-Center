@@ -1,6 +1,5 @@
 /*
-
-Jr. Tech Innovation Center (JTIC): OVERALL WEBSITE THEME
+Jr Tech Innovation Center (JTIC): OVERALL WEBSITE THEME
 Copyright (C) 2018 Matthew Aguiar
 
   Jr Tech's Mission:
@@ -19,6 +18,13 @@ html{
   font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
   color: #474747; /*Set the default text color to a shade of grey.*/
 }
+
+input{
+  /*Defines overall dimensions and posiitoning of all input tags as well as font.*/
+  display: block;
+  color: #474747;
+  font-family: "Open Sans";
+}
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-------- Chained Rules ------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -33,6 +39,12 @@ header.main-header{
 .main-header nav{
   /*Position the navigation tag within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
   position: relative;
+}
+
+.JTIC-logo img{
+  /*Define dimensions of the JTIC logo.*/
+  width: 12%;
+  height: auto;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -77,10 +89,13 @@ header.main-header{
   color: #D80B8C;
 }
 
+/*-------- GLOBAL BUTTON STYLING RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.normal-cursor:hover{
+  cursor: default;
+}
+
 .general-button-format{
   /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
-  width: 205px;
-  height: 32px;
   border: none;
   color: white;
   transition: background-color 100ms linear;
@@ -92,7 +107,21 @@ header.main-header{
   cursor: pointer;
 }
 
-.normal-cursor:hover{
-  cursor: default;
+.blue-green-button{
+  background-color: #00A8D5;
 }
+
+.blue-green-button:hover{
+  background-color: #58B947;
+}
+
+.purple-orange-button{
+  background-color: #D80B8C;
+}
+
+.purple-orange-button:hover{
+  background-color: #F58220;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

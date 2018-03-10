@@ -1,6 +1,5 @@
 /*
-
-Jr. Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE
+Jr Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE
 Copyright (C) 2018 Matthew Aguiar
 
   Jr Tech's Mission:
@@ -13,10 +12,69 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
 */
 
+/*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+section{
+  border: 1px solid #474747;
+  border-radius: 5px;
+  width: auto;
+  height: 483px;
+  margin: 0px auto;
+}
+
+h2{
+  margin-bottom: 5px;
+}
+
+ul{
+  margin: 10px 0px 10px 10px;
+}
+
+li span:hover{
+  cursor: pointer;
+}
+
+li img:hover{
+  cursor: pointer;
+}
+
+form{
+  margin: 15px 10px;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #welcome-message span{
   border-top: 1px solid;
   border-bottom: 1px solid;
+}
+
+li img{
+  width: 3.5%;
+  height: auto;
+  margin: auto 0px;
+  vertical-align: bottom;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.console{
+  display: flex;
+  justify-content: space-around;
+  height: 512px;
+  margin-top: 7px;
+}
+
+.sub-console{
+  margin-top: 12px;
+  width: 500px;
+  height: inherit;
+}
+
+.student-work-panel-label{
+  font-size: 12px;
+}
+
+.file-upload{
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -25,5 +83,29 @@ Copyright (C) 2018 Matthew Aguiar
   font-size: 30px;
   text-align: center;
   margin-top: 36px;
+}
+
+#vertical-spacer{
+  background-color: #474747;
+  width: 0.8px;
+  height: inherit;
+  margin: 0px 0px;
+  border: none;
+}
+
+#gamemaker-project-upload-button{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+#file-upload-button{
+  background-color: #00A8D5;
+  margin: 37px auto 0px auto;
+  padding: 1px 6px;
+}
+
+#file-upload-button:hover{
+  background-color: #58B947;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

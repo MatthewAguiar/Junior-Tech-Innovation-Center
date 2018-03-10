@@ -1,6 +1,5 @@
 /*
-
-Jr. Tech Innovation Center (JTIC): LANDING PAGE
+Jr Tech Innovation Center (JTIC): LANDING PAGE
 Copyright (C) 2018 Matthew Aguiar
 
   Jr Tech's Mission:
@@ -13,9 +12,12 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
 */
 
-/*-------- Media Query Rules ---------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
 /*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+form{
+  /*Center all items in the form.*/
+  text-align: center;
+}
+
 fieldset{
   /*Controls the dimensions, positioning and border around user sign-in form.*/
   width: 32%;
@@ -28,11 +30,7 @@ legend{
   /*Positions and adjusts font of the caption for the form.*/
   margin-left: 20px;
   font-weight: 400;
-}
-
-form{
-  /*Center all items in the form.*/
-  text-align: center;
+  text-align: left;
 }
 
 label{
@@ -40,30 +38,24 @@ label{
   font-size: 12px;
   margin: 20px 0px 5px 0px;
 }
-
-input{
-  /*Defines overall dimensions and posiitoning of all input tags as well as font.*/
-  display: block;
-  margin: auto;
-  width: 300px;
-  height: 20px;
-  font-size: 14px;
-  color: #474747;
-  font-family: "Open Sans";
-}
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-.JTIC-logo img{
-  /*Define dimensions of the JTIC logo.*/
-  width: 12%;
-  height: auto;
-}
-
-form header{
+form h1{
   /*Resize "Welcome Innovators" caption at the top of the form.*/
   font-size: 21px;
   margin-top: 8px;
+}
+
+.username-and-password-mini-flex input{
+  width: 300px;
+  height: 20px;
+  font-size: 14px;
+}
+
+.sign-in-and-reset-password-container input{
+  width: 205px;
+  height: 32px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -90,23 +82,11 @@ form header{
 /*-------- id Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #sign-in-button{
   /*Position the sign-in button and make its color STEM blue.*/
-  background-color: #00A8D5;
   margin: 37px auto 0px auto;
-}
-
-#sign-in-button:hover{
-  /*When hovering over the button, change the sign-in button to STEM green.*/
-  background-color: #58B947;
 }
 
 #reset-password-button{
   /*Position the reset password button and make its color STEM purple.*/
-  background-color: #D80B8C;
   margin: 10px auto 37px auto;
-}
-
-#reset-password-button:hover{
-  /*When hovering over the button, change the sign-in button to STEM orange.*/
-  background-color: #F58220;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
