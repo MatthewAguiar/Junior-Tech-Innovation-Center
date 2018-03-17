@@ -1,57 +1,56 @@
 <!--
-Jr Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE
+Jr. Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE HTML
 Copyright (C) 2018 Matthew Aguiar
 
-  Jr Tech's Mission:
-  Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
   in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
-  "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
-  JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
-  It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 -->
 
 <!DOCTYPE html>
-<html>
+<html lang = "en">
   <head>
     <!--
-    1. Give the website's browser tab a name.
-    2. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
-    3. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
-    4. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
-    5. Find the JTIC favicon and display it in the browser tab.
+    1. Set the page's character encoding to Unicode(utf-8).
+    2. Give the website's browser tab a name.
+    3. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
+    4. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
+    5. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
+    6. Find the JTIC favicon and display it in the browser tab.
     -->
+    <meta charset = "utf-8">
     <title>Jr. Tech Innovation</title>
     <link href="CSS/reset.css" type = "text/css" rel = "stylesheet">
-    <link href="CSS/font_and_color_theme.css" type = "text/css" rel = "stylesheet">
+    <link href="CSS/global_styles.css" type = "text/css" rel = "stylesheet">
     <link href="CSS/student_portfolio.css" type = "text/css" rel = "stylesheet">
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
   <body>
     <header class = "main-header">
       <div class = "purple-banner"></div>
-      <nav>
-        <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Junior-Tech-Logo.png"></a>
-        <h1 class = "title normal-cursor" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue">Jr. </span><span class = "STEM-orange">Tech </span><span class = "STEM-green">Innovation </span>
-        <span class = "STEM-purple">Center</span></h1>
-      </nav>
+      <div class = "logo-and-title-container">
+        <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
+        <h1 class = "title normal-cursor" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
+      </div>
     </header>
     <main>
-      <h1 class = "normal-cursor" id = "welcome-message"><span>Welcome Matthew</span></h1>
+      <h2 class = "normal-cursor" id = "welcome-message"><span>Welcome Matthew</span></h2>
       <div class = "console">
         <div class = "sub-console">
-          <h2 class = "student-work-panel-label">Projects:</h2>
-          <section>
+          <h6 class = "small-label-format">Projects:</h6>
+          <section><!--QUESTION: Section tag usage?-->
             <ul>
               <li>
                 <span>►</span><img src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span>
               </li>
             </ul>
-            <form>
-              <input id = "gamemaker-project-upload-button" class = "file-upload" type = "file" name = "" value = "">
-              <label class = "general-button-format" id = "file-upload-button" for = "gamemaker-project-upload-button">Upload Project</label>
-            </form>
           </section>
         </div>
         <hr id = "vertical-spacer">
@@ -65,3 +64,25 @@ Copyright (C) 2018 Matthew Aguiar
     </main>
   </body>
 </html>
+
+<!--
+<section class = "project-info-box pointer-mouse-change">
+  <img src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+  <div class = "gamemaker-project-info-format">
+    <h1>Project Name: <u>flippy_game.gmx</u></h1>
+    <h1>Uploaded On: November 15, 2018</h1>
+  </div>
+    <a class = "blue-green-button general-button-format file-upload-button download-link">Download Project</a>
+</section>
+-->
+<!--
+<form>
+  <label class = "small-label-format" for = "project-description">Project Description:</label>
+  <textarea id = "project-description" name="name"></textarea>
+  <input class = "gamemaker-project-upload-button" id = "upload-button-selector" type = "file" name = "" value = "">
+  <label class = "blue-green-button general-button-format file-upload-button" for = "upload-button-selector">
+  <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+  <span>Upload Project</span>
+  </label>
+</form>
+-->

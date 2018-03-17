@@ -1,15 +1,16 @@
 /*
-Jr Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE
+Jr. Tech Innovation Center (JTIC): STUDENT PORTFOLIO PAGE CSS
 Copyright (C) 2018 Matthew Aguiar
 
-  Jr Tech's Mission:
-  Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
   in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
-  "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
-  JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
-  It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
 /*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -29,16 +30,23 @@ ul{
   margin: 10px 0px 10px 10px;
 }
 
-li span:hover{
-  cursor: pointer;
-}
-
-li img:hover{
+li:hover{
   cursor: pointer;
 }
 
 form{
-  margin: 15px 10px;
+  margin: 15px 30px;
+}
+
+textarea{
+  width: 100%;
+  height: 100px;
+  resize: none;
+  font-size: 12px;
+}
+
+u{
+  vertical-align: top;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -48,11 +56,27 @@ form{
   border-bottom: 1px solid;
 }
 
+li span{
+  margin-right: 5px;
+}
+
 li img{
   width: 3.5%;
   height: auto;
-  margin: auto 0px;
   vertical-align: bottom;
+  margin-right: 5px;
+}
+
+.file-upload-button img{
+  width: 18%;
+  height: auto;
+  vertical-align: middle;
+  transform: translate(0px, -1px);
+}
+
+.project-info-box img{
+  width: 9%;
+  height: auto;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -60,7 +84,6 @@ li img{
 .console{
   display: flex;
   justify-content: space-around;
-  height: 512px;
   margin-top: 7px;
 }
 
@@ -74,13 +97,64 @@ li img{
   font-size: 12px;
 }
 
-.file-upload{
+.gamemaker-project-upload-button{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-upload-button{
+  font-size: 10px;
+  padding: 7px 5px;
+  margin-top: 10px;
+  width: 92px;
+  height: 15px;
+  display: inline-block;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.file-upload-button:hover{
+  background-color: #58B947;
+}
+
+.project-info-box{
+  border: none;
+  border-radius: 0px;
+  height: auto;
+  margin: 15px 30px;
+  transition: background-color 100ms linear;
+}
+
+.project-info-box:hover{
+  background-color: rgb(255,242,195);
+}
+
+.gamemaker-project-info-format{
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.gamemaker-project-info-format h1{
+  margin: 6px 0px;
+}
+
+.pointer-mouse-change:hover{
+  cursor: pointer;
+}
+
+.download-link{
+  display: block;
+  text-align: center;
+  line-height: 14px;
+  float: right;
+  margin: auto 8px auto 0px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*-------- id Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 #welcome-message{
-  font-size: 30px;
   text-align: center;
   margin-top: 36px;
 }
@@ -91,21 +165,5 @@ li img{
   height: inherit;
   margin: 0px 0px;
   border: none;
-}
-
-#gamemaker-project-upload-button{
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-}
-
-#file-upload-button{
-  background-color: #00A8D5;
-  margin: 37px auto 0px auto;
-  padding: 1px 6px;
-}
-
-#file-upload-button:hover{
-  background-color: #58B947;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

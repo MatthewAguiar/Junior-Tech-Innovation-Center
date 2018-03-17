@@ -1,28 +1,30 @@
 /*
-Jr Tech Innovation Center (JTIC): LANDING PAGE
+Jr. Tech Innovation Center (JTIC): LANDING PAGE CSS
 Copyright (C) 2018 Matthew Aguiar
 
-  Jr Tech's Mission:
-  Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
   in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
-  "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
-  JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
-  It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
 /*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 form{
-  /*Center all items in the form.*/
+  /*Center all items in the sign-in form.*/
   text-align: center;
 }
 
 fieldset{
-  /*Controls the dimensions, positioning and border around user sign-in form.*/
+  /*
+  Controls the dimensions, positioning and border around user sign-in field.
+  NOTE: This fieldset containing the sign-in and password boxes also has its border styled by the ".border-color-and-radius" CSS class rule in the "global_website_styles.css" document!
+  */
   width: 32%;
-  border: 1.1px solid #6669;
-  border-radius: 5px;
   margin: 0px auto;
 }
 
@@ -30,23 +32,18 @@ legend{
   /*Positions and adjusts font of the caption for the form.*/
   margin-left: 20px;
   font-weight: 400;
-  text-align: left;
+  text-align: left; /*Form is centered by default. This resets the legend to the align left, not center.*/
 }
 
 label{
-  /*Position username and password labels on the input textboxes.*/
-  font-size: 12px;
-  margin: 20px 0px 5px 0px;
+  /*
+  Position username and password labels on the input textboxes.
+  NOTE: The labels also recieve addtional styling, font-size and margin-bottom, from the ".small-label-format" CSS class rule in the "global_website_styles.css" document!
+  */
+  margin-top: 20px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
 /*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form h1{
-  /*Resize "Welcome Innovators" caption at the top of the form.*/
-  font-size: 21px;
-  margin-top: 8px;
-}
-
 .username-and-password-mini-flex input{
   width: 300px;
   height: 20px;
@@ -58,19 +55,7 @@ form h1{
   height: 32px;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
 /*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-.JTIC-logo{
-  text-align: center;
-  margin: 25px 0px;
-}
-
-.username-and-password-flex-box{
-  /*This makes the larger parent "section" tag a flex box, arranging all other flex items on the cross axis.*/
-  display: inline-flex;
-  flex-direction: column;
-}
-
 .username-and-password-mini-flex{
   /*These are mini flex boxes that will end up each containing one label and one input textbox each. (There are two of these in the HTML document)*/
   display: inline-flex;
@@ -78,14 +63,25 @@ form h1{
   align-items: flex-start;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
 /*-------- id Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#sign-in-button{
+#welcome-header-margin-style{
+  /*Resize "Welcome Innovators" caption at the top of the form.*/
+  margin-top: 8px;
+}
+
+#JTIC-logo{
+  display: block;
+  margin: 26px auto;
+  width: 12%;
+  height: auto;
+}
+
+#sign-in-button-positioning{
   /*Position the sign-in button and make its color STEM blue.*/
   margin: 37px auto 0px auto;
 }
 
-#reset-password-button{
+#reset-password-button-positioning{
   /*Position the reset password button and make its color STEM purple.*/
   margin: 10px auto 37px auto;
 }

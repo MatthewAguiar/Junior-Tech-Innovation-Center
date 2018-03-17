@@ -1,0 +1,168 @@
+/*
+Jr. Tech Innovation Center (JTIC): GLOBAL STYLING RULES
+Copyright (C) 2018 Matthew Aguiar
+
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
+
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
+*/
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GENERAL HTML TAG RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+html{
+  background-color: rgb(254, 250, 235); /*Set the default background color to a very light tan color.*/
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
+  color: rgb(71, 71, 71); /*Set the default text color to a shade of grey.*/
+}
+
+input, textarea{
+  /*Defines overall dimensions and posiitoning of all input tags as well as font.*/
+  display: block;
+  color: rgb(71, 71, 71);
+  font-family: "Open Sans";
+}
+
+textarea{
+  margin: 0px;
+	padding: 0px;
+}
+
+/* HEADER RULES */
+h1{
+  /*All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.*/
+  font-size: 32px;
+}
+
+h2{
+  /*All h2 headers will be used for headers slightly SMALLER than the MAIN HEADER/BANNER.*/
+  font-size: 26px;
+}
+
+h3{
+  /*All h3 headers will be used for middle sized headers of about 21px.*/
+  font-size: 21px;
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ STEM COLOR SCHEME RULES --------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+/*STEM TEXT COLORS*/
+.STEM-blue-text{
+  color: rgb(0, 168, 213);
+}
+
+.STEM-orange-text{
+  color: rgb(245, 130, 32);
+}
+
+.STEM-green-text{
+  color: rgb(88, 185, 71);
+}
+
+.STEM-purple-text{
+  color: rgb(216, 11, 140);
+}
+
+/*STEM BACKGROUND COLORS*/
+.STEM-blue-background{
+  background-color: rgb(0, 168, 213);
+}
+
+.STEM-green-background{
+  background-color: rgb(88, 185, 71);
+}
+
+.STEM-purple-background{
+  background-color: rgb(216, 11, 140);
+}
+
+.STEM-orange-background{
+  background-color: rgb(245, 130, 32);
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GLOBAL BUTTON RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+.general-button-format{
+  /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
+  border: none;
+  color: white;
+  transition: background-color 100ms linear;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+.general-button-format:hover{
+  /*Forces a little "hand" icon to appear when hovering over the buttons. (Used mainly to indicate to users that they are actually hovering over the button)*/
+  cursor: pointer;
+}
+
+.blue-to-green-button:hover{
+  background-color: rgb(88, 185, 71);
+}
+
+.purple-to-orange-button:hover{
+  background-color: rgb(245, 130, 32);
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ RULES FOR BORDERS --------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+.border-color-and-radius{
+  border: 1.1px solid rgba(102, 102, 102, 0.6);
+  border-radius: 5px;
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ RULES EXCLUSIVELY FOR MAIN HEADER/BANNER ---------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+.main-header{
+  /*Make a green border along the bottom of the main title bar.*/
+  border-bottom: 3px solid #58B947;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+.purple-banner{
+  /*Set dimensions of the purple banner at the very top of the main title bar.*/
+  background-color: rgb(216, 11, 140);
+  height: 34.6px;
+}
+
+.logo-and-title-container{
+  /*Position the navigation tag within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
+  position: relative;
+}
+
+.jr-tech-logo{
+  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
+  width: 14%;
+  height: auto;
+  margin: 20px 0px 20px 20px;
+}
+
+.title{
+  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ OTHER GENERAL RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+.normal-cursor:hover{
+  cursor: default;
+}
+
+.small-label-format{
+  font-size: 12px;
+  margin-bottom: 5px;
+}

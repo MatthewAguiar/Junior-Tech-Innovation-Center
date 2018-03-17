@@ -1,19 +1,21 @@
 <!--
-Jr Tech Innovation Center (JTIC): LANDING PAGE
+Jr. Tech Innovation Center (JTIC): LANDING PAGE HTML
 Copyright (C) 2018 Matthew Aguiar
 
-  Jr Tech's Mission:
-  Jr Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
   with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
   in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
-  "Introduction to Computer Programming and Algorithms with Python", "C++ Game Programming" and even "Introduction to Artificial Intelligence".
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
 
-  JTIC is a website that serves to help Jr Tech STEM students innovate, create and save their work for later access from anywhere.
-  It also gives computer game programming and development students a chance to publish their games on their own websites to play from anywhere and show their friends.
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 -->
 
 <!DOCTYPE html>
 <html lang = "en">
+  <head>
     <!--
     METADATA:
     1. Set the page's character encoding to Unicode(utf-8).
@@ -24,60 +26,55 @@ Copyright (C) 2018 Matthew Aguiar
     6. Give the website's browser tab a name.
     7. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
     8. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
-    9. Link this HTML document's to a CSS stylesheet for styling the landing page specifically.
+    9. Link this HTML document to a CSS stylesheet for styling the landing page specifically.
     10. Find the JTIC favicon and display it in the browser tab.
     -->
-  <head>
     <meta charset = "utf-8">
     <meta name = "application-name" content = "Jr Tech Innovation Center">
-    <meta name = "description" content = "At Jr Tech we strive to provide STEM students with the opportunity to learn and enhance their skills in STEM
+    <meta name = "description" content = "At Jr. Tech we strive to provide STEM students with the opportunity to learn and enhance their skills in STEM
     related fields. The Jr Tech Innovation Center allows these STEM students to save their progress and continue building their skills from anywhere.">
-    <meta name = "keywords" content = "Jr Tech Innovation Center, Junior Tech Innovation Center, Jr Tech, STEM, Junior Tech">
-    <meta name = "creator" content = "Jr Tech">
+    <meta name = "keywords" content = "Jr Tech Innovation Center, Junior Tech Innovation Center, Jr. Tech, STEM, Junior Tech">
+    <meta name = "creator" content = "Jr. Tech">
     <title>Jr. Tech Innovation</title>
     <link href="CSS/reset.css" type = "text/css" rel = "stylesheet">
-    <link href="CSS/font_and_color_theme.css" type = "text/css" rel = "stylesheet">
+    <link href="CSS/global_styles.css" type = "text/css" rel = "stylesheet">
     <link href="CSS/landing_page.css" type = "text/css" rel = "stylesheet">
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
-  <!-- Begin laying out actual page content. -->
   <body>
-    <!-- Creates the main title bar at the top of the page containing the Jr Tech Logo and "Jr Tech Innovation Center" Title. -->
+    <!-- Begin laying out actual webpage content. -->
     <header class = "main-header">
+      <!-- Creates the main banner at the top of the page containing the Jr. Tech logo and "Jr. Tech Innovation Center" title. -->
       <div class = "purple-banner"></div>
-      <nav>
+      <div class = "logo-and-title-container">
         <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
-        <h1 class = "title normal-cursor" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue">Jr. </span><span class = "STEM-orange">Tech </span><span class = "STEM-green">Innovation </span>
-        <span class = "STEM-purple">Center</span></h1>
-      </nav>
+        <h1 class = "title normal-cursor" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
+      </div>
     </header>
     <main>
-      <!-- Begins the main part of the page under the title bar starting at the JTIC logo. -->
-      <header class = "JTIC-logo">
-        <img src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg">
-      </header>
-      <!-- User sign-in form starts here. -->
-      <form action = "index.html" method = "post">
-        <fieldset>
+      <!-- Begins the main part of the page under the main banner starting at the JTIC logo. -->
+      <img id = "JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg">
+      <form onsubmit = "">
+        <!-- User sign-in form starts here. -->
+        <fieldset class = "border-color-and-radius">
           <legend>Sign-In</legend>
-          <!-- One large container tag(Flex Box) containing all input fields and buttons. -->
-          <section class = "username-and-password-flex-box">
-            <h1>Welcome Innovators</h1>
-            <!-- Two smaller section tags(Column Flex Boxes) each containing a label and input textbox. -->
-            <div class = "username-and-password-mini-flex">
-              <label for = "username-id">Username:</label>
-              <input id = "username-id" type = "text" name = "username">
-            </div>
-            <div class = "username-and-password-mini-flex">
-              <label for = "password-id">Password:</label>
-              <input id = "password-id" type = "password" name = "password">
-            </div>
+          <!-- This fieldset contains username and password input boxes and buttons. -->
+          <h3 id = "welcome-header-margin-style">Welcome Innovators</h3>
+          <!-- The following are two smaller div tags(Column Flex Boxes) each containing a label and input textbox. -->
+          <div class = "username-and-password-mini-flex">
+            <label class = "small-label-format" for = "username-id">Username:</label>
+            <input id = "username-id" type = "text" name = "username">
+          </div>
+          <div class = "username-and-password-mini-flex">
+            <label class = "small-label-format" for = "password-id">Password:</label>
+            <input id = "password-id" type = "password" name = "password">
+          </div>
+          <div class = "sign-in-and-reset-password-container">
             <!-- Sign in and reset password buttons. -->
-            <div class = "sign-in-and-reset-password-container">
-              <input class = "general-button-format blue-green-button" id = "sign-in-button" type = "submit" name = "login_button" value = "Sign In">
-              <input class = "general-button-format purple-orange-button" id = "reset-password-button" type = "submit" name = "reset_password_button" value = "Reset Password">
-            </div>
-          </section>
+            <input class = "general-button-format STEM-blue-background blue-to-green-button" id = "sign-in-button-positioning" type = "submit" name = "login_button" value = "Sign In">
+            <input class = "general-button-format STEM-purple-background purple-to-orange-button" id = "reset-password-button-positioning" type = "submit" name = "reset_password_button" value = "Reset Password">
+          </div>
         </fieldset>
       </form>
     </main>
