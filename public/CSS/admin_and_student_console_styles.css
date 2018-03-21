@@ -1,0 +1,71 @@
+/*
+Jr. Tech Innovation Center (JTIC): ADMINISTRATOR AND STUDENT "CONSOLE" RULES CSS
+Copyright (C) 2018 Matthew Aguiar
+
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
+
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
+*/
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ MAIN CONSOLE RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+main{
+  margin-top: 36px;
+}
+
+h2#welcome-message{ /*QUESTION: Make this an id or class? What about chaining the h2 tag?*/
+  height: 38px;
+  text-align: center;
+  position: relative;
+}
+
+h2#welcome-message > span{ /*IDEA: Take a look at changing to one of the following: parent > direct_child, parent + adjacent sibling, parent ~ general_sibling.*/
+  border-top: 1.1px solid rgb(71, 71, 71);
+  border-bottom: 1.1px solid rgb(71, 71, 71);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px 0px; /*TODO: Check padding which overflows the h2 element.*/
+}
+
+div.console{ /*QUESTION: Make this an id or class? What about chaining the h2 tag?*/
+  display: flex;
+  justify-content: space-around;
+}
+
+section.sub-console{
+  margin-top: 12px;
+  width: 575px;
+  height: inherit;
+}
+
+div.sub-console-content{
+  border: 1px solid #474747; /*TODO: Change ALL hex values to rgb();*/
+  border-radius: 5px;
+  width: auto;
+  height: 483px;
+  margin: 0px auto;
+  overflow: scroll;
+}
+
+div.sub-console-content-inner-liner{
+  width: 90%;
+  height: 97%;
+  margin: 15px auto 0px auto;
+}
+
+hr#vertical-spacer{
+  background-color: #474747;
+  width: 0.8px;
+  height: inherit;
+  margin: 0px 0px;
+  border: none;
+}

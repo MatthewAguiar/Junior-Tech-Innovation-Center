@@ -13,7 +13,15 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
-/*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ SIGN-IN FORM RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+main{
+  margin-top: 26px;
+}
+
 form{
   /*Center all items in the sign-in form.*/
   text-align: center;
@@ -42,38 +50,33 @@ label{
   */
   margin-top: 20px;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-.username-and-password-mini-flex input{
-  width: 300px;
-  height: 20px;
-  font-size: 14px;
+
+#JTIC-logo{
+  display: block;
+  margin: 0px auto 26px auto;
+  width: 12%;
+  height: auto;
 }
 
-.sign-in-and-reset-password-container input{
-  width: 205px;
-  height: 32px;
+#welcome-header-margin-style{
+  /*Resize "Welcome Innovators" caption at the top of the form.*/
+  margin-top: 8px;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 .username-and-password-mini-flex{
   /*These are mini flex boxes that will end up each containing one label and one input textbox each. (There are two of these in the HTML document)*/
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------- id Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#welcome-header-margin-style{
-  /*Resize "Welcome Innovators" caption at the top of the form.*/
-  margin-top: 8px;
+
+.username-and-password-mini-flex input{
+  width: 300px;
 }
 
-#JTIC-logo{
-  display: block;
-  margin: 26px auto;
-  width: 12%;
-  height: auto;
+.sign-in-and-reset-password-container input{
+  width: 205px;
+  height: 32px;
 }
 
 #sign-in-button-positioning{
@@ -85,4 +88,3 @@ label{
   /*Position the reset password button and make its color STEM purple.*/
   margin: 10px auto 37px auto;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

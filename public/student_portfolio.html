@@ -17,17 +17,20 @@ Copyright (C) 2018 Matthew Aguiar
 <html lang = "en">
   <head>
     <!--
+    METADATA:
     1. Set the page's character encoding to Unicode(utf-8).
     2. Give the website's browser tab a name.
     3. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
     4. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
-    5. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
-    6. Find the JTIC favicon and display it in the browser tab.
+    5. Link this HTML document to a CSS stylesheet which defiens rules for the main console of both administrator and student pages.
+    6. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
+    7. Find the JTIC favicon and display it in the browser tab.
     -->
     <meta charset = "utf-8">
     <title>Jr. Tech Innovation</title>
     <link href="CSS/reset.css" type = "text/css" rel = "stylesheet">
     <link href="CSS/global_styles.css" type = "text/css" rel = "stylesheet">
+    <link href = "CSS/admin_and_student_console_styles.css" type = "text/css" rel = "stylesheet">
     <link href="CSS/student_portfolio.css" type = "text/css" rel = "stylesheet">
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
@@ -36,53 +39,169 @@ Copyright (C) 2018 Matthew Aguiar
       <div class = "purple-banner"></div>
       <div class = "logo-and-title-container">
         <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
-        <h1 class = "title normal-cursor" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <h1 class = "title" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
         <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
       </div>
     </header>
     <main>
-      <h2 class = "normal-cursor" id = "welcome-message"><span>Welcome Matthew</span></h2>
+      <h2 id = "welcome-message"><span>Welcome Matthew</span></h2>
       <div class = "console">
-        <div class = "sub-console">
+        <section class = "sub-console">
           <h6 class = "small-label-format">Projects:</h6>
-          <section><!--QUESTION: Section tag usage?-->
-            <ul>
-              <li>
-                <span>►</span><img src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span>
-              </li>
-            </ul>
-          </section>
-        </div>
+          <div class = "sub-console-content">
+            <div class = "sub-console-content-inner-liner">
+              <ul class = "projects-folder-list">
+                <li class = "pointer-mouse-type">
+                  <span>►</span><img src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span>
+                </li>
+              </ul>
+              <div class = "expanded-list-content">
+                <section class = "project-info-box sub-console-content-vertical-spacing pointer-mouse-type">
+                  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+                  <div class = "gamemaker-project-info-format">
+                    <h6 class = "small-label-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+                    <h6 class = "small-label-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+                  </div>
+                  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+                    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+                    <span>Download Project</span>
+                  </a>
+                </section>
+                <form class = "sub-console-content-vertical-spacing">
+                  <fieldset class = "border-color-and-radius">
+                    <legend>New Project</legend>
+                    <div class = "new-project-form-contents">
+                      <label class = "small-label-format" for = "project-description">Project Description:</label>
+                      <textarea class = "project-add-textarea" id = "project-description" name = "name"></textarea>
+                      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+                      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+                        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+                        <span>Upload Project</span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
         <hr id = "vertical-spacer">
-        <div class = "sub-console">
-          <h2 class = "student-work-panel-label">Games:</h2>
-          <section>
-            bro
-          </section>
-        </div>
+        <section class = "sub-console">
+          <h6 class = "small-label-format">Games:</h6>
+          <div class = "sub-console-content">
+            <div class = "sub-console-content-inner-liner">
+              <form class = "html-game-form">
+                <fieldset class = "main-new-html-game-fieldset border-color-and-radius">
+                  <legend>New Webpage</legend>
+                  <fieldset class = "customize-header-field">
+                    <legend>Webpage Header:</legend>
+                    <div class = "customize-header-field-content">
+                      <div class = "input-label-container">
+                        <label class = "small-label-format" for="game-title">Title:</label>
+                        <input class = "input-fill-width input-height-and-font" id = "game-title" type = "text" name = "" value = "">
+                      </div>
+                      <div class = "input-label-container">
+                        <label class = "small-label-format" for="game-description">Description:</label>
+                        <textarea class = "game-add-textarea input-fill-width" id = "game-description" name = "name"></textarea>
+                      </div>
+                      <div class = "input-label-container">
+                        <ul class = "game-controls-list">
+                          <li>
+                            <label class = "small-label-format" for="game-controls">Controls:</label>
+                            <input class = "input-fill-width input-height-and-font" "game-controls" type = "text" name = "" value = "">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class = "customize-header-field">
+                    <legend>Webpage Body:</legend>
+                    <div class = "customize-header-field-content">
+                      <div class = "input-label-container">
+                        <h6 class = "small-label-format">Background:</h6>
+                        <ul class = "background-image-dropdown input-fill-width">
+                          <li class = "select-background-image-text">
+                            <span><span>►</span> Select a Background</span>
+                          </li>
+                          <li class = "new-image-section">
+                            <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
+                            <ul class = "image-flex-box">
+                              <li><img class = "background-image" src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt=""></li>
+                              <li><img class = "background-image" src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt=""></li>
+                              <li><img class = "background-image" src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt=""></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class = "input-label-container">
+                        <h6 class = "small-label-format">Favicon:</h6>
+                        <ul class = "background-image-dropdown input-fill-width"> <!--NOTE: I would just suggest using the same ul format/block of code as above when it comes time for JS-->
+                          <li class = "select-background-image-text">
+                            <span><span>►</span> Select a Favicon</span>
+                          </li>
+                          <li class = "new-image-section">
+                            <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
+                            <ul class = "image-flex-box">
+                              <li><img class = "favicon" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt=""></li>
+                              <li><img class = "favicon" src = "https://pre00.deviantart.net/4856/th/pre/i/2015/105/b/3/kirby_icon_by_vega_kun-d8ptnrw.png" alt=""></li>
+                              <li><img class = "favicon" src = "http://www.gameongrafix.com/sc_images/products/Rally-X-sideart-2-sca1-1000.jpg" alt=""></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </fieldset>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   </body>
 </html>
 
 <!--
-<section class = "project-info-box pointer-mouse-change">
-  <img src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+<section class = "project-info-box">
+  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
   <div class = "gamemaker-project-info-format">
-    <h1>Project Name: <u>flippy_game.gmx</u></h1>
-    <h1>Uploaded On: November 15, 2018</h1>
+    <h6 class = "small-label-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "small-label-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
   </div>
-    <a class = "blue-green-button general-button-format file-upload-button download-link">Download Project</a>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
 </section>
 -->
 <!--
 <form>
   <label class = "small-label-format" for = "project-description">Project Description:</label>
-  <textarea id = "project-description" name="name"></textarea>
-  <input class = "gamemaker-project-upload-button" id = "upload-button-selector" type = "file" name = "" value = "">
-  <label class = "blue-green-button general-button-format file-upload-button" for = "upload-button-selector">
-  <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
-  <span>Upload Project</span>
+  <textarea class = "project-add-textarea" id = "project-description" name = "name"></textarea>
+  <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+  <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+    <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+    <span>Upload Project</span>
   </label>
 </form>
+-->
+
+<!-- NOTE: This is before the drop down is actually clicked. USE FOR FAVICON AS WELL!!!
+<ul class = "background-image-dropdown input-fill-width input-height-and-font pointer-mouse-type hover-shade">
+  <li class = "select-background-image-text"><span><span>►</span> Select a Background Image</span></li>
+</ul>
+NOTE: This is the list of images after the drop down is clicked.
+<ul class = "background-image-dropdown input-fill-width">
+  <li class = "select-background-image-text">
+    <span><span>►</span> Select a Background</span>
+  </li>
+  <li class = "new-image-section">
+    <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
+    <ul class = "image-flex-box">
+      <li><img src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt=""></li>
+      <li><img src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt=""></li>
+      <li><img src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt=""></li>
+    </ul>
+  </li>
+</ul>
 -->

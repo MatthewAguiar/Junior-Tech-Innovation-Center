@@ -13,157 +13,197 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
-/*-------- HTML Tag Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-section{
-  border: 1px solid #474747;
-  border-radius: 5px;
-  width: auto;
-  height: 483px;
-  margin: 0px auto;
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ EXCLUSIVE LEFT SUB-CONSOLE RULES ---------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+div.expanded-list-content{
+  width: 95%;
+  height: 93.5%;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
-h2{
-  margin-bottom: 5px;
-}
-
-ul{
-  margin: 10px 0px 10px 10px;
-}
-
-li:hover{
-  cursor: pointer;
-}
-
-form{
-  margin: 15px 30px;
-}
-
-textarea{
-  width: 100%;
-  height: 100px;
-  resize: none;
-  font-size: 12px;
-}
-
-u{
-  vertical-align: top;
-}
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/*-------- Child Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#welcome-message span{
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-}
-
-li span{
+ul.projects-folder-list > li > span:first-child{
   margin-right: 5px;
 }
 
-li img{
+ul.projects-folder-list > li > img{
   width: 3.5%;
   height: auto;
   vertical-align: bottom;
   margin-right: 5px;
 }
 
-.file-upload-button img{
-  width: 18%;
-  height: auto;
-  vertical-align: middle;
-  transform: translate(0px, -1px);
-}
-
-.project-info-box img{
-  width: 9%;
-  height: auto;
-}
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/*-------- Class Rules --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-.console{
-  display: flex;
-  justify-content: space-around;
-  margin-top: 7px;
-}
-
-.sub-console{
-  margin-top: 12px;
-  width: 500px;
-  height: inherit;
-}
-
-.student-work-panel-label{
-  font-size: 12px;
-}
-
-.gamemaker-project-upload-button{
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-}
-
-.file-upload-button{
-  font-size: 10px;
-  padding: 7px 5px;
-  margin-top: 10px;
-  width: 92px;
-  height: 15px;
-  display: inline-block;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-}
-
-.file-upload-button:hover{
-  background-color: #58B947;
-}
-
-.project-info-box{
-  border: none;
-  border-radius: 0px;
-  height: auto;
-  margin: 15px 30px;
+/* ----- "PROJECT" DOWNLOAD BOX RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
+section.project-info-box{
+  position: relative;
   transition: background-color 100ms linear;
 }
 
-.project-info-box:hover{
+section.project-info-box:hover{
   background-color: rgb(255,242,195);
 }
 
-.gamemaker-project-info-format{
+section.project-info-box > img.gamemaker-thumbnail{
+  width: 9%;
+  height: auto;
+}
+
+section.project-info-box > div.gamemaker-project-info-format{
   display: inline-block;
   vertical-align: top;
-  font-size: 12px;
   margin-left: 8px;
 }
 
-.gamemaker-project-info-format h1{
-  margin: 6px 0px;
+.file-download{
+  width: 23%;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(0%, -50%);
 }
 
-.pointer-mouse-change:hover{
-  cursor: pointer;
+.file-download > img{
+  width: 15%;
 }
 
-.download-link{
-  display: block;
-  text-align: center;
-  line-height: 14px;
-  float: right;
-  margin: auto 8px auto 0px;
-}
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-/*-------- id Rules -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#welcome-message{
-  text-align: center;
-  margin-top: 36px;
+/* ----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+form div.new-project-form-contents{
+  width: 90%;
+  margin: 15px auto;
 }
 
-#vertical-spacer{
-  background-color: #474747;
-  width: 0.8px;
-  height: inherit;
-  margin: 0px 0px;
-  border: none;
+form div.new-project-form-contents > textarea.project-add-textarea{
+  width: 98.5%;
+  height: 100px;
 }
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.file-upload{
+  width: 21%;
+  margin-top: 10px;
+}
+
+.file-upload > img{
+  width: 18%;
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ EXCLUSIVE RIGHT SUB-CONSOLE RULES --------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+form.html-game-form{
+  margin-top: 15px;
+}
+
+fieldset.customize-header-field{
+  width: 90%;
+  height: auto;
+  margin: 15px auto 0px auto;
+  font-size: 13px;
+}
+
+fieldset.customize-header-field legend{
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+legend{
+  margin-left: 20px;
+}
+
+div.customize-header-field-content{
+  width: 90%;
+  height: auto;
+  margin: 0px auto;
+  margin-top: 15px;
+}
+
+form.html-game-form > fieldset.main-new-html-game-fieldset > fieldset.customize-header-field:last-child{
+  margin-top: 22px;
+}
+
+div.input-label-container{
+  margin-top: 15px;
+}
+
+input.input-fill-width{
+  width: 99%;
+  font-size: 14px;
+  height: 20px;
+}
+
+textarea.game-add-textarea{
+  width: 99%;
+  height: 150px;
+}
+
+ul.background-image-dropdown{
+  background-color: white;
+  border: 1.1px solid rgba(102, 102, 102, 0.6);
+  padding: 2px 0px;
+}
+
+ul.background-image-dropdown li.select-background-image-text{
+  display: inline-block;
+  vertical-align: sub;
+  margin: 0px 4px;
+  font-size: 13px;
+}
+
+ul.image-flex-box{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+ul.image-flex-box li{
+  display: inline;
+}
+
+ul.image-flex-box li img.background-image{
+  width: 95px;
+  height: 59px;
+}
+
+ul.image-flex-box li img.favicon{
+  width: 64px;
+  height: 64px;
+}
+
+
+.hover-shade{
+  /*COMBAK: There already is a button transition in "global.css"?*/
+  transition: background-color 100ms linear;
+}
+
+.hover-shade:hover{
+  background-color: rgb(245, 245, 245);
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GENERAL FILE MANIPULATION BUTTON RULES ---------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+.real-file-upload-hide{
+  display: none;
+}
+
+.general-file-manipulation-button-format{
+  display: inline-block;
+  font-size: 10px;
+  padding: 6px 7px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.general-file-manipulation-button-format img{
+  height: auto;
+  vertical-align: middle;
+}
+
+/**/
+
+.sub-console-content-vertical-spacing{
+  margin-top: 20px;
+}

@@ -1,0 +1,73 @@
+<!--
+Jr. Tech Innovation Center (JTIC): ADMINISTRATOR PAGE HTML
+Copyright (C) 2018 Matthew Aguiar
+
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
+
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+    METADATA:
+    1. Set the page's character encoding to Unicode(utf-8).
+    2. Give the website's browser tab a name.
+    3. Link the CSS document to the landing page and reset the browser's default "User Agent Style Sheet".
+    4. Link this HTML document to a general CSS stylesheet which defiens the overal themes of the entire website.
+    5. Link this HTML document to a CSS stylesheet which defiens rules for the main console of both administrator and student pages.
+    6. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
+    7. Find the JTIC favicon and display it in the browser tab.
+    -->
+    <meta charset = "utf-8">
+    <title>Jr. Tech Innovation</title>
+    <link href = "CSS/reset.css" type = "text/css" rel = "stylesheet">
+    <link href = "CSS/global_styles.css" type = "text/css" rel = "stylesheet">
+    <link href = "CSS/admin_and_student_console_styles.css" type = "text/css" rel = "stylesheet">
+    <link href = "CSS/admin.css" type = "text/css" rel = "stylesheet">
+    <link href = "Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
+  </head>
+  <body>
+    <header class = "main-header">
+      <div class = "purple-banner"></div>
+      <div class = "logo-and-title-container">
+        <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
+        <h1 class = "title" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
+      </div>
+    </header>
+    <main>
+      <h2 id = "welcome-message"><span>Welcome Matthew</span></h2>
+      <div class = "console">
+        <section class = "sub-console">
+          <h6 class = "small-label-format">Students/Classes:</h6>
+          <div class = "sub-console-content">
+            <div class = "sub-console-content-inner-liner">
+              <section class = "add-student-or-class">
+                <h6 class = "small-label-format">Add New:</h6>
+                <button class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_student"><img src = "Images/Admin/Add-Student-Icon.svg" alt=""></button>
+                <button class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class"><img src = "Images/Admin/Add-Class-Icon.svg" alt=""></button>
+              </section>
+            </div>
+          </div>
+        </section>
+        <hr id = "vertical-spacer">
+        <section class = "sub-console">
+          <h6 class = "small-label-format">HTML Game Options:</h6>
+          <div class = "sub-console-content">
+            <div class = "sub-console-content-inner-liner">
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
