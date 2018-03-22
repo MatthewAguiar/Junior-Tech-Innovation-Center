@@ -17,17 +17,17 @@ Copyright (C) 2018 Matthew Aguiar
 ------------------ MAIN CONSOLE RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-main{
-  margin-top: 36px;
-}
-
-h2#welcome-message{ /*QUESTION: Make this an id or class? What about chaining the h2 tag?*/
-  height: 38px;
+h2#welcome-message{
+  /*
+  Take the welcome message at the top of the main console for both students and administrators and center it, set its height and position.
+  This is relative because...COMBAK
+  */
   text-align: center;
+  height: 38px;
   position: relative;
 }
 
-h2#welcome-message > span{ /*IDEA: Take a look at changing to one of the following: parent > direct_child, parent + adjacent sibling, parent ~ general_sibling.*/
+h2#welcome-message > span{
   border-top: 1.1px solid rgb(71, 71, 71);
   border-bottom: 1.1px solid rgb(71, 71, 71);
   position: absolute;
@@ -68,4 +68,10 @@ hr#vertical-spacer{
   height: inherit;
   margin: 0px 0px;
   border: none;
+}
+
+legend.bold-legend{
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 10px;
 }

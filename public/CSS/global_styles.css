@@ -19,27 +19,32 @@ Copyright (C) 2018 Matthew Aguiar
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 html{
-  background-color: rgb(254, 250, 235); /*Set the default background color to a very light tan color.*/
+  /*Set the default background color of ALL pages to a very light tan color.*/
+  background-color: rgb(254, 250, 235);
+}
+
+main{
+  /*Pushes the main content of EACH PAGE, which is just below the header, downward to space it out.*/
+  margin-top: 36px;
+}
+
+html, input, textarea{
+  /*Define font and font color for all text and input boxes within the website.*/
   font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
   color: rgb(71, 71, 71); /*Set the default text color to a shade of grey.*/
 }
 
 textarea{
-  resize: none;
   font-size: 12px;
-}
-
-input, textarea{
-  /*Defines overall dimensions and positoning of all input tags as well as font.*/
-  display: block;
-  color: rgb(71, 71, 71);
-  font-family: "Open Sans";
+  resize: none;
 }
 
 label{
+  /*Set all labels to block. This changes it from the default display of inline so that we can add VERTICAL MARGINS.*/
   display: block;
 }
-/* HEADER RULES */
+
+/*----- GLOBAL HEADER RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 h1{
   /*All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.*/
   font-size: 32px;
@@ -56,14 +61,48 @@ h3{
 }
 
 h1, h2, h3, h4, h5, h6, label, legend{
+  /*For all headers, labels and legends within the website, keep the mouse cursor as the normal ARROW, instead of the edit text cursor.*/
   cursor: default;
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+header.main-header{
+  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
+  border-top: 34px solid rgb(216, 11, 140);
+  border-bottom: 3px solid rgb(88, 185, 71);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+div.logo-and-title-container{
+  /*Position a div container within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
+  position: relative;
+}
+
+img.jr-tech-logo{
+  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
+  width: 14%;
+  height: auto;
+  margin: 20px 0px 20px 20px;
+}
+
+h1.title{
+  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ STEM COLOR SCHEME RULES ------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-/*STEM TEXT COLORS*/
+/*----- STEM TEXT COLORS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*These four classes can be applied to HTML elements to change their TEXT color to a STEM color.*/
 .STEM-blue-text{
   color: rgb(0, 168, 213);
 }
@@ -80,7 +119,8 @@ h1, h2, h3, h4, h5, h6, label, legend{
   color: rgb(216, 11, 140);
 }
 
-/*STEM BACKGROUND COLORS*/
+/*----- STEM BACKGROUND COLORS ---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*These four classes can be applied to HTML elements to change their BACKGROUND color to a STEM color.*/
 .STEM-blue-background{
   background-color: rgb(0, 168, 213);
 }
@@ -103,8 +143,8 @@ h1, h2, h3, h4, h5, h6, label, legend{
 */
 .general-button-format{
   /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
-  border: none;
   color: white;
+  border: none;
   transition: background-color 100ms linear;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
 }
@@ -115,56 +155,23 @@ h1, h2, h3, h4, h5, h6, label, legend{
 }
 
 .blue-to-green-button:hover{
+  /*Changes a button to a STEM green color when a button is being hovered over. NOTE: All buttons have their backgrounds original styled by the STEM BACKGROUND COLOR rules above.*/
   background-color: rgb(88, 185, 71);
 }
 
 .purple-to-orange-button:hover{
+  /*Changes a button to a STEM purple color when a button is being hovered over. NOTE: All buttons have their backgrounds original styled by the STEM BACKGROUND COLOR rules above.*/
   background-color: rgb(245, 130, 32);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- RULES FOR BORDERS ------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GLOBAL BORDER RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .border-color-and-radius{
+  /*Set a border for HTML elements with this class. Helpful for fieldsets and other divs/sections.*/
   border: 1.1px solid rgba(102, 102, 102, 0.6);
   border-radius: 5px;
-}
-/*
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-.main-header{
-  /*Make a green border along the bottom of the main title bar.*/
-  border-bottom: 3px solid #58B947;
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
-}
-.purple-banner{
-  /*Set dimensions of the purple banner at the very top of the main title bar.*/
-  background-color: rgb(216, 11, 140);
-  height: 34.6px;
-}
-
-.logo-and-title-container{
-  /*Position the navigation tag within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
-  position: relative;
-}
-
-.jr-tech-logo{
-  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
-  width: 14%;
-  height: auto;
-  margin: 20px 0px 20px 20px;
-}
-
-.title{
-  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,15 +179,33 @@ h1, h2, h3, h4, h5, h6, label, legend{
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .small-label-format{
+  /*Formats all small labels above text input fields, textareas and other HTML containers to better indicate what they do.*/
   font-size: 12px;
   margin-bottom: 5px;
 }
 
+.input-fill-width{
+  /*Makes a text input field or textarea fill the width of its parent.*/
+  width: 99%;
+}
+
+.input-half-width{
+  /*a text input field or textarea HALF fill the width of its parent.*/
+  width: 50%;
+}
+
 .input-height-and-font{
+  /*Sets a text size and height for all text input fields.*/
+  font-size: 13px;
   height: 20px;
-  font-size: 14px;
+}
+
+.make-block-level{
+  /*This is mainly used on input fields that should appear underneath one another but, can be used on any HTML element that should be a "block" level element.*/
+  display: block;
 }
 
 .pointer-mouse-type:hover{
+  /*Any HTML element with the "pointer-mouse-type" class will cause the mouse to change to a "little hand" icon when hovering over it.*/
   cursor: pointer;
 }

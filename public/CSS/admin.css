@@ -17,14 +17,62 @@ section.add-student-or-class{
   padding-bottom: 8px;
 }
 
+form.student-add-info-container{
+  margin-top: 20px;
+}
+
 button{
   display: inline;
 }
 
-section.add-student-or-class > button:last-child{
-  margin-left: 8px;
+button > img{
+  width: 25px;
 }
 
-button > img{
+div.course-type-flexbox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 12px;
+}
+
+.course-icons{
   width: 20px;
+  height: auto;
+}
+
+div.customize-header-field-content{ /*NOTE:THIS IS ALSO IN STUDENT PROTFOLLIO CSS. PLEASE GENERALIZE!!*/
+  width: 90%;
+  height: auto;
+  margin: 10px auto 0px auto;
+}
+
+div.student-name-and-password-container{
+  padding: 12px;
+}
+
+div.student-activate-input-box:last-child{
+  margin-top: 10px;
+}
+
+div.student-activate-input-box > input{
+  width: 75%;
+}
+
+.inline-label{
+  display: inline;
+  vertical-align: middle;
+}
+
+.TEMP-input-block{
+  display: block;
+}
+
+.general-file-manipulation-button-format{ /*NOTE: This is also in student_portfolio.css so make a compromise!!!!*/
+  display: inline-block;
+  font-size: 10px;
+  padding: 8px 7px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  margin-top: 15px;
 }

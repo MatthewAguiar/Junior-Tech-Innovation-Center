@@ -45,7 +45,6 @@ Copyright (C) 2018 Matthew Aguiar
     <!-- Begin laying out actual webpage content. -->
     <header class = "main-header">
       <!-- Creates the main banner at the top of the page containing the Jr. Tech logo and "Jr. Tech Innovation Center" title. -->
-      <div class = "purple-banner"></div>
       <div class = "logo-and-title-container">
         <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
         <h1 class = "title " aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
@@ -62,18 +61,20 @@ Copyright (C) 2018 Matthew Aguiar
           <!-- This fieldset contains username and password input boxes and buttons. -->
           <h3 id = "welcome-header-margin-style">Welcome Innovators</h3>
           <!-- The following are two smaller div tags(Column Flex Boxes) each containing a label and input textbox. -->
-          <div class = "username-and-password-mini-flex">
-            <label class = "small-label-format" for = "username-id">Username:</label>
-            <input class = "input-height-and-font" id = "username-id" type = "text" name = "username">
-          </div>
-          <div class = "username-and-password-mini-flex">
-            <label class = "small-label-format" for = "password-id">Password:</label>
-            <input class = "input-height-and-font" id = "password-id" type = "password" name = "password">
+          <div class = "username-and-password-input-field">
+            <div class = "username-and-password-mini-flex">
+              <label class = "small-label-format" for = "username-id">Username:</label>
+              <input class = "input-height-and-font" id = "username-id" type = "text" name = "username">
+            </div>
+            <div class = "username-and-password-mini-flex">
+              <label class = "small-label-format" for = "password-id">Password:</label>
+              <input class = "input-height-and-font" id = "password-id" type = "password" name = "password">
+            </div>
           </div>
           <div class = "sign-in-and-reset-password-container">
             <!-- Sign in and reset password buttons. -->
-            <input class = "general-button-format STEM-blue-background blue-to-green-button" id = "sign-in-button-positioning" type = "submit" name = "login_button" value = "Sign In">
-            <input class = "general-button-format STEM-purple-background purple-to-orange-button" id = "reset-password-button-positioning" type = "submit" name = "reset_password_button" value = "Reset Password">
+            <input class = "general-button-format STEM-blue-background blue-to-green-button button-type make-block-level" id = "sign-in-button-positioning" type = "submit" name = "login_button" value = "Sign In">
+            <input class = "general-button-format STEM-purple-background purple-to-orange-button button-type make-block-level" id = "reset-password-button-positioning" type = "submit" name = "reset_password_button" value = "Reset Password">
           </div>
         </fieldset>
       </form>
