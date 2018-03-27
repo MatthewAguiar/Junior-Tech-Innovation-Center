@@ -12,22 +12,17 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-section.add-student-or-class{
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ADD NEW CLASS "FORM" RULES ---------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+section.add-class{
+  padding-bottom: 20px;
   border-bottom: 1px solid rgb(71, 71, 71);
-  padding-bottom: 8px;
 }
 
-form.student-add-info-container{
-  margin-top: 20px;
-}
 
-button{
-  display: inline;
-}
-
-button > img{
-  width: 25px;
-}
 
 div.course-type-flexbox{
   display: flex;
@@ -42,12 +37,6 @@ div.course-type-flexbox{
   height: auto;
 }
 
-div.customize-header-field-content{ /*NOTE:THIS IS ALSO IN STUDENT PROTFOLLIO CSS. PLEASE GENERALIZE!!*/
-  width: 90%;
-  height: auto;
-  margin: 10px auto 0px auto;
-}
-
 div.student-name-and-password-container{
   padding: 12px;
 }
@@ -58,6 +47,43 @@ div.student-activate-input-box:last-child{
 
 div.student-activate-input-box > input{
   width: 75%;
+}
+
+div.add-student-container{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button.search-student-button{
+  height: 26px;
+  vertical-align: bottom;
+  margin-left: 5px;
+}
+
+ul.student-list{
+  margin-top: 10px;
+}
+
+ul.student-list > li > span.student-name{
+  display: inline-block;
+  font-size: 14px;
+  margin: 7px 10px;
+}
+
+ul.student-work-list > li> span.label{
+  display: inline-block;
+}
+
+ul.work-items-list{
+  font-size: 13px;
+  padding: 8px 0px 8px 5px;
+}
+
+li.student-work-spacing{
+  margin-top: 8px;
 }
 
 .inline-label{
@@ -75,4 +101,9 @@ div.student-activate-input-box > input{
   padding: 8px 7px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
   margin-top: 15px;
+}
+
+.existing-student-field-seperator{
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(102, 102, 102, 0.6);
 }

@@ -50,47 +50,84 @@ Copyright (C) 2018 Matthew Aguiar
           <h6 class = "small-label-format">Students/Classes:</h6>
           <div class = "sub-console-content">
             <div class = "sub-console-content-inner-liner">
-              <section class = "add-student-or-class">
+              <section class = "add-class">
                 <h6 class = "small-label-format">Add Class:</h6>
                 <button class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class"><img src = "Images/Admin/Add-Class-Icon.svg" alt=""></button>
-                <form class = "student-add-info-container">
-                  <fieldset>
-                    <legend class = "bold-legend">Add Students:</legend>
-                    <div class = "customize-header-field-content">
-                      <h6 class = "small-label-format">Class Type:</h6>
-                      <div class = "course-type-flexbox border-color-and-radius">
-                        <div>
-                          <label class = "inline-label" for = "gamemaker-student"><img class = "course-icons" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""></label>
-                          <input class = "inline-checkbox" id = "gamemaker-student" type = "radio" name = "course_type" value="">
+                <form class = "form-vertical-spacing-rule">
+                  <fieldset class = "border-color-and-radius">
+                    <legend>New Class</legend>
+                    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
+                      <legend class = "bold-legend">Add Students:</legend>
+                      <div class = "SUB-fieldset-content">
+                        <h6 class = "small-label-format">Class Type:</h6>
+                        <div class = "course-type-flexbox border-color-and-radius">
+                          <div>
+                            <label class = "inline-label" for = "gamemaker-student"><img class = "course-icons" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""></label>
+                            <input class = "inline-checkbox" id = "gamemaker-student" type = "radio" name = "course_type" value="">
+                          </div>
+                          <div>
+                            <label class = "inline-label" for = "python-student"><img class = "course-icons" src = "Images/Coding Logos/Python/python-logo.png" alt=""></label>
+                            <input class = "inline-checkbox" id = "python-student" type = "radio" name = "course_type" value="">
+                          </div>
+                          <div>
+                            <label class = "inline-label" for = "c++-student"><img class = "course-icons" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""></label>
+                            <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type" value="">
+                          </div>
+                          <div>
+                            <label class = "inline-label" for = "ai-student"><img class = "course-icons" src = "Images/Coding Logos/TensorFlow/tensorflow-logo.png" alt=""></label>
+                            <input class = "inline-checkbox" id = "ai-student" type = "radio" name = "course_type" value="">
+                          </div>
                         </div>
-                        <div>
-                          <label class = "inline-label" for = "python-student"><img class = "course-icons" src = "Images/Coding Logos/Python/python-logo.png" alt=""></label>
-                          <input class = "inline-checkbox" id = "python-student" type = "radio" name = "course_type" value="">
+                        <h6 class = "small-label-format">Setup Student Profile:</h6>
+                        <div class = "student-name-and-password-container border-color-and-radius">
+                          <div class = "student-activate-input-box existing-student-field-seperator">
+                            <label class = "small-label-format" for = "student-name">Search Existing Student:</label>
+                            <div>
+                              <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+                              <button class = "search-student-button STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
+                            </div>
+                          </div>
+                          <div class = "student-activate-input-box form-vertical-spacing-rule">
+                            <label class = "small-label-format" for = "student-name">New Student Name:</label>
+                            <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+                          </div>
+                          <div class = "student-activate-input-box form-vertical-spacing-rule">
+                            <label class = "small-label-format" for = "student-password">New Student Password:</label>
+                            <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+                          </div>
+                          <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
+                          </div>
                         </div>
-                        <div>
-                          <label class = "inline-label" for = "c++-student"><img class = "course-icons" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""></label>
-                          <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type" value="">
-                        </div>
-                        <div>
-                          <label class = "inline-label" for = "ai-student"><img class = "course-icons" src = "Images/Coding Logos/TensorFlow/tensorflow-logo.png" alt=""></label>
-                          <input class = "inline-checkbox" id = "ai-student" type = "radio" name = "course_type" value="">
-                        </div>
-                      </div>
-                      <h6 class = "small-label-format">Activate Accounts:</h6>
-                      <div class = "student-name-and-password-container border-color-and-radius">
-                        <div class = "student-activate-input-box">
-                          <label class = "small-label-format" for = "student-name">Name:</label>
-                          <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-                        </div>
-                        <div class = "student-activate-input-box">
-                          <label class = "small-label-format" for = "student-password">Password:</label>
-                          <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
-                        </div>
-                      </div>
-                      <input class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "submit" name = "activate_accounts" value = "Activate Accounts">
-                    </div>
+                    </fieldset>
                   </fieldset>
                 </form>
+              </section>
+              <section class = "form-vertical-spacing-rule"> <!--COMBAK: This is not a form!!!-->
+                <ul>
+                  <li>
+                    <span>► February 2018 - The Good Class</span>
+                    <ul class = "student-list expanded-tree-content border-color-and-radius">
+                      <li>
+                        <span class = "student-name">Matthew Aguiar</span>
+                        <ul class = "student-work-list expanded-tree-content">
+                          <li>
+                          <span class = "label small-label-format">Projects:</span>
+                          <ul class = "work-items-list border-color-and-radius">
+                            <li>flippy.gmx</li>
+                            <li class = "student-work-spacing">sonic the man.gmx</li>
+                          </ul>
+                          </li>
+                          <li style = "margin-top: 10px;">
+                          <span class = "label small-label-format">Web Games:</span>
+                          <ul class = "work-items-list border-color-and-radius">
+                            <li>The adventures of sanic</li>
+                            <li class = "student-work-spacing">Dude man</li>
+                          </ul>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </section>
             </div>
           </div>
@@ -108,3 +145,16 @@ Copyright (C) 2018 Matthew Aguiar
     </main>
   </body>
 </html>
+
+<!--
+<div class = "student-activate-input-box">
+  <label class = "small-label-format" for = "student-name">Name:</label>
+  <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+</div>
+<div class = "student-activate-input-box form-vertical-spacing-rule">
+  <label class = "small-label-format" for = "student-password">Password:</label>
+  <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+</div>
+<button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Activate Profile</button>
+</div>
+-->

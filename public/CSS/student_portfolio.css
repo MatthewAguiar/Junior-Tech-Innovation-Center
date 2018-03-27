@@ -15,122 +15,47 @@ Copyright (C) 2018 Matthew Aguiar
 
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- EXCLUSIVE LEFT SUB-CONSOLE RULES ---------------------------------------------------------------------------------------------------------------------------------------------
+------------------ STUDENT PROJECT ADD/VIEW RULES -----------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-div.expanded-list-content{
-  width: 95%;
-  height: 93.5%;
-  margin-left: 20px;
-  margin-top: 20px;
-}
-
-ul.projects-folder-list > li > span:first-child{
-  margin-right: 5px;
-}
-
-ul.projects-folder-list > li > img{
-  width: 3.5%;
-  height: auto;
-  vertical-align: bottom;
-  margin-right: 5px;
-}
-
 /* ----- "PROJECT" DOWNLOAD BOX RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
-section.project-info-box{
-  position: relative;
-  transition: background-color 100ms linear;
-}
-
-section.project-info-box:hover{
-  background-color: rgb(255,242,195);
-}
-
-section.project-info-box > img.gamemaker-thumbnail{
-  width: 9%;
-  height: auto;
-}
-
-section.project-info-box > div.gamemaker-project-info-format{
+li.root-folder-item > div.data-box-info{
+  /*This styles each project box containing projects the users have uploaded to their portfolio. NOTE: The HOVER affect is created from the
+  the ".hover-shade-dark-tan" rule in "admin_and_student_console_styles.css".*/
   display: inline-block;
   vertical-align: top;
-  margin-left: 8px;
+  margin-left: 4px;
 }
 
-.file-download{
-  width: 23%;
-  position: absolute;
-  top: 50%;
-  left: 70%;
-  transform: translate(0%, -50%);
+li.root-folder-item > div.data-box-info > h6.data-box-text-format{
+  font-size: 12px;
+  margin-bottom: 4px;
 }
-
-.file-download > img{
-  width: 15%;
-}
-
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 form div.new-project-form-contents{
+  /*The "div" inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
 }
 
 form div.new-project-form-contents > textarea.project-add-textarea{
+  /*Re-adjust the textarea in the "New Project" form and set a height for it.*/
   width: 98.5%;
   height: 100px;
-}
-
-.file-upload{
-  width: 21%;
-  margin-top: 10px;
-}
-
-.file-upload > img{
-  width: 18%;
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ EXCLUSIVE RIGHT SUB-CONSOLE RULES --------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-form.html-game-form{
-  margin-top: 15px;
-}
-
-fieldset.customize-header-field{
-  width: 90%;
-  height: auto;
-  margin: 15px auto 0px auto;
-}
-
-legend{
-  margin-left: 20px;
-}
-
-div.customize-header-field-content{
-  width: 90%;
-  height: auto;
-  margin: 0px auto;
-  margin-top: 15px;
-}
-
-form.html-game-form > fieldset.main-new-html-game-fieldset > fieldset.customize-header-field:last-child{
-  margin-top: 22px;
-}
-
-div.input-label-container{
-  margin-top: 15px;
-}
-
-textarea.game-add-textarea{
-  width: 99%;
+textarea.game-description-textarea{
   height: 150px;
 }
 
 ul.background-image-dropdown{
+  padding: 2px 0px;
   background-color: white;
   border: 1.1px solid rgba(102, 102, 102, 0.6);
-  padding: 2px 0px;
 }
 
 ul.background-image-dropdown li.select-background-image-text{
@@ -161,12 +86,12 @@ ul.image-flex-box li img.favicon{
 }
 
 
-.hover-shade{
+.hover-shade-grey{
   /*COMBAK: There already is a button transition in "global.css"?*/
   transition: background-color 100ms linear;
 }
 
-.hover-shade:hover{
+.hover-shade-grey:hover{
   background-color: rgb(245, 245, 245);
 }
 /*
@@ -192,6 +117,13 @@ ul.image-flex-box li img.favicon{
 
 /**/
 
-.sub-console-content-vertical-spacing{
+.expanded-projects-list-vertical-spacing{
   margin-top: 20px;
+}
+
+.play-button-positioning{
+  position: absolute;
+  top: 50%;
+  left: 97%;
+  transform: translate(-100%, -50%);
 }
