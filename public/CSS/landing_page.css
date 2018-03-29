@@ -12,10 +12,17 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ SIGN-IN FORM RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Inside of the main HTML element:
+  1. Position the main JTIC logo.
+  2. Setup a main form for entering user account information.
+  3. Sub-divide smaller containers for username and password.
+  4. Position sign-in and reset-password buttons within the form.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 #JTIC-logo{

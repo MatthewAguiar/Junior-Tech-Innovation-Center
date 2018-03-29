@@ -12,28 +12,36 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-
+/*NOTE: ALL STYLING RULES ON THIS PAGE ARE FOR THE STUDENT PORTFOLIO PAGE ONLY. NOT FOR THE ADMIN PAGE!*/
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- STUDENT PROJECT ADD/VIEW RULES -----------------------------------------------------------------------------------------------------------------------------------------------
+------------------ STUDENT PROJECT/GAME RULES -----------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Adjust positions of student project/game boxes and adjust font.
+- Adjust sizing of "New Project" form and the "Description" textarea.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-/* ----- "PROJECT" DOWNLOAD BOX RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
-li.root-folder-item > div.data-box-info{
-  /*This styles each project box containing projects the users have uploaded to their portfolio. NOTE: The HOVER affect is created from the
-  the ".hover-shade-dark-tan" rule in "admin_and_student_console_styles.css".*/
+/* ----- "PROJECT" AND "HTML 5 GAME" BOX RULES ------------------------------------------------------------------------------------------------------------------------------------------------*/
+li.folder-item > div.data-box-info{
+  /*
+  This positions the data held inside student project and game boxes such as the project's/game's tile, upload date or views.
+  Specifically, it positions the data at the top of the project/game box and spaces it from the image.
+  */
   display: inline-block;
   vertical-align: top;
   margin-left: 4px;
 }
 
-li.root-folder-item > div.data-box-info > h6.data-box-text-format{
+li.folder-item > div.data-box-info > h6.data-box-text-format{
+  /*Adjust the font size and margining of each piece of data within the project/game box.*/
   font-size: 12px;
   margin-bottom: 4px;
 }
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 form div.new-project-form-contents{
-  /*The "div" inside of each "New Project" form is just shrunk and centered within the form.*/
+  /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
 }
@@ -45,83 +53,79 @@ form div.new-project-form-contents > textarea.project-add-textarea{
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- EXCLUSIVE RIGHT SUB-CONSOLE RULES --------------------------------------------------------------------------------------------------------------------------------------------
+------------------ EXCLUSIVE HTML 5 GAME "CREATION FORM" RULES --------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Set the size of the "Description" textarea for student HTML 5 games.
+- Define rules in order to make a background and favicon selection dropdown box APPEAR just like the other input elements.
+- Then position a sublist inside of each dropdown menu as a flex box of list elements containing images.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-textarea.game-description-textarea{
+form textarea.game-description-textarea{
+  /*Determine height for HTML 5 Game "Description" field.*/
   height: 150px;
 }
 
-ul.background-image-dropdown{
-  padding: 2px 0px;
+ul.dropdown-menu{
+  /*This is the drop down menu containing images and favicons. Both drop downs are given white backgrounds and borders matching the other input boxes.*/
   background-color: white;
-  border: 1.1px solid rgba(102, 102, 102, 0.6);
+  border: 1px solid rgba(102, 102, 102, 0.6);
+  padding: 5px 0px;
 }
 
-ul.background-image-dropdown li.select-background-image-text{
-  display: inline-block;
-  vertical-align: sub;
-  margin: 0px 4px;
+ul.dropdown-menu > li.dropdown-content{
+  /*Set the font size and center the LARGE list item within a dropdown menu.*/
   font-size: 13px;
+  margin: 0px 4px;
 }
 
-ul.image-flex-box{
+ul.dropdown-menu > li.dropdown-content > ul.image-flex-box{
+  /*
+  Now take a seperate unordered list containing content such as images or favicons.
+  1) Sapce the list content from the top of the larger dropdown list element.
+  2) Make this a flex box to display inner <li></li> elements in an orderly fashion of rows and columns.
+  */
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
 }
 
-ul.image-flex-box li{
-  display: inline;
-}
-
-ul.image-flex-box li img.background-image{
+ul.image-flex-box > li > img.background-image{
+  /*Set a hard coded width and height for BACKGROUND IMAGES. COMBAK: Change to relative!!!*/
   width: 95px;
   height: 59px;
 }
 
-ul.image-flex-box li img.favicon{
+ul.image-flex-box > li > img.favicon{
+  /*Set a hard coded width and height for FAVICONS. COMBAK: Change to relative!!!*/
   width: 64px;
   height: 64px;
-}
-
-
-.hover-shade-grey{
-  /*COMBAK: There already is a button transition in "global.css"?*/
-  transition: background-color 100ms linear;
-}
-
-.hover-shade-grey:hover{
-  background-color: rgb(245, 245, 245);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ GENERAL FILE MANIPULATION BUTTON RULES ---------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Hide the REAL file upload button!
+- Reposition the "Play!" buttons in the HTML 5 game boxes.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .real-file-upload-hide{
+  /*
+  This will hide the REAL file upload button in the "New Project" form in the student left sub-console. The reason for this is that, using a label element
+  with the class, "file-upload", I am able to create my own custom button rather than the standard grey one.
+  */
   display: none;
 }
 
-.general-file-manipulation-button-format{
-  display: inline-block;
-  font-size: 10px;
-  padding: 6px 7px;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-}
-
-.general-file-manipulation-button-format img{
-  height: auto;
-  vertical-align: middle;
-}
-
-/**/
-
-.expanded-projects-list-vertical-spacing{
-  margin-top: 20px;
-}
-
 .play-button-positioning{
+  /*
+  These purple "Play!" buttons contain similar CSS as the blue buttons however, because the content in the "Play!" buttons are much smaller than in blue buttons.
+  The only positioning that actually has changed is moving the purple buttons over to the right of their HTML 5 game boxes further to account for their smaller width.
+  */
   position: absolute;
   top: 50%;
   left: 97%;

@@ -74,38 +74,6 @@ h1, h2, h3, h4, h5, h6, label, legend{
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-header.main-header{
-  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
-  border-top: 34px solid rgb(216, 11, 140);
-  border-bottom: 3px solid rgb(88, 185, 71);
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
-}
-
-div.logo-and-title-container{
-  /*Position a div container within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
-  position: relative;
-}
-
-img.jr-tech-logo{
-  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
-  width: 14%;
-  height: auto;
-  margin: 20px 0px 20px 20px;
-}
-
-h1.title{
-  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-/*
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ STEM COLOR SCHEME RULES ------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
@@ -220,4 +188,36 @@ h1.title{
 /*----- MARGINING RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .form-vertical-spacing-rule{
   margin-top: 15px;
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+header.main-header{
+  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
+  border-top: 34px solid rgb(216, 11, 140);
+  border-bottom: 3px solid rgb(88, 185, 71);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+div.logo-and-title-container{
+  /*Position a div container within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
+  position: relative;
+}
+
+img.jr-tech-logo{
+  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
+  width: 14%;
+  height: auto;
+  margin: 20px 0px 20px 20px;
+}
+
+h1.title{
+  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

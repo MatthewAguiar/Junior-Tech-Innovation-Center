@@ -56,8 +56,8 @@ Copyright (C) 2018 Matthew Aguiar
               <ul class = "master-list"> <!--COMBAK: We need to structure all our lists after this!!!-->
                 <li class = "root-folder-selector">
                   <h4 class = "folder-arrow pointer-mouse-type"><span>►</span> <img class = "root-folder-selector-image" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
-                  <ul class = "expanded-tree-content">
-                    <li class = "root-folder-item hover-shade-dark-tan pointer-mouse-type">
+                  <ul class = "expanded-file-tree-content">
+                    <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
                       <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
                       <div class = "data-box-info">
                         <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
@@ -98,8 +98,8 @@ Copyright (C) 2018 Matthew Aguiar
               <ul class = "master-list">
                 <li class = "root-folder-selector">
                   <h4 class = "folder-arrow pointer-mouse-type"><span>►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/HTML 5/HTML5-logo.png" alt=""><span>HTML 5 Games</span></h4>
-                  <ul class = "expanded-tree-content">
-                    <li class = "root-folder-item hover-shade-dark-tan pointer-mouse-type">
+                  <ul class = "expanded-file-tree-content">
+                    <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
                       <img class = "gamemaker-thumbnail" src = "Images/Flippy the Penguin Idle Sprite.png" alt = "">
                       <div class = "data-box-info">
                         <h6 class = "data-box-text-format pointer-mouse-type">Title: <u>Flippy the Penguin</u></h6>
@@ -110,7 +110,7 @@ Copyright (C) 2018 Matthew Aguiar
                         <span style = "font-weight: bold; font-size: 12px">Play!</span>
                       </a>
                     </li>
-                    <li class = "root-folder-item hover-shade-dark-tan pointer-mouse-type">
+                    <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
                       <img class = "gamemaker-thumbnail" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt = "">
                       <div class = "data-box-info">
                         <h6 class = "data-box-text-format pointer-mouse-type">Title: <u>Sonic Unleashed</u></h6>
@@ -155,32 +155,38 @@ Copyright (C) 2018 Matthew Aguiar
                     <div class = "SUB-fieldset-content">
                       <div class = "form-vertical-spacing-rule">
                         <h6 class = "small-label-format">Background:</h6>
-                        <ul class = "background-image-dropdown input-fill-width">
-                          <li class = "select-background-image-text">
+                        <ul class = "dropdown-menu input-fill-width">
+                          <li class = "dropdown-content">
                             <span><span>►</span> Select a Background</span>
-                          </li>
-                          <li class = "new-image-section">
-                            <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
                             <ul class = "image-flex-box">
-                              <li><img class = "background-image" src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt=""></li>
-                              <li><img class = "background-image" src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt=""></li>
-                              <li><img class = "background-image" src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt=""></li>
+                              <li>
+                                <img class = "background-image" src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt="">
+                              </li>
+                              <li>
+                                <img class = "background-image" src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt="">
+                              </li>
+                              <li>
+                                <img class = "background-image" src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt="">
+                              </li>
                             </ul>
                           </li>
                         </ul>
                       </div>
                       <div class = "form-vertical-spacing-rule">
                         <h6 class = "small-label-format">Favicon:</h6>
-                        <ul class = "background-image-dropdown input-fill-width"> <!--NOTE: I would just suggest using the same ul format/block of code as above when it comes time for JS-->
-                          <li class = "select-background-image-text">
+                        <ul class = "dropdown-menu input-fill-width">
+                          <li class = "dropdown-content">
                             <span><span>►</span> Select a Favicon</span>
-                          </li>
-                          <li class = "new-image-section">
-                            <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
                             <ul class = "image-flex-box">
-                              <li><img class = "favicon" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt=""></li>
-                              <li><img class = "favicon" src = "https://pre00.deviantart.net/4856/th/pre/i/2015/105/b/3/kirby_icon_by_vega_kun-d8ptnrw.png" alt=""></li>
-                              <li><img class = "favicon" src = "http://www.gameongrafix.com/sc_images/products/Rally-X-sideart-2-sca1-1000.jpg" alt=""></li>
+                              <li>
+                                <img class = "favicon" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt="">
+                              </li>
+                              <li>
+                                <img class = "favicon" src = "https://pre00.deviantart.net/4856/th/pre/i/2015/105/b/3/kirby_icon_by_vega_kun-d8ptnrw.png" alt="">
+                              </li>
+                              <li>
+                                <img class = "favicon" src = "http://www.gameongrafix.com/sc_images/products/Rally-X-sideart-2-sca1-1000.jpg" alt="">
+                              </li>
                             </ul>
                           </li>
                         </ul>
@@ -198,7 +204,7 @@ Copyright (C) 2018 Matthew Aguiar
 </html>
 
 <!--
-<section class = "root-folder-item">
+<section class = "folder-item">
   <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "small-label-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
@@ -223,12 +229,12 @@ Copyright (C) 2018 Matthew Aguiar
 -->
 
 <!-- NOTE: This is before the drop down is actually clicked. USE FOR FAVICON AS WELL!!!
-<ul class = "background-image-dropdown input-fill-width input-height-and-font pointer-mouse-type hover-shade">
-  <li class = "select-background-image-text"><span><span>►</span> Select a Background Image</span></li>
+<ul class = "dropdown-menu input-fill-width input-height-and-font pointer-mouse-type hover-shade">
+  <li class = "dropdown-content"><span><span>►</span> Select a Background Image</span></li>
 </ul>
 NOTE: This is the list of images after the drop down is clicked.
-<ul class = "background-image-dropdown input-fill-width">
-  <li class = "select-background-image-text">
+<ul class = "dropdown-menu input-fill-width">
+  <li class = "dropdown-content">
     <span><span>►</span> Select a Background</span>
   </li>
   <li class = "new-image-section">

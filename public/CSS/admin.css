@@ -22,7 +22,9 @@ section.add-class{
   border-bottom: 1px solid rgb(71, 71, 71);
 }
 
-
+button > img{
+  width: 25px;
+}
 
 div.course-type-flexbox{
   display: flex;

@@ -25,7 +25,7 @@ Copyright (C) 2018 Matthew Aguiar
     5. Link this HTML document to a CSS stylesheet which defiens rules for the main console of both administrator and student pages.
     6. Link this HTML document's to a CSS stylesheet for styling the student portfolio page specifically.
     7. Find the JTIC favicon and display it in the browser tab.
-    -->
+  -->
     <meta charset = "utf-8">
     <title>Jr. Tech Innovation</title>
     <link href = "CSS/reset.css" type = "text/css" rel = "stylesheet">
@@ -50,7 +50,34 @@ Copyright (C) 2018 Matthew Aguiar
           <h6 class = "small-label-format">Students/Classes:</h6>
           <div class = "sub-console-content">
             <div class = "sub-console-content-inner-liner">
-              <section class = "add-class">
+              <section> <!--COMBAK: This is not a form!!!-->
+                <ul>
+                  <li>
+                    <span>► February 2018 - The Good Class</span>
+                    <ul class = "student-list expanded-tree-content border-color-and-radius">
+                      <li>
+                        <span class = "student-name">Matthew Aguiar</span>
+                        <ul class = "student-work-list expanded-tree-content">
+                          <li>
+                          <span class = "label small-label-format">Projects:</span>
+                          <ul class = "work-items-list border-color-and-radius">
+                            <li>flippy.gmx</li>
+                            <li class = "student-work-spacing">sonic the man.gmx</li>
+                          </ul>
+                          </li>
+                          <li style = "margin-top: 10px;">
+                          <span class = "label small-label-format">Web Games:</span>
+                          <ul class = "work-items-list border-color-and-radius">
+                            <li>The adventures of sanic</li>
+                            <li class = "student-work-spacing">Dude man</li>
+                          </ul>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </section>
+              <section class = "form-vertical-spacing-rule add-class">
                 <h6 class = "small-label-format">Add Class:</h6>
                 <button class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class"><img src = "Images/Admin/Add-Class-Icon.svg" alt=""></button>
                 <form class = "form-vertical-spacing-rule">
@@ -101,33 +128,6 @@ Copyright (C) 2018 Matthew Aguiar
                     </fieldset>
                   </fieldset>
                 </form>
-              </section>
-              <section class = "form-vertical-spacing-rule"> <!--COMBAK: This is not a form!!!-->
-                <ul>
-                  <li>
-                    <span>► February 2018 - The Good Class</span>
-                    <ul class = "student-list expanded-tree-content border-color-and-radius">
-                      <li>
-                        <span class = "student-name">Matthew Aguiar</span>
-                        <ul class = "student-work-list expanded-tree-content">
-                          <li>
-                          <span class = "label small-label-format">Projects:</span>
-                          <ul class = "work-items-list border-color-and-radius">
-                            <li>flippy.gmx</li>
-                            <li class = "student-work-spacing">sonic the man.gmx</li>
-                          </ul>
-                          </li>
-                          <li style = "margin-top: 10px;">
-                          <span class = "label small-label-format">Web Games:</span>
-                          <ul class = "work-items-list border-color-and-radius">
-                            <li>The adventures of sanic</li>
-                            <li class = "student-work-spacing">Dude man</li>
-                          </ul>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
               </section>
             </div>
           </div>

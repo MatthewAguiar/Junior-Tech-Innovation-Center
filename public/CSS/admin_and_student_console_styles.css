@@ -12,15 +12,20 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
+/*NOTE: ALL STYLING RULES ON THIS PAGE ARE FOR THE STUDENT PORTFOLIO AND THE ADMIN PAGE!*/
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ WELCOME MESSAGE RULES --------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Position the welcome message in the center of the page and style it with a nice border on the top and bottom of the text.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 h2#welcome-message{
   /*
   Take the welcome message at the top of the main console for both students and administrators and center it, set its height and position.
-  This is relative because we want to center the actual span containing the welcome message. NOTE: Remember that h2 headers are styled in "global_styles.css".
+  This has a position of "relative" because we want to center the actual span(absolute positioning) containing the welcome message. NOTE: Remember that h2 headers are styled in "global_styles.css".
   */
   text-align: center;
   height: 38px;
@@ -29,9 +34,9 @@ h2#welcome-message{
 
 h2#welcome-message > span{
   /*Make the welcome message have a top and bottom dark grey border and center it with in the block h2 HTML element.*/
-  padding: 6px 0px;
   border-top: 1.1px solid rgb(71, 71, 71);
   border-bottom: 1.1px solid rgb(71, 71, 71);
+  padding: 6px 0px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -39,6 +44,11 @@ h2#welcome-message > span{
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ MAIN CONSOLE RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Make the main "console" a flex box to properly space out any sub-consoles.
+- Seperate any sub-consoles with a vertical line.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 div.console{
@@ -51,15 +61,22 @@ div.console{
 }
 
 hr#vertical-spacer{
-  background-color: #474747;
+  /*Style a vertical line that seperates the subconsles within the main console.*/
   width: 0.8px;
   height: inherit;
   margin: 0px 0px;
+  background-color: #474747;
   border: none;
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ SUB-CONSOLE RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Define dimensions of a sub-console.
+- Then fit a content container inside of the "section.sub-console" container.
+- Finally, reposition a inner liner to space all content from the walls of the sub-console.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 section.sub-console{
@@ -91,24 +108,28 @@ div.sub-console-content-inner-liner{
   height: 97%;
   margin: 15px auto 0px auto;
 }
-
-.expanded-tree-content{
-  width: 92%;
-  height: 93.5%;
-  margin: 0px auto;
-}
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ "FORM" RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- These rules are based on taking smaller sub-fieldsets within larger forms and positioning and margining them in a way that presents the info centered and organized neatly within the large form.
+- Make each sub-fieldset's caption BOLD to indicate seaperate sections of input fields within forms!
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 fieldset.shrink-and-center-SUB-fieldset{
+  /*
+  Shrink and center all mini-fieldsets that may be within a larger master form.
+  These are for further seperating and sub-dividing information within forms.
+  */
   width: 90%;
   height: auto;
   margin: 17px auto 0px auto;
 }
 
 div.SUB-fieldset-content{
+  /*Inside of each sub-fieldset, once again, shrink and center the content within.*/
   width: 90%;
   height: auto;
   margin: 0px auto;
@@ -116,83 +137,125 @@ div.SUB-fieldset-content{
 }
 
 legend.bold-legend{
+  /*Sub-fieldsets have BOLD LEGEND and NO BORDERS marking where specific form info should be filled out.*/
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- FILE MANIPULATION BUTTON RULES -----------------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*/ /*COMBAK: MUST RESTRUCTURE THIS!!!*/
-.file-download{
-  position: absolute;
-  top: 50%;
-  left: 72%;
-  transform: translate(0%, -50%);
-}
-
-.file-download > img{
-  width: 17px;
-}
-
-.file-upload{
-  margin-top: 10px;
-}
-
-.file-upload > img{
-  width: 17px; /*NOTE: PLEASE CHANGE TO REM OR EM!!!*/
-}
-
-.hover-shade:hover{
-  background-color: rgb(245, 245, 245);
-}
-
-.hover-shade-dark-tan:hover{
-  background-color: rgb(255, 248, 210);
-}
-/*
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ UNORDERED LIST RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Organize each list item within a larger list of folders.
+- Generalized for re-use in student admin and any other future pages.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-h4.folder-arrow{
-  display: inline;
-}
-
 h4.folder-arrow > img.root-folder-selector-image{
+  /*Just resize the images in each folder selector. This may may for GameMaker, Python or C++ for example. Then make the icon centered vertically with the rest of the text.*/
   width: 3.5%;
   height: auto;
   vertical-align: bottom;
   margin-right: 5px;
 }
 
-li.root-folder-item{
+ul.expanded-file-tree-content{
+  /*Make the list containing each box item smaller and centered within the "master list" of root folders.*/
+  width: 92%;
+  height: 93.5%;
+  margin: 0px auto;
+}
+
+li.folder-item{
+  /*
+  Each folder list item will act as a container for student projects and HTML 5 games. The reason why the background-color is transitioned is that each time
+  a user hovers over a box, the box will highlight in a slightly darker shade of tan.
+  */
   position: relative;
   transition: background-color 100ms linear;
   padding: 6px 0px;
   border-bottom: 1px solid rgba(106, 106, 106, 0.6);
 }
 
-li.root-folder-item:first-child{
+li.folder-item:first-child{
+  /*Skip the top border on the first item a list and space the list from the root folder.*/
   margin-top: 15px;
   border-top: none;
 }
 
-li.root-folder-item:last-child{
+li.folder-item:last-child{
+  /*Then, the last list item will space any proceeding elements from below.*/
   margin-bottom: 15px;
 }
 
-li.root-folder-item > img.gamemaker-thumbnail{
+li.folder-item > img.gamemaker-thumbnail{
+  /*Make the image icon inside of student boxes small and space them from the left of the box.*/
   width: 9%;
   height: auto;
   margin-left: 10px;
 }
 
-button{
+li.hover-shade-dark-tan:hover{
+  /*When each student project box is hovered over, change the background to a darker tan.*/
+  background-color: rgb(255, 248, 210);
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ FILE MANIPULATION BUTTON RULES -----------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Set some general parameters around fitting file manipulation buttons to their content with setting display as "inline-block".
+- Also give the buttons some padding around the inner content.
+- Finally, position the file upload and download buttons respecitvely in their own containers.
+NOTE: FILE MANIPULATION BUTTONS ALSO RECIEVE STYLING ON TEXT COLOR AND BACKGROUND-COLOR TRANSITIONS FROM THE "general-button-format" CLASS IN THE "global_styles.css" file.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+/* ----- GENERAL FILE MANIPULATION BUTTON RULES -----------------------------------------------------------------------------------------------------------------------------------------------*/
+.general-file-manipulation-button-format{
+  /*
+  This is a very important class as it styles all buttons that upload files, download files, link to HTML 5 games, and add students/classes.
+  NOTE: THIS IS NOT NECESSARILY USEd ONLY FOR <button></button> ELEMENTS. INFACT, IT IS USED WITH <label></label>, <a></a> AND <button></button> HTML ELEMENTS
+  DEPENDING ON WHAT ACTION SHOULD BE TAKING PLACE.
+  - UPLOADING FILE: Uses <label><input type = "file"></label> element to upload files on a local computer.
+  - DOWNLOADING A FILE: Uses an <a></a> element to download remote files to a local computer.
+  - "PLAY!" HTML 5 GAME BUTTON: Uses a <button></button> element to link to a seperate HTML page containing a student's HTML 5 game.
+  */
   display: inline-block;
+  font-size: 10px;
+  padding: 6px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-button > img{
-  width: 25px;
+.general-file-manipulation-button-format img{
+  /*Any image icons such as: upload and download icons that are used within a button should be centered within that button.*/
+  width: 17px;
+  vertical-align: middle;
+}
+/* ----- RULES SPECIFIC TO FILE UPLOAD AND DOWNLOAD BUTTONS -----------------------------------------------------------------------------------------------------------------------------------*/
+.file-upload{
+  /*Space any file upload button 10 pixels from the HTML element above it.*/
+  margin-top: 10px;
+}
+
+.file-download{
+  /*
+  In order to position the file download button in the far right middle of each "Student Project" box position relative to the parent "li.folder-item" HTML element.
+  1. Move down halfway in the box.
+  2. Then move right by 72% of the project boxes width.
+  3. Finally center the buttons ORIGIN to the center of the button like this:
+  ----------------------------------------------------------------
+  |                                                              |
+  |                                                              |
+  |       CENTERED ORIGIN -->   **                               |
+  |                             **                               |
+  |                                                              |
+  |                                                              |
+  ----------------------------------------------------------------
+  */
+  position: absolute;
+  top: 50%;
+  left: 72%;
+  transform: translate(0%, -50%);
 }
