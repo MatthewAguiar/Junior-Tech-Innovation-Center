@@ -15,7 +15,7 @@ Copyright (C) 2018 Matthew Aguiar
 /*NOTE: ALL STYLING RULES ON THIS PAGE ARE FOR THE STUDENT PORTFOLIO PAGE ONLY. NOT FOR THE ADMIN PAGE!*/
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- STUDENT PROJECT/GAME RULES -----------------------------------------------------------------------------------------------------------------------------------------------
+------------------ STUDENT PROJECT/GAME RULES ---------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 REVIEW: All styling rules below do the following:
 - Adjust positions of student project/game boxes and adjust font.
@@ -23,6 +23,7 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
+
 /* ----- "PROJECT" AND "HTML 5 GAME" BOX RULES ------------------------------------------------------------------------------------------------------------------------------------------------*/
 li.folder-item > div.data-box-info{
   /*
@@ -34,21 +35,21 @@ li.folder-item > div.data-box-info{
   margin-left: 4px;
 }
 
-li.folder-item > div.data-box-info > h6.data-box-text-format{
+div.data-box-info > h6.data-box-text-format{
   /*Adjust the font size and margining of each piece of data within the project/game box.*/
   font-size: 12px;
   margin-bottom: 4px;
 }
+
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form div.new-project-form-contents{
+form div#new-project-form-content{
   /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
 }
 
-form div.new-project-form-contents > textarea.project-add-textarea{
+form div#new-project-form-content > textarea#project-add-textarea{
   /*Re-adjust the textarea in the "New Project" form and set a height for it.*/
-  width: 98.5%;
   height: 100px;
 }
 /*
@@ -62,7 +63,7 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-form textarea.game-description-textarea{
+form textarea#game-description-textarea{
   /*Determine height for HTML 5 Game "Description" field.*/
   height: 150px;
 }
@@ -71,16 +72,15 @@ ul.dropdown-menu{
   /*This is the drop down menu containing images and favicons. Both drop downs are given white backgrounds and borders matching the other input boxes.*/
   background-color: white;
   border: 1px solid rgba(102, 102, 102, 0.6);
-  padding: 5px 0px;
+  padding: 5px;
 }
 
 ul.dropdown-menu > li.dropdown-content{
   /*Set the font size and center the LARGE list item within a dropdown menu.*/
   font-size: 13px;
-  margin: 0px 4px;
 }
 
-ul.dropdown-menu > li.dropdown-content > ul.image-flex-box{
+li.dropdown-content > ul.image-flex-box{
   /*
   Now take a seperate unordered list containing content such as images or favicons.
   1) Sapce the list content from the top of the larger dropdown list element.
@@ -91,14 +91,14 @@ ul.dropdown-menu > li.dropdown-content > ul.image-flex-box{
   justify-content: space-around;
 }
 
-ul.image-flex-box > li > img.background-image{
-  /*Set a hard coded width and height for BACKGROUND IMAGES. COMBAK: Change to relative!!!*/
+ul.image-flex-box img.background-image{
+  /*Set a hard coded width and height for BACKGROUND IMAGES.*/
   width: 95px;
   height: 59px;
 }
 
-ul.image-flex-box > li > img.favicon{
-  /*Set a hard coded width and height for FAVICONS. COMBAK: Change to relative!!!*/
+ul.image-flex-box img.favicon{
+  /*Set a hard coded width and height for FAVICONS.*/
   width: 64px;
   height: 64px;
 }

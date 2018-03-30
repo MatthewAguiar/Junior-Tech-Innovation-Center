@@ -12,7 +12,7 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-/*NOTE: ALL STYLING RULES ON THIS PAGE ARE FOR THE STUDENT PORTFOLIO AND THE ADMIN PAGE!*/
+/*NOTE: ALL STYLING RULES ON THIS PAGE ARE FOR BOTH THE STUDENT PORTFOLIO AND THE ADMIN PAGE!*/
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ WELCOME MESSAGE RULES --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -27,6 +27,7 @@ h2#welcome-message{
   Take the welcome message at the top of the main console for both students and administrators and center it, set its height and position.
   This has a position of "relative" because we want to center the actual span(absolute positioning) containing the welcome message. NOTE: Remember that h2 headers are styled in "global_styles.css".
   */
+  font-size: 26px;
   text-align: center;
   height: 38px;
   position: relative;
@@ -34,12 +35,12 @@ h2#welcome-message{
 
 h2#welcome-message > span{
   /*Make the welcome message have a top and bottom dark grey border and center it with in the block h2 HTML element.*/
-  border-top: 1.1px solid rgb(71, 71, 71);
-  border-bottom: 1.1px solid rgb(71, 71, 71);
-  padding: 6px 0px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  padding: 6px 0px;
+  border-top: 1.1px solid rgb(71, 71, 71);
+  border-bottom: 1.1px solid rgb(71, 71, 71);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-div.console{
+div#console{
   /*
   Each student portfollio will contain a main console underneath the welcome message. This is one large "div" container.\
   Make it a flex box to space out any sub-consoles / containers.
@@ -64,9 +65,9 @@ hr#vertical-spacer{
   /*Style a vertical line that seperates the subconsles within the main console.*/
   width: 0.8px;
   height: inherit;
-  margin: 0px 0px;
-  background-color: #474747;
+  background-color: rgb(71, 71, 71);
   border: none;
+  margin: 0px 0px;
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -110,7 +111,7 @@ div.sub-console-content-inner-liner{
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- "FORM" RULES -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 REVIEW: All styling rules below do the following:
 - These rules are based on taking smaller sub-fieldsets within larger forms and positioning and margining them in a way that presents the info centered and organized neatly within the large form.
@@ -132,8 +133,7 @@ div.SUB-fieldset-content{
   /*Inside of each sub-fieldset, once again, shrink and center the content within.*/
   width: 90%;
   height: auto;
-  margin: 0px auto;
-  margin-top: 15px;
+  margin: 15px auto 0px auto;
 }
 
 legend.bold-legend{
@@ -152,6 +152,11 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
+button.add-list-item{
+  /*Make the size of all font in buttons that add lists and list items 16 pixels.*/
+  font-size: 16px;
+}
+
 h4.folder-arrow > img.root-folder-selector-image{
   /*Just resize the images in each folder selector. This may may for GameMaker, Python or C++ for example. Then make the icon centered vertically with the rest of the text.*/
   width: 3.5%;

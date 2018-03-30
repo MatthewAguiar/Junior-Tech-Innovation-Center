@@ -40,20 +40,20 @@ Copyright (C) 2018 Matthew Aguiar
       <!-- Creates the main banner at the top of the page containing the Jr. Tech logo and "Jr. Tech Innovation Center" title. -->
       <div class = "logo-and-title-container">
         <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
-        <h1 class = "title" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <h1 id = "title" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
         <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
       </div>
     </header>
     <main>
       <!-- Begins the main part of the page under the main banner starting with the welcome message to the student. -->
       <h2 id = "welcome-message"><span>Welcome Matthew</span></h2>
-      <div class = "console">
+      <div id = "console">
         <!-- This is the beginning of a large student "console" underneath the welcome message ... NOTE: THESE WILL BE DOCUMENTED IN THE JAVASCRIPT -->
         <section class = "sub-console">
           <h6 class = "small-label-format">Projects:</h6>
           <div class = "sub-console-content">
             <div class = "sub-console-content-inner-liner">
-              <ul class = "master-list"> <!--COMBAK: We need to structure all our lists after this!!!-->
+              <ul class = "master-list">
                 <li class = "root-folder-selector">
                   <h4 class = "folder-arrow pointer-mouse-type"><span>►</span> <img class = "root-folder-selector-image" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
                   <ul class = "expanded-file-tree-content">
@@ -72,9 +72,9 @@ Copyright (C) 2018 Matthew Aguiar
                       <form class = "form-vertical-spacing-rule sub-console-content-vertical-spacing">
                         <fieldset class = "border-color-and-radius">
                           <legend>New Project</legend>
-                          <div class = "new-project-form-contents">
-                            <label class = "small-label-format" for = "project-description">Project Description:</label>
-                            <textarea class = "project-add-textarea" id = "project-description" name = "name"></textarea>
+                          <div id = "new-project-form-content">
+                            <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+                            <textarea id = "project-add-textarea" name = "name"></textarea>
                             <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
                             <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
                                 <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
@@ -125,7 +125,7 @@ Copyright (C) 2018 Matthew Aguiar
                 </li>
               </ul>
               <h6 class = "small-label-format">Add Game:</h6>
-              <button style = "font-size: 16px" class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+              <button class = "add-list-item STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
               <form class = "form-vertical-spacing-rule">
                 <fieldset class = "border-color-and-radius">
                   <legend>New Webpage</legend>
@@ -137,8 +137,8 @@ Copyright (C) 2018 Matthew Aguiar
                         <input class = "input-fill-width input-height-and-font" id = "game-title" type = "text" name = "" value = "">
                       </div>
                       <div class = "form-vertical-spacing-rule">
-                        <label class = "small-label-format" for="game-description">Description:</label>
-                        <textarea class = "game-description-textarea input-fill-width" id = "game-description" name = "name"></textarea>
+                        <label class = "small-label-format" for="game-description-textarea">Description:</label>
+                        <textarea class = " input-fill-width" id = "game-description-textarea" name = "name"></textarea>
                       </div>
                       <div class = "form-vertical-spacing-rule">
                         <ul class = "game-controls-list">
@@ -204,46 +204,8 @@ Copyright (C) 2018 Matthew Aguiar
 </html>
 
 <!--
-<section class = "folder-item">
-  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "small-label-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "small-label-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-  </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
-</section>
--->
-<!--
-<form>
-  <label class = "small-label-format" for = "project-description">Project Description:</label>
-  <textarea class = "project-add-textarea" id = "project-description" name = "name"></textarea>
-  <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-  <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
-    <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
-    <span>Upload Project</span>
-  </label>
-</form>
--->
-
-<!-- NOTE: This is before the drop down is actually clicked. USE FOR FAVICON AS WELL!!!
+NOTE: This is before the drop down is actually clicked. USE FOR FAVICON AS WELL!!!
 <ul class = "dropdown-menu input-fill-width input-height-and-font pointer-mouse-type hover-shade">
   <li class = "dropdown-content"><span><span>►</span> Select a Background Image</span></li>
-</ul>
-NOTE: This is the list of images after the drop down is clicked.
-<ul class = "dropdown-menu input-fill-width">
-  <li class = "dropdown-content">
-    <span><span>►</span> Select a Background</span>
-  </li>
-  <li class = "new-image-section">
-    <h6 style = "margin-left: 10px" class = "small-label-format">Images:</h6>
-    <ul class = "image-flex-box">
-      <li><img src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt=""></li>
-      <li><img src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt=""></li>
-      <li><img src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt=""></li>
-    </ul>
-  </li>
 </ul>
 -->

@@ -23,18 +23,19 @@ html{
   background-color: rgb(254, 250, 235);
 }
 
-main{
-  /*Pushes the main content of EACH PAGE, which is just below the header, downward to space it out.*/
-  margin-top: 36px;
-}
-
 html, input, textarea{
   /*Define font and font color for all text and input boxes within the website.*/
   font-family: "Open Sans", Helvetica, Arial, sans-serif; /*TODO: Take a look at fallback fonts!!!*/
   color: rgb(71, 71, 71); /*Set the default text color to a shade of grey.*/
 }
 
+main{
+  /*Pushes the main content of EACH PAGE, which is just below the header, downward to space it out.*/
+  margin-top: 36px;
+}
+
 textarea{
+  /*Make each text box 98% of the width of its parent, set the font size and DO NOT make them resizable.*/
   width: 98%;
   font-size: 12px;
   resize: none;
@@ -46,28 +47,22 @@ label{
 }
 
 legend{
-    margin-left: 20px;
+  /*Create some seperation from the far left of a fieldset.*/
+  margin-left: 20px;
 }
 /*----- GLOBAL HEADER RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-h1{
-  /*All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.*/
-  font-size: 32px;
-}
-
-h2{
-  /*All h2 headers will be used for headers slightly SMALLER than the MAIN HEADER/BANNER.*/
-  font-size: 26px;
-}
-
-h3{
-  /*All h3 headers will be used for middle sized headers of about 21px.*/
-  font-size: 21px;
-}
-
-h4{
-  font-size: 16px;
-}
-
+/*
+HERE IS A LIST OF HEADERS AND WHAT THEY ARE USED FOR!
+- h1: Used only for the MAIN "JTIC TITLE" located in the MAIN BANNER at the top of every page on the site.
+- h2: Used only for the "WELCOME MESSAGE" at the top of the STUDENT and ADMIN HTML pages.
+- h3: Used exclusively for the "Welcome Innovators" message on the landing page's user sign in form.
+- h4: Use to label list elements in unorder lists.
+- h5: Curently unknown?
+- h6: These are extremely important as h6 headers provide "small labels" to elements that are NOT form input elements. They also provide small bits of info inside of small
+      boxes such as the student project boxes. These are often styled by the ".small-label-format" class rule below but classes may vary styling.
+NOTE: All rules for these headers can be seen across many CSS stylesheets so pay attention to the chart above to see were each rule may be implemented.
+      All from h1 - h4 will have an id or class "chained" to them for clarification on what they actually do.
+*/
 h1, h2, h3, h4, h5, h6, label, legend{
   /*For all headers, labels and legends within the website, keep the mouse cursor as the normal ARROW, instead of the edit text cursor.*/
   cursor: default;
@@ -213,8 +208,12 @@ img.jr-tech-logo{
   margin: 20px 0px 20px 20px;
 }
 
-h1.title{
-  /*Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the nav tag contained in the main title bar.*/
+h1#title{
+  /*
+  All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.
+  Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the div tag contained in the main title bar.
+  */
+  font-size: 32px;
   font-weight: bold;
   position: absolute;
   top: 50%;
