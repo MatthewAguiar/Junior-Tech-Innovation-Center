@@ -18,12 +18,8 @@ Copyright (C) 2018 Matthew Aguiar
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 section.add-class{
-  padding-bottom: 20px;
   border-bottom: 1px solid rgb(71, 71, 71);
-}
-
-button > img{
-  width: 25px;
+  padding-bottom: 20px;
 }
 
 div.course-type-flexbox{
@@ -32,6 +28,70 @@ div.course-type-flexbox{
   align-items: center;
   margin-bottom: 15px;
   padding: 12px;
+}
+
+h6.year-header{
+  margin-bottom: 15px;
+}
+
+li.folder-item > div.data-box-info{
+  /*
+  This positions the data held inside student project and game boxes such as the project's/game's tile, upload date or views.
+  Specifically, it positions the data at the top of the project/game box and spaces it from the image.
+  */
+  width: 82%;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  vertical-align: top;
+  margin-top: 3px;
+}
+
+div.student-stat-box{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+ul.expanded-box-content{
+  margin: 0px 10px;
+}
+
+ul.student-data-list > li{
+  margin-top: 10px;
+}
+
+li.student-project{
+  position: relative;
+  background-color: rgba(250, 235, 175, 0.85);
+  margin: 0px 0px 10px 0px;
+  padding: 8px;
+  border: 1px solid rgba(102, 102, 102, 0.6);
+}
+
+li.student-project > a{ /*NOTE: THESE ARE IN ADDITION TO THE ALREADY MADE "file-upload" class. PLEASE REVISE!!!*/
+  left: 78%;
+  transform: translate(0%, -110%);
+  padding: 5px;
+}
+
+li.student-project > a > img{ /*NOTE: THESE ARE IN ADDITION TO THE ALREADY MADE "file-upload" class. PLEASE REVISE!!!*/
+  width: 14px;
+}
+
+li.project-section{ /*NOTE: A lot of things seem to have bottom borders. SIMPLIFY?*/
+  padding: 0px 0px 6px 0px;
+  border-bottom: 1.5px solid rgb(96, 96, 96);
+}
+
+div.student-stat-box > h6{
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+div.student-stat-box > span{
+  font-size: 12px;
 }
 
 .course-icons{
@@ -57,35 +117,6 @@ div.add-student-container{
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-
-button.search-student-button{
-  height: 26px;
-  vertical-align: bottom;
-  margin-left: 5px;
-}
-
-ul.student-list{
-  margin-top: 10px;
-}
-
-ul.student-list > li > span.student-name{
-  display: inline-block;
-  font-size: 14px;
-  margin: 7px 10px;
-}
-
-ul.student-work-list > li> span.label{
-  display: inline-block;
-}
-
-ul.work-items-list{
-  font-size: 13px;
-  padding: 8px 0px 8px 5px;
-}
-
-li.student-work-spacing{
-  margin-top: 8px;
 }
 
 .inline-label{

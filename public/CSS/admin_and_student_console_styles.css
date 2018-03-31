@@ -69,6 +69,27 @@ hr#vertical-spacer{
   border: none;
   margin: 0px 0px;
 }
+
+/* ----- GENERAL SCROLLBAR RULES --------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+div#console *::-webkit-scrollbar{
+  width: 8px;
+}
+
+div#console *::-webkit-scrollbar-button{
+  margin-top: 1px;
+}
+
+div#console *::-webkit-scrollbar-thumb{
+  background-color: rgb(185, 185, 185);
+}
+
+div#console *::-webkit-scrollbar-thumb:hover{
+  background-color: rgb(150, 150, 150);
+}
+
+div#console *::-webkit-scrollbar-track{
+  background-color: rgba(225, 225, 225, 0.75);
+}
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ SUB-CONSOLE RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -135,13 +156,6 @@ div.SUB-fieldset-content{
   height: auto;
   margin: 15px auto 0px auto;
 }
-
-legend.bold-legend{
-  /*Sub-fieldsets have BOLD LEGEND and NO BORDERS marking where specific form info should be filled out.*/
-  font-size: 13px;
-  font-weight: 700;
-  margin-left: 10px;
-}
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ UNORDERED LIST RULES ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -157,6 +171,12 @@ button.add-list-item{
   font-size: 16px;
 }
 
+ul.master-list{
+  border-bottom: 1.5px solid rgb(96, 96, 96);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
 h4.folder-arrow > img.root-folder-selector-image{
   /*Just resize the images in each folder selector. This may may for GameMaker, Python or C++ for example. Then make the icon centered vertically with the rest of the text.*/
   width: 3.5%;
@@ -165,7 +185,7 @@ h4.folder-arrow > img.root-folder-selector-image{
   margin-right: 5px;
 }
 
-ul.expanded-file-tree-content{
+ul.expanded-list-content{
   /*Make the list containing each box item smaller and centered within the "master list" of root folders.*/
   width: 92%;
   height: 93.5%;
@@ -183,15 +203,19 @@ li.folder-item{
   border-bottom: 1px solid rgba(106, 106, 106, 0.6);
 }
 
+li.folder-item-clicked{
+  /*
+  Each folder list item will act as a container for student projects and HTML 5 games. The reason why the background-color is transitioned is that each time
+  a user hovers over a box, the box will highlight in a slightly darker shade of tan.
+  */
+  height: 375px;
+  background-color: rgb(255, 248, 210);
+}
+
 li.folder-item:first-child{
   /*Skip the top border on the first item a list and space the list from the root folder.*/
   margin-top: 15px;
   border-top: none;
-}
-
-li.folder-item:last-child{
-  /*Then, the last list item will space any proceeding elements from below.*/
-  margin-bottom: 15px;
 }
 
 li.folder-item > img.gamemaker-thumbnail{
@@ -199,6 +223,12 @@ li.folder-item > img.gamemaker-thumbnail{
   width: 9%;
   height: auto;
   margin-left: 10px;
+}
+
+div.data-box-info > h6.data-box-text-format, li.student-project > h6.data-box-text-format{
+  /*Adjust the font size and margining of each piece of data within the project/game box.*/
+  font-size: 12px;
+  margin-bottom: 4px;
 }
 
 li.hover-shade-dark-tan:hover{

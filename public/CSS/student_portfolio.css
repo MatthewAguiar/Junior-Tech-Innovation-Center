@@ -18,13 +18,11 @@ Copyright (C) 2018 Matthew Aguiar
 ------------------ STUDENT PROJECT/GAME RULES ---------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 REVIEW: All styling rules below do the following:
-- Adjust positions of student project/game boxes and adjust font.
 - Adjust sizing of "New Project" form and the "Description" textarea.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-
-/* ----- "PROJECT" AND "HTML 5 GAME" BOX RULES ------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*----- STUDENT "PROJECT" AND "HTML 5 GAME BOX RULES -----------------------------------------------------------------------------------------------------------------------------------------*/
 li.folder-item > div.data-box-info{
   /*
   This positions the data held inside student project and game boxes such as the project's/game's tile, upload date or views.
@@ -34,13 +32,6 @@ li.folder-item > div.data-box-info{
   vertical-align: top;
   margin-left: 4px;
 }
-
-div.data-box-info > h6.data-box-text-format{
-  /*Adjust the font size and margining of each piece of data within the project/game box.*/
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 form div#new-project-form-content{
   /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/

@@ -17,6 +17,11 @@ Copyright (C) 2018 Matthew Aguiar
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ GENERAL HTML TAG RULES -------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Sets some styles for HTML tags found across each and every page on the site.
+- Explain how each header, h1 - h6, works within the website.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 html{
   /*Set the default background color of ALL pages to a very light tan color.*/
@@ -50,6 +55,12 @@ legend{
   /*Create some seperation from the far left of a fieldset.*/
   margin-left: 20px;
 }
+
+sup{
+  /*Make all sup tags actually superscript other text by making its text smaller and aligning it vertically as a superscript.*/
+  font-size: 11px;
+  vertical-align: super;
+}
 /*----- GLOBAL HEADER RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*
 HERE IS A LIST OF HEADERS AND WHAT THEY ARE USED FOR!
@@ -70,6 +81,11 @@ h1, h2, h3, h4, h5, h6, label, legend{
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ STEM COLOR SCHEME RULES ------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Set up general classes which color text the different STEM colors.
+- Then set up some classes for the same colors but apply them to backgrounds.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 /*----- STEM TEXT COLORS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -111,6 +127,12 @@ h1, h2, h3, h4, h5, h6, label, legend{
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ GLOBAL BUTTON RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Give all buttons within the website a certain format such as a certain text color, box-shadow and border.
+- Then make the cursor turn into a "little" hand icon
+- Finally, make those buttons change to different colors when hovered over.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .general-button-format{
   /*Sets some general rules that both the sign-in and password buttons share such as dimensions, animation speed, removing the default border and reseting the text color.*/
@@ -130,13 +152,25 @@ h1, h2, h3, h4, h5, h6, label, legend{
   background-color: rgb(88, 185, 71);
 }
 
+.blue-to-green-button:active{
+  background-color: rgb(58, 155, 41);
+}
+
 .purple-to-orange-button:hover{
   /*Changes a button to a STEM purple color when a button is being hovered over. NOTE: All buttons have their backgrounds original styled by the STEM BACKGROUND COLOR rules above.*/
   background-color: rgb(245, 130, 32);
 }
+
+.purple-to-orange-button:active{
+  background-color: rgb(215, 100, 2);
+}
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- GLOBAL BORDER RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GLOBAL BORDER RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Set up a border for all HTML elements with a "border-color-and-radius" class.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .border-color-and-radius{
@@ -146,7 +180,53 @@ h1, h2, h3, h4, h5, h6, label, legend{
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Since each page of the site contains a header with the JTIC title and Jr Tech logo, the following rules will style the header for each page.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+header.main-header{
+  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
+  border-top: 34px solid rgb(216, 11, 140);
+  border-bottom: 3px solid rgb(88, 185, 71);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+div.logo-and-title-container{
+  /*Position a div container within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
+  position: relative;
+}
+
+img.jr-tech-logo{
+  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
+  width: 14%;
+  height: auto;
+  margin: 20px 0px 20px 20px;
+}
+
+h1#title{
+  /*
+  All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.
+  Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the div tag contained in the main title bar.
+  */
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ OTHER GENERAL RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: All styling rules below do the following:
+- Sets some styles for HTML tags found across each and every page on the site.
+- Explain how each header, h1 - h6, works within the website.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 .small-label-format{
@@ -180,43 +260,22 @@ h1, h2, h3, h4, h5, h6, label, legend{
   /*Any HTML element with the "pointer-mouse-type" class will cause the mouse to change to a "little hand" icon when hovering over it.*/
   cursor: pointer;
 }
+
+.bold-heading{
+  /*Sub-fieldsets have BOLD LEGEND and NO BORDERS marking where specific form info should be filled out.*/
+  font-size: 13px;
+  font-weight: 700;
+}
+
+legend.bold-heading{
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+h6.bold-heading{
+  font-size: 15px;
+}
 /*----- MARGINING RULES ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .form-vertical-spacing-rule{
   margin-top: 15px;
-}
-/*
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- RULES EXCLUSIVELY FOR MAIN HEADER/BANNER -------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-header.main-header{
-  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
-  border-top: 34px solid rgb(216, 11, 140);
-  border-bottom: 3px solid rgb(88, 185, 71);
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
-}
-
-div.logo-and-title-container{
-  /*Position a div container within the "main-header" header relativly so that the main title can be positioned absolutley inside of it. (See .title rule below!)*/
-  position: relative;
-}
-
-img.jr-tech-logo{
-  /*Resize and position the Jr Tech logo in the left of the main title bar.*/
-  width: 14%;
-  height: auto;
-  margin: 20px 0px 20px 20px;
-}
-
-h1#title{
-  /*
-  All h1 headers will be used exclusively for the MAIN HEADER/BANNER at the top of each HTML page.
-  Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the div tag contained in the main title bar.
-  */
-  font-size: 32px;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
