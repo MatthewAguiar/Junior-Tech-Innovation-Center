@@ -63,7 +63,7 @@ ul.student-data-list > li{
 
 li.student-project{
   position: relative;
-  background-color: rgba(250, 235, 175, 0.85);
+  background-color: rgba(253, 238, 178, 0.85);
   margin: 0px 0px 10px 0px;
   padding: 8px;
   border: 1px solid rgba(102, 102, 102, 0.6);
@@ -84,6 +84,11 @@ li.project-section{ /*NOTE: A lot of things seem to have bottom borders. SIMPLIF
   border-bottom: 1.5px solid rgb(96, 96, 96);
 }
 
+div.student-stat-box{
+  position: relative;
+  white-space: nowrap;
+}
+
 div.student-stat-box > h6{
   font-size: 13px;
   font-weight: 700;
@@ -92,6 +97,16 @@ div.student-stat-box > h6{
 
 div.student-stat-box > span{
   font-size: 12px;
+  position: absolute;
+  top: 100%;
+}
+
+.overflow-student-stat-box-content{
+
+}
+
+.normal-student-stat-box-content{
+  width: 100%;
 }
 
 .course-icons{
@@ -111,12 +126,30 @@ div.student-activate-input-box > input{
   width: 75%;
 }
 
+button.search-student{
+  height: 100%;
+  vertical-align: bottom;
+  padding: 0px 3px;
+  margin-left: 3px;
+}
+
+button.search-student > img{
+  width: 26px;
+  height: auto;
+  vertical-align: middle;
+}
+
 div.add-student-container{
   width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+div.new-student-add{
+  margin: 15px 0px;
+  
 }
 
 .inline-label{

@@ -42,19 +42,17 @@ Copyright (C) 2018 Matthew Aguiar
     <link href="Images/Favicon/Jr-Tech-Innovation-Center-Logo.ico" rel = "icon" type = "image/x-icon">
   </head>
   <body>
-    <!-- Begin laying out actual webpage content. -->
     <header class = "main-header">
-      <!-- Creates the main banner at the top of the page containing the Jr. Tech logo and "Jr. Tech Innovation Center" title. -->
       <div class = "logo-and-title-container">
         <a href = "https://juniortech.org/" target = "_blank"><img class = "jr-tech-logo" src = "Images/Main Header/Jr-Tech-Logo.png"></a>
-        <h1 id = "title" aria-label = "Jr Tech Innovation Center title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
+        <h1 id = "title"><span class = "STEM-blue-text">Jr. </span><span class = "STEM-orange-text">Tech </span>
         <span class = "STEM-green-text">Innovation </span><span class = "STEM-purple-text">Center</span></h1>
       </div>
     </header>
     <main>
       <!-- Begins the main part of the page under the main banner starting at the JTIC logo. -->
       <img id = "JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg">
-      <form>
+      <form id = "sign-in-form">
         <!-- User sign-in form starts here. -->
         <fieldset class = "border-color-and-radius">
           <legend>Sign-In</legend>
@@ -63,12 +61,12 @@ Copyright (C) 2018 Matthew Aguiar
           <!-- The following are two smaller div tags(Column Flex Boxes) each containing a label and input textbox. -->
           <div id = "username-and-password-input-field">
             <div class = "username-and-password-mini-flex">
-              <label class = "small-label-format" for = "username-id">Username:</label>
-              <input class = "input-height-and-font" id = "username-id" type = "text" name = "username">
+              <label class = "small-label-format" for = "username-input">Username:</label>
+              <input class = "input-height-and-font" id = "username-input" type = "text">
             </div>
             <div class = "username-and-password-mini-flex">
-              <label class = "small-label-format" for = "password-id">Password:</label>
-              <input class = "input-height-and-font" id = "password-id" type = "password" name = "password">
+              <label class = "small-label-format" for = "password-input">Password:</label>
+              <input class = "input-height-and-font" id = "password-input" type = "password">
             </div>
           </div>
           <div id = "sign-in-and-reset-password-container">
@@ -79,5 +77,9 @@ Copyright (C) 2018 Matthew Aguiar
         </fieldset>
       </form>
     </main>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src = "scripts/firebase-link.js" type = "text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src = "scripts/landing-page.js" type = "text/javascript"></script>
   </body>
 </html>

@@ -59,6 +59,26 @@ form textarea#game-description-textarea{
   height: 150px;
 }
 
+ul.game-controls-list > li:nth-child(1n+2){
+  margin-top: 10px;
+}
+
+ul.game-controls-list > li > div.control-setup-content{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.control-setup-content > div.control-input > input:last-child{
+  margin-left: 7px;
+}
+
+div.control-setup-content > button.add-new{
+  position: absolute;
+  left: 88%;
+}
+
 ul.dropdown-menu{
   /*This is the drop down menu containing images and favicons. Both drop downs are given white backgrounds and borders matching the other input boxes.*/
   background-color: white;
@@ -121,4 +141,8 @@ REVIEW: All styling rules below do the following:
   top: 50%;
   left: 97%;
   transform: translate(-100%, -50%);
+}
+
+input.submit-html5-game{
+  margin: 15px 0px;
 }

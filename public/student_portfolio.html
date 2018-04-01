@@ -125,7 +125,7 @@ Copyright (C) 2018 Matthew Aguiar
                 </li>
               </ul>
               <h6 class = "small-label-format">Add Game:</h6>
-              <button class = "add-list-item STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+              <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
               <form class = "form-vertical-spacing-rule">
                 <fieldset class = "border-color-and-radius">
                   <legend>New Webpage</legend>
@@ -143,8 +143,24 @@ Copyright (C) 2018 Matthew Aguiar
                       <div class = "form-vertical-spacing-rule">
                         <ul class = "game-controls-list">
                           <li>
-                            <label class = "small-label-format" for="game-controls">Controls:</label>
-                            <input class = "input-fill-width input-height-and-font game-controls" type = "text" name = "" value = "">
+                            <h6 class = "small-label-format" for="game-controls">Controls:</h6>
+                            <div class = "control-setup-content">
+                              <div class = "control-input">
+                                <input class = "input-height-and-font game-controls" type = "text" name = "" value = "" placeholder = "Key/Mouse Input">
+                                <input class = "input-height-and-font game-controls" type = "text" name = "" value = "" placeholder = "Action">
+                              </div>
+                              <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+                            </div>
+                          </li>
+                          <li>
+                            <div class = "control-setup-content">
+                              <div class = "control-input">
+                                <input class = "input-height-and-font game-controls" type = "text" name = "" value = "" placeholder = "Key/Mouse Input">
+                                <input class = "input-height-and-font game-controls" type = "text" name = "" value = "" placeholder = "Action">
+                              </div>
+                              <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+                              <button class = "remove general-button-format" type = "button" name = "add_class">x</button>
+                            </div>
                           </li>
                         </ul>
                       </div>
@@ -154,43 +170,65 @@ Copyright (C) 2018 Matthew Aguiar
                     <legend class = "bold-heading">Webpage Body:</legend>
                     <div class = "SUB-fieldset-content">
                       <div class = "form-vertical-spacing-rule">
-                        <h6 class = "small-label-format">Background:</h6>
-                        <ul class = "dropdown-menu input-fill-width">
-                          <li class = "dropdown-content">
-                            <span><span>►</span> Select a Background</span>
-                            <ul class = "image-flex-box">
-                              <li>
-                                <img class = "background-image" src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt="">
-                              </li>
-                              <li>
-                                <img class = "background-image" src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt="">
-                              </li>
-                              <li>
-                                <img class = "background-image" src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt="">
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
+                        <h6 class = "small-label-format">Dimensions:</h6>
+                        <div>
+                          <input type="text" name="" value="" placeholder = "Width (Pixels)">
+                          <input style = "margin-left: 7px;" type="text" name="" value="" placeholder = "Height (Pixels)">
+                        </div>
+                        <div class = "form-vertical-spacing-rule">
+                          <h6 class = "small-label-format">Background:</h6>
+                          <ul class = "dropdown-menu input-fill-width hover-shade">
+                            <li class = "dropdown-content">
+                              <span><span>►</span> Select a Background</span>
+                              <ul class = "image-flex-box">
+                                <li class = "image-favicon-item">
+                                  <div class = "overlay pointer-mouse-type"></div>
+                                  <img class = "background-image" src = "https://img00.deviantart.net/5010/i/2013/078/5/c/classic_sonic_the_hedgehog_and_friends_wallpaper_by_sonicthehedgehogbg-d5yl0z8.jpg" alt="">
+                                </li>
+                                <li class = "image-favicon-item">
+                                  <div class = "overlay pointer-mouse-type"></div>
+                                  <img class = "background-image" src = "http://www.desktop-screens.com/data/out/62/3051156-kirby-wallpapers.png" alt="">
+                                </li>
+                                <li class = "image-favicon-item">
+                                  <div class = "overlay pointer-mouse-type"></div>
+                                  <img class = "background-image" src = "https://vignette.wikia.nocookie.net/creepypasta/images/5/57/Rallyx.jpg/revision/latest?cb=20131102161948" alt="">
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                       <div class = "form-vertical-spacing-rule">
                         <h6 class = "small-label-format">Favicon:</h6>
-                        <ul class = "dropdown-menu input-fill-width">
+                        <ul class = "dropdown-menu input-fill-width hover-shade">
                           <li class = "dropdown-content">
                             <span><span>►</span> Select a Favicon</span>
                             <ul class = "image-flex-box">
-                              <li>
+                              <li class = "image-favicon-item">
+                                <div class = "overlay pointer-mouse-type"></div>
                                 <img class = "favicon" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt="">
                               </li>
-                              <li>
+                              <li class = "image-favicon-item">
+                                <div class = "overlay pointer-mouse-type"></div>
                                 <img class = "favicon" src = "https://pre00.deviantart.net/4856/th/pre/i/2015/105/b/3/kirby_icon_by_vega_kun-d8ptnrw.png" alt="">
                               </li>
-                              <li>
+                              <li class = "image-favicon-item">
+                                <div class = "overlay pointer-mouse-type"></div>
                                 <img class = "favicon" src = "http://www.gameongrafix.com/sc_images/products/Rally-X-sideart-2-sca1-1000.jpg" alt="">
                               </li>
                             </ul>
                           </li>
                         </ul>
                       </div>
+                    </div>
+                    <div style = "margin: 15px 0px;" class = "create-html5-game-container">
+                      <label class = "submit-html5-game STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" for = "submit-game">
+                        <img src = "Images/Coding Logos/HTML 5/HTML5-logo.png" alt="">
+                        <span>Create HTML 5 Game</span>
+                      </label>
+                      <input style = "display: none;" id = "submit-game" type = "submit" name="" value = "">
+                      <button style = "vertical-align: bottom; margin-left: 4px" height = "17" class = "STEM-purple-background purple-to-orange-button general-button-format general-file-manipulation-button-format" type = "button" name = "add_class">Preview Game</button>
+                      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
                     </div>
                   </fieldset>
                 </fieldset>

@@ -63,15 +63,15 @@ Copyright (C) 2018 Matthew Aguiar
                             <div class = "data-box-info">
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Name:</h6>
-                                <span>Andrew Aguiar</span>
+                                <span class = "overflow-student-stat-box-content">Andrew Aguiar</span>
                               </div>
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Projects:</h6>
-                                <span>76</span>
+                                <span class = "normal-student-stat-box-content">76</span>
                               </div>
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Games:</h6>
-                                <span>56</span>
+                                <span class = "normal-student-stat-box-content">56</span>
                               </div>
                             </div>
                           </li>
@@ -80,15 +80,15 @@ Copyright (C) 2018 Matthew Aguiar
                             <div class = "data-box-info">
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Name:</h6>
-                                <span>Joe Shmoe</span>
+                                <span class = "overflow-student-stat-box-content">Joe Shmoe</span>
                               </div>
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Projects:</h6>
-                                <span>888</span>
+                                <span class = "normal-student-stat-box-content">888</span>
                               </div>
                               <div class = "student-stat-box">
                                 <h6 class = " pointer-mouse-type">Games:</h6>
-                                <span>0</span>
+                                <span class = "normal-student-stat-box-content">0</span>
                               </div>
                             </div>
                             <ul class = "student-data-list expanded-box-content">
@@ -142,7 +142,7 @@ Copyright (C) 2018 Matthew Aguiar
               </section>
               <section class = "form-vertical-spacing-rule add-class">
                 <h6 class = "small-label-format">Add Class:</h6>
-                <button class = "add-list-item STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+                <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
                 <form class = "form-vertical-spacing-rule">
                   <fieldset class = "border-color-and-radius">
                     <legend>New Class</legend>
@@ -174,7 +174,7 @@ Copyright (C) 2018 Matthew Aguiar
                             <label class = "small-label-format" for = "student-name">Search Existing Student:</label>
                             <div>
                               <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-                              <button class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
+                              <button class = "search-student STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
                             </div>
                           </div>
                           <div class = "student-activate-input-box form-vertical-spacing-rule">
@@ -186,9 +186,13 @@ Copyright (C) 2018 Matthew Aguiar
                             <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
                           </div>
                           <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
-                          </div>
-                          <input class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "submit" name = "" value = "Create Class">
                         </div>
+                        <div class = "new-student-add">
+                          <h6 class = "small-label-format">New Student:</h6>
+                          <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+                        </div>
+                        <input class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "submit" name = "" value = "Create Class">
+                      </div>
                     </fieldset>
                   </fieldset>
                 </form>
