@@ -81,7 +81,7 @@ div.username-and-password-mini-flex > input{
 /* ----- SIGN-IN / RESET PASSWORD BUTTONS -----------------------------------------------------------------------------------------------------------------------------------------------------*/
 div#sign-in-and-reset-password-container{
   /*Space out the "sign-in" and "reset password" buttons from the text input boxes.*/
-  margin: 37px 0px;
+  margin: 37px 0px 19px 0px;
 }
 
 div#sign-in-and-reset-password-container > input{
@@ -90,12 +90,24 @@ div#sign-in-and-reset-password-container > input{
   height: 32px;
 }
 
-input#sign-in-button-positioning{
+input#sign-in-button{
   /*Center the sign-in button.*/
   margin: 0px auto;
 }
 
-input#reset-password-button-positioning{
+input#reset-password-button{
   /*Center the reset-password button and give spacing on the top from the sign-in button.*/
   margin: 10px auto 0px auto;
+}
+
+output{
+  display: inline-block;
+  margin-bottom: 19px;
+  font-size: 13px;
+  color: transparent;
+  transition: color 325ms linear;
+}
+
+output#show{
+  color: red;
 }

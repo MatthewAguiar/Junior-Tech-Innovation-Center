@@ -15,58 +15,45 @@ Copyright (C) 2018 Matthew Aguiar
 //TEST user
 /*
 const AUTHENTICATION = firebase.auth(); //Saves all firebase authentication methods in the "AUTHENTICATION" constant for later use in creating/loging into user accounts.
-const USER_LOGIN = AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@jr-tech-innovation.org", "SonicBoom");
+const USER_LOGIN = AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@gmail.com", "SonicBoom");
 USER_LOGIN.catch(function(error){
   alert("An error has occured. Please try again later.");
   console.log(error);
 });
 */
 const AUTHENTICATION = firebase.auth();
-const SIGN_IN_FORM = document.getElementById("sign-in-form");
+
+AUTHENTICATION.signOut();
+
 const USERNAME_INPUT_FIELD = document.getElementById("username-input");
 const PASSWORD_INPUT_FIELD = document.getElementById("password-input");
+const SUBMIT_BUTTON = document.getElementById("sign-in-button");
+const RESET_PASSWORD_BUTTON = document.getElementById("reset-password-button");
+var incorrect_credentials_message = document.getElementsByTagName("output")[0];
 
-//Functions
-function get_attribute_from_DOM_object(object, attribute)
-{
-  switch(attribute)
+SUBMIT_BUTTON.addEventListener("click",
+  function()
   {
-    case "id":
-      return object.id;
+    var username_input = convert_username_to_dummy_email(get_attribute_from_DOM_object(USERNAME_INPUT_FIELD, "value"));
+    var password_input = get_attribute_from_DOM_object(PASSWORD_INPUT_FIELD, "value");
+    var sign_in = AUTHENTICATION.signInWithEmailAndPassword(username_input, password_input);
+    sign_in.catch(
+      function(incorrect_credentials)
+      {
+        incorrect_credentials_message.id = "show";
+      });
 
-    case "value":
-      return object.value;
-
-    default:
-      return undefined;
-  }
-}
-
-function convert_username_to_dummy_email(username)
-{
-  var username_lower_case_format = username.toLowerCase().replace(" ", "-");
-  //console.log(username_lower_case_format + "@jr-tech-innovation.org");
-  return username_lower_case_format + "@jr-tech-innovation.org";
-}
-//Main Code
-SIGN_IN_FORM.addEventListener("submit", function(){
-  var username_input = convert_username_to_dummy_email(get_attribute_from_DOM_object(USERNAME_INPUT_FIELD, "value"));
-  var password_input = get_attribute_from_DOM_object(PASSWORD_INPUT_FIELD, "value");
-  var sign_in = AUTHENTICATION.signInWithEmailAndPassword(username_input, password_input);
-  sign_in.catch(function(error){
-    //REPLACE WITH ERROR MESSAGE TO USER!
+    AUTHENTICATION.onAuthStateChanged(
+      function(JTIC_user)
+      {
+        if(JTIC_user)
+        {
+          console.log(JTIC_user);
+          //document.location.href = "student_portfolio.html";
+        }
+        else
+        {
+          console.log("Not logged in!");
+        }
+      });
   });
-
-  AUTHENTICATION.onAuthStateChanged(function(user){
-    if(user)
-    {
-      console.log(user);
-      document.location.href = "student_portfolio.html";
-    }
-    else
-    {
-      console.log("Not logged in!");
-    }
-  });
-});
-//console.log(get_attribute_from_DOM_object(SIGN_IN_FORM, "id"));
