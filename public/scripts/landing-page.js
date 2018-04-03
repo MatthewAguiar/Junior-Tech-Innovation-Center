@@ -49,7 +49,7 @@ SUBMIT_BUTTON.addEventListener("click",
         if(JTIC_user)
         {
           console.log(JTIC_user);
-          //document.location.href = "student_portfolio.html";
+          document.location.href = "student_portfolio.html";
         }
         else
         {

@@ -201,11 +201,20 @@ h4.folder-arrow > img.root-folder-selector-image{
   margin-right: 5px;
 }
 
-ul.expanded-list-content{
+ul.list-content{
   /*Make the list containing each box item smaller and centered within the "master list" of root folders.*/
   width: 92%;
-  height: 93.5%;
   margin: 0px auto;
+  transition: height 1s ease;
+  overflow: hidden;
+}
+
+ul.list-content.compressed{
+  height: 0px;
+}
+
+ul.list-content.expanded{
+  height: 300px;
 }
 
 li.folder-item{

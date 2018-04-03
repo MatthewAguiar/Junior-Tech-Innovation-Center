@@ -34,3 +34,30 @@ function convert_username_to_dummy_email(username)
   //console.log(username_lower_case_format + "@jr-tech-innovation.org");
   return username_lower_case_format + "@gmail.com";
 }
+
+//TODO: MAKE THIS INTO OBJECT METHOD!!!!!!!!!
+var $folder_button = $("h4.folder-arrow");
+var folder_open = false;
+$folder_button.on("click",
+  function()
+  {
+    var $folder_to_toggle = $(this).next();
+    console.log($folder_to_toggle);
+    toggle_folder_contents($folder_to_toggle);
+  });
+
+function toggle_folder_contents($folder_to_toggle)
+{
+  if(folder_open === false)
+  {
+    $folder_to_toggle.removeClass("compressed");
+    $folder_to_toggle.addClass("expanded");
+    folder_open = true;
+  }
+  else
+  {
+    $folder_to_toggle.removeClass("expanded");
+    $folder_to_toggle.addClass("compressed");
+    folder_open = false;
+  }
+}
