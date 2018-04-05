@@ -208,7 +208,7 @@ h4.folder-arrow > img.root-folder-selector-image{
 
 h4.folder-arrow > span.expand-arrow{
   display: inline-block;
-  transition: transform 850ms ease;
+  transition: transform 750ms ease;
 }
 
 h4.folder-arrow > span.expand-arrow.compressed{
@@ -224,7 +224,7 @@ ul.list-content{
   width: 92%;
   height: 0px;
   margin: 15px auto 0px auto;
-  transition: height 850ms ease;
+  transition: height 750ms ease;
   overflow: hidden;
 }
 

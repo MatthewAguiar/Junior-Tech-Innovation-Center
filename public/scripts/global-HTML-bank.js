@@ -29,3 +29,34 @@ var help_guide =
   </div>
 </aside>
 `;
+
+var project_list_content =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+  <div class = "data-box-info">
+    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  </div>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
+</li>
+<li>
+  <form class = "form-vertical-spacing-rule sub-console-content-vertical-spacing">
+    <fieldset class = "border-color-and-radius">
+      <legend>New Project</legend>
+      <div id = "new-project-form-content">
+        <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+        <textarea id = "project-add-textarea" name = "name"></textarea>
+        <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+        <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+            <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+            <span>Upload Project</span>
+        </label>
+      </div>
+    </fieldset>
+  </form>
+</li>
+`;

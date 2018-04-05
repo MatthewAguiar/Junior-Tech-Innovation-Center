@@ -23,28 +23,31 @@ function convert_username_to_dummy_email(username)
 //TODO: PUT IN DIFFERENT FILE!
 class Dropdown_Widget
 {
-  constructor($widget)
+  constructor($widget, $widget_content)
   {
-    this.folder = $widget;
+    this.$widget = $widget;
+    this.$widget_content = $widget_content;
     this.expanded = false;
   }
 
-  expand_HTML_element_contents(fixed_height_bool, fixed_height, fixed_reset_height_bool, fixed_reset_height)
+  expand_HTML_element_contents(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
   {
     if(!this.expanded)
     {
-      var current_height = this.folder.height();
-      if(fixed_height_bool === true)
+      this.$widget.append(this.$widget_content);
+      var current_height = this.$widget.height();
+      if(fixed_expanded_height_bool === true)
       {
-        var expanded_height = fixed_height;
+        var expanded_height = fixed_expanded_height;
       }
       else
       {
-        var expanded_height = this.folder.css("height", "auto").height() + 15;
+        var expanded_height = this.$widget.css("height", "auto").height() + padding;
+        this.$widget.height(current_height);
       }
-      this.folder.height(current_height);
-      expanded_height = expanded_height.toString() + "px";
-      this.folder.css("height", expanded_height);
+      expanded_height = expanded_height.toString() + units;
+      this.$widget.css("height", expanded_height);
+      this.$widget.off("transitionend");
       this.expanded = true;
       //console.log(current_height);
       //console.log(expanded_height);
@@ -52,14 +55,18 @@ class Dropdown_Widget
     }
     else
     {
-      if(!fixed_reset_height_bool)
+      if(!fixed_collapse_height_bool)
       {
-        this.folder.css("height", "0px");
+        this.$widget.css("height", "0px");
+        let content_remove = this.$widget_content;
+        this.$widget.on("transitionend", function(){
+          content_remove.remove();
+        });
       }
       else
       {
-        var fixed_reset_height = fixed_reset_height.toString() + "px";
-        this.folder.css("height", fixed_reset_height);
+        var fixed_collapsed_height = fixed_collapsed_height.toString() + units;
+        this.$widget.css("height", fixed_collapsed_height);
       }
       this.expanded = false;
     }
@@ -70,12 +77,11 @@ class Folder extends Dropdown_Widget
 {
   constructor($folder_arrow, $folder_widget)
   {
-    super($folder_widget);
+    super($folder_widget, $folder_widget.children());
     this.arrow = $folder_arrow;
   }
   transition_folder_dropdown_arrow()
   {
-    //console.log($folder_arrow);
     if(!this.expanded)
     {
       this.arrow.removeClass("compressed");
@@ -98,17 +104,17 @@ $folder_button.on("click",
   function()
   {
     var $folder_handlebar = $(this).attr("id");
-    console.log($folder_handlebar);
+    //console.log($folder_handlebar);
     switch($folder_handlebar)
     {
       case "gamemaker-folder":
         gamemaker_project_folder.transition_folder_dropdown_arrow();
-        gamemaker_project_folder.expand_HTML_element_contents(false, 0, false, 0);
+        gamemaker_project_folder.expand_HTML_element_contents(false, 0, false, 0, "px", 15);
         break;
 
       case "html-5-games-folder":
         html_5_game_folder.transition_folder_dropdown_arrow();
-        html_5_game_folder.expand_HTML_element_contents(false, 0, false, 0);
+        html_5_game_folder.expand_HTML_element_contents(false, 0, false, 0, "px", 15);
     }
     //console.log(gamemaker_project_folder.expanded);
     //console.log(html_5_game_folder.expanded);
