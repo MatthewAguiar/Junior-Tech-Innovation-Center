@@ -218,7 +218,7 @@ h1#title{
   Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the div tag contained in the main title bar.
   */
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 700;
   position: absolute;
   top: 50%;
   left: 50%;

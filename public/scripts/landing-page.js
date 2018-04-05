@@ -34,8 +34,8 @@ var incorrect_credentials_message = document.getElementsByTagName("output")[0];
 SUBMIT_BUTTON.addEventListener("click",
   function()
   {
-    var username_input = convert_username_to_dummy_email(get_attribute_from_DOM_object(USERNAME_INPUT_FIELD, "value"));
-    var password_input = get_attribute_from_DOM_object(PASSWORD_INPUT_FIELD, "value");
+    var username_input = convert_username_to_dummy_email(USERNAME_INPUT_FIELD.value);
+    var password_input = PASSWORD_INPUT_FIELD.value;
     var sign_in = AUTHENTICATION.signInWithEmailAndPassword(username_input, password_input);
     sign_in.catch(
       function(incorrect_credentials)

@@ -20,7 +20,7 @@ var help_guide =
     <div class = "color-strip STEM-blue-background"></div><div class = "color-strip STEM-orange-background"></div><div class = "color-strip STEM-green-background"></div><div class = "color-strip STEM-purple-background"></div>
   </div>
   <header id = "help-guide-header">
-    <img id = "notification-JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.svg" alt = "">
+    <img id = "notification-JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.png" alt = "">
     <span>Jr Tech Help Guide: Student Portfolio</span>
   </header>
   <div id = "help-content">

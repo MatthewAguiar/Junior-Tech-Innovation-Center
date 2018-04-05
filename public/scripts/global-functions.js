@@ -13,21 +13,6 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
-function get_attribute_from_DOM_object(object, attribute)
-{
-  switch(attribute)
-  {
-    case "id":
-      return object.id;
-
-    case "value":
-      return object.value;
-
-    default:
-      return undefined;
-  }
-}
-
 function convert_username_to_dummy_email(username)
 {
   var username_lower_case_format = username.toLowerCase().replace(" ", "-");
@@ -35,29 +20,98 @@ function convert_username_to_dummy_email(username)
   return username_lower_case_format + "@gmail.com";
 }
 
-//TODO: MAKE THIS INTO OBJECT METHOD!!!!!!!!!
+//TODO: PUT IN DIFFERENT FILE!
+class Dropdown_Widget
+{
+  constructor($widget)
+  {
+    this.folder = $widget;
+    this.expanded = false;
+  }
+
+  expand_HTML_element_contents(fixed_height_bool, fixed_height, fixed_reset_height_bool, fixed_reset_height)
+  {
+    if(!this.expanded)
+    {
+      var current_height = this.folder.height();
+      if(fixed_height_bool === true)
+      {
+        var expanded_height = fixed_height;
+      }
+      else
+      {
+        var expanded_height = this.folder.css("height", "auto").height() + 15;
+      }
+      this.folder.height(current_height);
+      expanded_height = expanded_height.toString() + "px";
+      this.folder.css("height", expanded_height);
+      this.expanded = true;
+      //console.log(current_height);
+      //console.log(expanded_height);
+      //console.log(typeof expanded_height);
+    }
+    else
+    {
+      if(!fixed_reset_height_bool)
+      {
+        this.folder.css("height", "0px");
+      }
+      else
+      {
+        var fixed_reset_height = fixed_reset_height.toString() + "px";
+        this.folder.css("height", fixed_reset_height);
+      }
+      this.expanded = false;
+    }
+  }
+}
+
+class Folder extends Dropdown_Widget
+{
+  constructor($folder_arrow, $folder_widget)
+  {
+    super($folder_widget);
+    this.arrow = $folder_arrow;
+  }
+  transition_folder_dropdown_arrow()
+  {
+    //console.log($folder_arrow);
+    if(!this.expanded)
+    {
+      this.arrow.removeClass("compressed");
+      this.arrow.addClass("expanded");
+    }
+    else
+    {
+      this.arrow.removeClass("expanded");
+      this.arrow.addClass("compressed");
+    }
+  }
+}
+
+var gamemaker_project_folder = new Folder($("h4#gamemaker-folder").find(".expand-arrow"), $("h4#gamemaker-folder").next());
+var html_5_game_folder = new Folder($("h4#html-5-games-folder").find(".expand-arrow"), $("h4#html-5-games-folder").next());
+//console.log(gamemaker_project_folder.folder);
+//console.log(gamemaker_project_folder);
 var $folder_button = $("h4.folder-arrow");
-var folder_open = false;
 $folder_button.on("click",
   function()
   {
-    var $folder_to_toggle = $(this).next();
-    console.log($folder_to_toggle);
-    toggle_folder_contents($folder_to_toggle);
-  });
+    var $folder_handlebar = $(this).attr("id");
+    console.log($folder_handlebar);
+    switch($folder_handlebar)
+    {
+      case "gamemaker-folder":
+        gamemaker_project_folder.transition_folder_dropdown_arrow();
+        gamemaker_project_folder.expand_HTML_element_contents(false, 0, false, 0);
+        break;
 
-function toggle_folder_contents($folder_to_toggle)
-{
-  if(folder_open === false)
-  {
-    $folder_to_toggle.removeClass("compressed");
-    $folder_to_toggle.addClass("expanded");
-    folder_open = true;
-  }
-  else
-  {
-    $folder_to_toggle.removeClass("expanded");
-    $folder_to_toggle.addClass("compressed");
-    folder_open = false;
-  }
-}
+      case "html-5-games-folder":
+        html_5_game_folder.transition_folder_dropdown_arrow();
+        html_5_game_folder.expand_HTML_element_contents(false, 0, false, 0);
+    }
+    //console.log(gamemaker_project_folder.expanded);
+    //console.log(html_5_game_folder.expanded);
+    //console.log($folder_handlebar.attr("id"));
+    //transition_folder_dropdown_arrow($folder_handlebar.find(".expand-arrow"));
+  });

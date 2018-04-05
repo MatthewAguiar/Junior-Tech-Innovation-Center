@@ -188,9 +188,14 @@ button.remove:active{
 }
 
 ul.master-list{
-  border-bottom: 1.5px solid rgb(96, 96, 96);
-  padding-bottom: 20px;
   margin-bottom: 20px;
+}
+
+li.root-folder-selector > hr.folder-divider{
+  height: 1px;
+  background-color: rgb(96, 96, 96);
+  border: none;
+  margin: 0px;
 }
 
 h4.folder-arrow > img.root-folder-selector-image{
@@ -201,20 +206,26 @@ h4.folder-arrow > img.root-folder-selector-image{
   margin-right: 5px;
 }
 
+h4.folder-arrow > span.expand-arrow{
+  display: inline-block;
+  transition: transform 850ms ease;
+}
+
+h4.folder-arrow > span.expand-arrow.compressed{
+  transform: rotate(0deg);
+}
+
+h4.folder-arrow > span.expand-arrow.expanded{
+  transform: rotate(90deg);
+}
+
 ul.list-content{
   /*Make the list containing each box item smaller and centered within the "master list" of root folders.*/
   width: 92%;
-  margin: 0px auto;
-  transition: height 1s ease;
-  overflow: hidden;
-}
-
-ul.list-content.compressed{
   height: 0px;
-}
-
-ul.list-content.expanded{
-  height: 300px;
+  margin: 15px auto 0px auto;
+  transition: height 850ms ease;
+  overflow: hidden;
 }
 
 li.folder-item{
@@ -239,7 +250,6 @@ li.folder-item-clicked{
 
 li.folder-item:first-child{
   /*Skip the top border on the first item a list and space the list from the root folder.*/
-  margin-top: 15px;
   border-top: none;
 }
 
