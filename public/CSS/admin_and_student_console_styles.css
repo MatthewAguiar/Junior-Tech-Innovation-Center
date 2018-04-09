@@ -191,7 +191,7 @@ ul.master-list{
   margin-bottom: 20px;
 }
 
-li.root-folder-selector > hr.folder-divider{
+hr.folder-divider{
   height: 1px;
   background-color: rgb(96, 96, 96);
   border: none;

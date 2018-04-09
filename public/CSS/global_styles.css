@@ -349,3 +349,7 @@ hr#help-guide-divider{
   height: 1px;
   border: none;
 }
+
+.not-allowed:hover{
+  cursor: not-allowed;
+}

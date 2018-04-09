@@ -50,153 +50,16 @@ Copyright (C) 2018 Matthew Aguiar
           <h6 class = "small-label-format">Students/Classes:</h6>
           <div class = "sub-console-content">
             <div class = "sub-console-content-inner-liner">
-              <section> <!--COMBAK: This is not a form!!!-->
-                <ul class = "master-list">
-                  <li>
-                    <h6 class = "year-header bold-heading">Year of 2018</h6>
-                    <ul class = "list-content">
-                      <li class = "root-folder-selector">
-                        <h4 class = "folder-arrow pointer-mouse-type"><span>►</span> <img class = "root-folder-selector-image" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio: February 20<sup>th</sup> - 23<sup>rd</sup></span></h4>
-                        <ul class = "list-content">
-                          <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-                            <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
-                            <div class = "data-box-info">
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Name:</h6>
-                                <span class = "overflow-student-stat-box-content">Andrew Aguiar</span>
-                              </div>
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Projects:</h6>
-                                <span class = "normal-student-stat-box-content">76</span>
-                              </div>
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Games:</h6>
-                                <span class = "normal-student-stat-box-content">56</span>
-                              </div>
-                            </div>
-                          </li>
-                          <li class = "folder-item folder-item-clicked hover-shade-dark-tan pointer-mouse-type">
-                            <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
-                            <div class = "data-box-info">
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Name:</h6>
-                                <span class = "overflow-student-stat-box-content">Joe Shmoe</span>
-                              </div>
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Projects:</h6>
-                                <span class = "normal-student-stat-box-content">888</span>
-                              </div>
-                              <div class = "student-stat-box">
-                                <h6 class = " pointer-mouse-type">Games:</h6>
-                                <span class = "normal-student-stat-box-content">0</span>
-                              </div>
-                            </div>
-                            <ul class = "student-data-list expanded-box-content">
-                              <li class = "project-section">
-                                <h6 class = "small-label-format">Projects:</h6>
-                                <ul>
-                                  <li class = "student-project">
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-                                    <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-                                      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-                                      <span>Download</span>
-                                    </a>
-                                  </li>
-                                  <li class = "student-project">
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-                                    <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-                                      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-                                      <span>Download</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li class = "html-5-game-section">
-                                <h6 class = "small-label-format">HTML 5 Games:</h6>
-                                <ul>
-                                  <li class = "student-project">
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-                                    <a class = "STEM-purple-background purple-to-orange-button general-button-format general-file-manipulation-button-format file-download">
-                                      <span style = "font-weight: bold; font-size: 12px">Play!</span>
-                                    </a>
-                                  </li>
-                                  <li class = "student-project">
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-                                    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-                                    <a class = "STEM-purple-background purple-to-orange-button general-button-format general-file-manipulation-button-format file-download">
-                                      <span style = "font-weight: bold; font-size: 12px">Play!</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+              <section id = "add-class" class = "form-vertical-spacing-rule">
+                <div style = "margin-bottom: 15px;">
+                  <h6 class = "small-label-format">Add Class:</h6>
+                  <button id = "add-class-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+                </div>
+                <div class = "add-class-form-container">
+                  
+                </div>
               </section>
-              <section class = "form-vertical-spacing-rule add-class">
-                <h6 class = "small-label-format">Add Class:</h6>
-                <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-                <form class = "form-vertical-spacing-rule">
-                  <fieldset class = "border-color-and-radius">
-                    <legend>New Class</legend>
-                    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
-                      <legend class = "bold-heading">Add Students:</legend>
-                      <div class = "SUB-fieldset-content">
-                        <h6 class = "small-label-format">Class Type:</h6>
-                        <div class = "course-type-flexbox border-color-and-radius">
-                          <div>
-                            <label class = "inline-label" for = "gamemaker-student"><img class = "course-icons" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""></label>
-                            <input class = "inline-checkbox" id = "gamemaker-student" type = "radio" name = "course_type" value="">
-                          </div>
-                          <div>
-                            <label class = "inline-label" for = "python-student"><img class = "course-icons" src = "Images/Coding Logos/Python/python-logo.png" alt=""></label>
-                            <input class = "inline-checkbox" id = "python-student" type = "radio" name = "course_type" value="">
-                          </div>
-                          <div>
-                            <label class = "inline-label" for = "c++-student"><img class = "course-icons" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""></label>
-                            <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type" value="">
-                          </div>
-                          <div>
-                            <label class = "inline-label" for = "ai-student"><img class = "course-icons" src = "Images/Coding Logos/TensorFlow/tensorflow-logo.png" alt=""></label>
-                            <input class = "inline-checkbox" id = "ai-student" type = "radio" name = "course_type" value="">
-                          </div>
-                        </div>
-                        <h6 class = "small-label-format">Setup Student Profile:</h6>
-                        <div class = "student-name-and-password-container border-color-and-radius">
-                          <div class = "student-activate-input-box existing-student-field-seperator">
-                            <label class = "small-label-format" for = "student-name">Search Existing Student:</label>
-                            <div>
-                              <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-                              <button class = "search-student STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
-                            </div>
-                          </div>
-                          <div class = "student-activate-input-box form-vertical-spacing-rule">
-                            <label class = "small-label-format" for = "student-name">New Student Name:</label>
-                            <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-                          </div>
-                          <div class = "student-activate-input-box form-vertical-spacing-rule">
-                            <label class = "small-label-format" for = "student-password">New Student Password:</label>
-                            <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
-                          </div>
-                          <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
-                        </div>
-                        <div class = "new-student-add">
-                          <h6 class = "small-label-format">New Student:</h6>
-                          <button class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-                        </div>
-                        <input class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "submit" name = "" value = "Create Class">
-                      </div>
-                    </fieldset>
-                  </fieldset>
-                </form>
-              </section>
+              <hr class = "folder-divider">
             </div>
           </div>
         </section>
@@ -211,18 +74,14 @@ Copyright (C) 2018 Matthew Aguiar
         </section>
       </div>
     </main>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src = "scripts/firebase-link.js" type = "text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity = "sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin = "anonymous"></script>
+    <script src = "scripts/global-HTML-bank.js" type = "text/javascript"></script>
+    <script src = "scripts/global-functions.js" type = "text/javascript"></script>
+    <script src = "scripts/admin.js" type = "text/javascript"></script>
   </body>
 </html>
 
 <!--
-<div class = "student-activate-input-box">
-  <label class = "small-label-format" for = "student-name">Name:</label>
-  <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-</div>
-<div class = "student-activate-input-box form-vertical-spacing-rule">
-  <label class = "small-label-format" for = "student-password">Password:</label>
-  <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
-</div>
-<button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Activate Profile</button>
-</div>
 -->

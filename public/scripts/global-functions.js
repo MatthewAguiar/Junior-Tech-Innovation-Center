@@ -12,42 +12,67 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-
 function convert_username_to_dummy_email(username)
 {
   var username_lower_case_format = username.toLowerCase().replace(" ", "-");
   //console.log(username_lower_case_format + "@jr-tech-innovation.org");
-  return username_lower_case_format + "@gmail.com";
+  return username_lower_case_format + "@jrtechinnovation.org";
 }
 
 //TODO: PUT IN DIFFERENT FILE!
 class Dropdown_Widget
 {
-  constructor($widget, $widget_content)
+  constructor($widget, inner_html, jQuery_selector, child_widget)
   {
     this.$widget = $widget;
-    this.$widget_content = $widget_content;
+    this.html = inner_html;
+    this.content_jQuery_selector = jQuery_selector;
+    this.child_widget = child_widget;
+    this.$widget_content = null;
+    this.widget_content_show = false;
     this.expanded = false;
+    this.expanded_height = 0;
+  }
+
+  manage_widget_content(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
+  {
+    if(!this.expanded)
+    {
+      this.$widget.off("transitionend");
+    }
+    if(!this.widget_content_show && !this.expanded)
+    {
+      this.$widget.append(this.html);
+      this.$widget_content = $(this.content_jQuery_selector).children();
+      this.widget_content_show = true;
+    }
+    else if(this.expanded)
+    {
+      var content_remove = this.$widget_content;
+      this.$widget.on("transitionend", function(){
+        content_remove.remove();
+        this.widget_content_show = false;
+      }.bind(this));
+    }
+    this.expand_HTML_element_contents(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding);
   }
 
   expand_HTML_element_contents(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
   {
     if(!this.expanded)
     {
-      this.$widget.append(this.$widget_content);
-      var current_height = this.$widget.height();
       if(fixed_expanded_height_bool === true)
       {
-        var expanded_height = fixed_expanded_height;
+        this.expanded_height = fixed_expanded_height + padding;
       }
       else
       {
-        var expanded_height = this.$widget.css("height", "auto").height() + padding;
+        var current_height = this.$widget.height();
+        this.expanded_height = this.$widget.css("height", "auto").height() + padding;
         this.$widget.height(current_height);
       }
-      expanded_height = expanded_height.toString() + units;
-      this.$widget.css("height", expanded_height);
-      this.$widget.off("transitionend");
+      var expand_height = this.expanded_height.toString() + units;
+      this.$widget.css("height", expand_height);
       this.expanded = true;
       //console.log(current_height);
       //console.log(expanded_height);
@@ -58,10 +83,6 @@ class Dropdown_Widget
       if(!fixed_collapse_height_bool)
       {
         this.$widget.css("height", "0px");
-        let content_remove = this.$widget_content;
-        this.$widget.on("transitionend", function(){
-          content_remove.remove();
-        });
       }
       else
       {
@@ -75,11 +96,18 @@ class Dropdown_Widget
 
 class Folder extends Dropdown_Widget
 {
-  constructor($folder_arrow, $folder_widget)
+  constructor($folder_handlebar, arrow_jQuery_selector, $folder_widget, inner_html, widget_jQuery_selector, child_widget)
   {
-    super($folder_widget, $folder_widget.children());
-    this.arrow = $folder_arrow;
+    super($folder_widget, inner_html, widget_jQuery_selector, child_widget);
+    this.arrow = $folder_handlebar.find(arrow_jQuery_selector);
   }
+
+  folder_dropdown()
+  {
+    this.transition_folder_dropdown_arrow();
+    this.manage_widget_content(false, 0, false, 0, "px", 15);
+  }
+
   transition_folder_dropdown_arrow()
   {
     if(!this.expanded)
@@ -95,29 +123,29 @@ class Folder extends Dropdown_Widget
   }
 }
 
-var gamemaker_project_folder = new Folder($("h4#gamemaker-folder").find(".expand-arrow"), $("h4#gamemaker-folder").next());
-var html_5_game_folder = new Folder($("h4#html-5-games-folder").find(".expand-arrow"), $("h4#html-5-games-folder").next());
-//console.log(gamemaker_project_folder.folder);
-//console.log(gamemaker_project_folder);
-var $folder_button = $("h4.folder-arrow");
-$folder_button.on("click",
-  function()
+class Menu extends Dropdown_Widget
+{
+  contructor($root_menu_widget, inner_html, jQuery_selector, child_widget)
   {
-    var $folder_handlebar = $(this).attr("id");
-    //console.log($folder_handlebar);
-    switch($folder_handlebar)
-    {
-      case "gamemaker-folder":
-        gamemaker_project_folder.transition_folder_dropdown_arrow();
-        gamemaker_project_folder.expand_HTML_element_contents(false, 0, false, 0, "px", 15);
-        break;
 
-      case "html-5-games-folder":
-        html_5_game_folder.transition_folder_dropdown_arrow();
-        html_5_game_folder.expand_HTML_element_contents(false, 0, false, 0, "px", 15);
+  }
+}
+
+class Add_New_Button
+{
+  constructor(DOM_button)
+  {
+    this.button = DOM_button;
+    this.jQuery_selector = "#" + DOM_button.id;
+    this.active = true;
+  }
+
+  update_button_status()
+  {
+    if(this.active === false)
+    {
+      $(this.jQuery_selector).removeClass("blue-to-green-button");
+      $(this.jQuery_selector).addClass("not-allowed");
     }
-    //console.log(gamemaker_project_folder.expanded);
-    //console.log(html_5_game_folder.expanded);
-    //console.log($folder_handlebar.attr("id"));
-    //transition_folder_dropdown_arrow($folder_handlebar.find(".expand-arrow"));
-  });
+  }
+}

@@ -15,15 +15,14 @@ Copyright (C) 2018 Matthew Aguiar
 //TEST user
 /*
 const AUTHENTICATION = firebase.auth(); //Saves all firebase authentication methods in the "AUTHENTICATION" constant for later use in creating/loging into user accounts.
-const USER_LOGIN = AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@gmail.com", "SonicBoom");
+const USER_LOGIN = AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@jrtechinnovation.org", "SonicBoom");
 USER_LOGIN.catch(function(error){
   alert("An error has occured. Please try again later.");
   console.log(error);
 });
 */
+const DATABASE = firebase.database().ref();
 const AUTHENTICATION = firebase.auth();
-
-AUTHENTICATION.signOut();
 
 const USERNAME_INPUT_FIELD = document.getElementById("username-input");
 const PASSWORD_INPUT_FIELD = document.getElementById("password-input");
@@ -49,7 +48,24 @@ SUBMIT_BUTTON.addEventListener("click",
         if(JTIC_user)
         {
           console.log(JTIC_user);
-          document.location.href = "student_portfolio.html";
+          //DATABASE.child("Users/Students").set("none");
+          //DATABASE.child("Users/Administrators/" + JTIC_user.uid + "/Account Type").set("Administrator");
+          //DATABASE.child("Users/Administrators/" + JTIC_user.uid + "/Name").set("Matthew Aguiar");
+          var JTIC_user_data = DATABASE.child("Users");
+          JTIC_user_data.on("value", function(firebase_data_object){
+            var user_data = firebase_data_object.val();
+            //console.log(user_data["Administrators"][JTIC_user.uid]["Account Type"]);
+            if(user_data["Students"][JTIC_user.uid] !== undefined)
+            {
+              document.location.href = "student_portfolio.html";
+            }
+            else
+            {
+              document.location.href = "admin.html";
+            }
+            //console.log(user_data);
+          });
+          //document.location.href = "student_portfolio.html";
         }
         else
         {

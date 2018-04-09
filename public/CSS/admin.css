@@ -17,16 +17,21 @@ Copyright (C) 2018 Matthew Aguiar
 ------------------ ADD NEW CLASS "FORM" RULES ---------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-section.add-class{
-  border-bottom: 1px solid rgb(71, 71, 71);
-  padding-bottom: 20px;
+
+div.add-class-form-container, div.students-box{
+  height: 0px;
+  transition: height 750ms ease;
+  overflow: hidden;
+}
+
+div.choose-class-type{
+  margin-bottom: 15px;
 }
 
 div.course-type-flexbox{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   padding: 12px;
 }
 
@@ -116,6 +121,7 @@ div.student-stat-box > span{
 
 div.student-name-and-password-container{
   padding: 12px;
+  margin-bottom: 15px;
 }
 
 div.student-activate-input-box:last-child{
@@ -147,11 +153,6 @@ div.add-student-container{
   align-items: center;
 }
 
-div.new-student-add{
-  margin: 15px 0px;
-  
-}
-
 .inline-label{
   display: inline;
   vertical-align: middle;
@@ -172,4 +173,9 @@ div.new-student-add{
 .existing-student-field-seperator{
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(102, 102, 102, 0.6);
+}
+
+.make-bold{
+  font-size: 11px !important;
+  font-weight: 700;
 }
