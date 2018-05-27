@@ -19,93 +19,193 @@ function convert_username_to_dummy_email(username)
   return username_lower_case_format + "@jrtechinnovation.org";
 }
 
+class Admin_User
+{
+  constructor(add_class_menu_array, add_student_menu_array)
+  {
+    this.add_class_menu = new Normal_Menu(add_class_menu_array[0], add_class_menu_array[1], add_class_menu_array[2], add_class_menu_array[3], []);
+    this.add_class_menu.student_add_button_active = false;
+    this.add_student_menu;
+    this.add_class_menu.$menu_expand_handle.on("click",
+      function()
+      {
+        if(!this.add_class_menu.student_add_button_active)
+        {
+          this.add_student_menu = new Normal_Menu(add_student_menu_array[0], add_student_menu_array[1], add_student_menu_array[2], add_student_menu_array[3], [this.add_class_menu]);
+          this.add_class_menu.student_add_button_active = true;
+          this.add_class_menu.$menu_collapse_handle.on("click",
+            function()
+            {
+              this.add_class_menu.$widget_body.on("transitionend",
+                function(event)
+                {
+                  //console.log(event.target.id);
+                  if(event.target.id === this.add_class_menu.$widget_body.attr("id"))
+                  {
+                    this.add_class_menu.student_add_button_active = false;
+                  }
+                }.bind(this)
+              );
+            }.bind(this)
+          );
+        }
+      }.bind(this)
+    );
+  }
+}
+
 //TODO: PUT IN DIFFERENT FILE!
 class Dropdown_Widget
 {
-  constructor($widget, inner_html, jQuery_selector, child_widget)
+  constructor(widget_body_id, widget_content, array_of_parents)
   {
-    this.$widget = $widget;
-    this.html = inner_html;
-    this.content_jQuery_selector = jQuery_selector;
-    this.child_widget = child_widget;
-    this.$widget_content = null;
+    this.$widget_body = $('#' + widget_body_id);
+    this.widget_content = widget_content;
+    this.array_of_parents = array_of_parents;
     this.widget_content_show = false;
     this.expanded = false;
     this.expanded_height = 0;
   }
 
-  manage_widget_content(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
+  manage_widget_state(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
   {
-    if(!this.expanded)
-    {
-      this.$widget.off("transitionend");
-    }
     if(!this.widget_content_show && !this.expanded)
     {
-      this.$widget.append(this.html);
-      this.$widget_content = $(this.content_jQuery_selector).children();
+      this.$widget_body.append(this.widget_content);
       this.widget_content_show = true;
     }
-    else if(this.expanded)
-    {
-      var content_remove = this.$widget_content;
-      this.$widget.on("transitionend", function(){
-        content_remove.remove();
-        this.widget_content_show = false;
-      }.bind(this));
-    }
-    this.expand_HTML_element_contents(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding);
-  }
-
-  expand_HTML_element_contents(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units, padding)
-  {
     if(!this.expanded)
     {
-      if(fixed_expanded_height_bool === true)
-      {
-        this.expanded_height = fixed_expanded_height + padding;
-      }
-      else
-      {
-        var current_height = this.$widget.height();
-        this.expanded_height = this.$widget.css("height", "auto").height() + padding;
-        this.$widget.height(current_height);
-      }
-      var expand_height = this.expanded_height.toString() + units;
-      this.$widget.css("height", expand_height);
+      this.$widget_body.off("transitionend");
+      this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, units, padding);
       this.expanded = true;
-      //console.log(current_height);
-      //console.log(expanded_height);
-      //console.log(typeof expanded_height);
     }
     else
     {
-      if(!fixed_collapse_height_bool)
-      {
-        this.$widget.css("height", "0px");
-      }
-      else
-      {
-        var fixed_collapsed_height = fixed_collapsed_height.toString() + units;
-        this.$widget.css("height", fixed_collapsed_height);
-      }
+      this.collapse_widget_contents(fixed_collapse_height_bool, fixed_collapsed_height, units, padding);
       this.expanded = false;
+    }
+  }
+
+  expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, units, padding)
+  {
+    if(fixed_expanded_height_bool === true)
+    {
+      this.expanded_height = fixed_expanded_height + padding;
+    }
+    else
+    {
+      var current_height = this.$widget_body.height();
+      this.expanded_height = this.$widget_body.css("height", "auto").height() + padding;
+      this.$widget_body.height(current_height);
+    }
+    var expand_height = this.expanded_height.toString() + units;
+    this.$widget_body.css("height", expand_height);
+    //console.log(current_height);
+    //console.log(expanded_height);
+    //console.log(typeof expanded_height);
+    }
+
+  collapse_widget_contents(fixed_collapse_height_bool, fixed_collapsed_height, units, padding)
+  {
+    if(fixed_collapse_height_bool)
+    {
+      var fixed_collapsed_height = fixed_collapsed_height.toString() + units;
+      this.$widget_body.css("height", fixed_collapsed_height);
+    }
+    else
+    {
+      this.$widget_body.css("height", "0px");
+    }
+  }
+
+  expand_parent_widgets()
+  {
+    for(let i = 0; i < this.array_of_parents.length; i++)
+    {
+      let expand_height = this.array_of_parents[i].expanded_height + this.expanded_height;
+      this.array_of_parents[i].expand_widget_contents(true, expand_height, "px", 0);
+    }
+  }
+
+  collapse_parent_widgets()
+  {
+    for(let i = 0; i < this.array_of_parents.length; i++)
+    {
+      let collapse_height = this.array_of_parents[i].expanded_height - this.expanded_height;
+      this.array_of_parents[i].collapse_widget_contents(true, collapse_height, "px", 0);
+      this.array_of_parents[i].expanded_height = collapse_height;
     }
   }
 }
 
+class Normal_Menu extends Dropdown_Widget
+{
+  constructor(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parent_menus)
+  {
+    super(menu_body_id, menu_content, array_of_parent_menus);
+    this.$menu_expand_handle = $('#' + menu_expand_handle_id);
+    this.$menu_collapse_handle;
+    this.children_exist = false;
+    this.expand_handle_active = true;
+    this.$menu_expand_handle.on("click",
+      function()
+      {
+        if(this.expand_handle_active)
+        {
+          this.manage_widget_state(false, 0, false, 0, "px", 15);
+          this.expand_handle_active = false;
+          if(this.array_of_parents.length > 0)
+          {
+            this.expand_parent_widgets();
+          }
+          this.$menu_collapse_handle = $('#' + menu_collapse_handle_id);
+          this.$menu_collapse_handle.on("click",
+            function()
+            {
+              if(!this.expand_handle_active)
+              {
+                this.manage_widget_state(false, 0, false, 0, "px", 0);
+                if(this.array_of_parents.length > 0)
+                {
+                  this.collapse_parent_widgets();
+                }
+                this.$widget_body.on("transitionend",
+                  function(event)
+                  {
+                    //console.log(event.target.id);
+                    if(event.target.id === this.$widget_body.attr("id"))
+                    {
+                      this.$widget_body.children().remove();
+                      this.widget_content_show = false;
+                    }
+                  }.bind(this)
+                );
+                this.expand_handle_active = true;
+              }
+            }.bind(this)
+          );
+        }
+      }.bind(this)
+    );
+  }
+}
+
+class Cummulative_Menu extends Dropdown_Widget
+{
+  constructor(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parent_menus)
+  {
+    super(menu_body_id, menu_content, array_of_parent_menus);
+
+  }
+}
+/*
 class Folder extends Dropdown_Widget
 {
-  constructor($folder_handlebar, arrow_jQuery_selector, $folder_widget, inner_html, widget_jQuery_selector, child_widget)
+  constructor(folder_expand_handle_id, folder_collapse_handle_id, folder_body_id, folder_content_id, arrow_id)
   {
-    super($folder_widget, inner_html, widget_jQuery_selector, child_widget);
-    this.arrow = $folder_handlebar.find(arrow_jQuery_selector);
-  }
-
-  folder_dropdown()
-  {
-    this.transition_folder_dropdown_arrow();
-    this.manage_widget_content(false, 0, false, 0, "px", 15);
+    super(folder_expand_handle_id, folder_collapse_handle_id, folder_body_id, folder_content_id);
+    this.arrow = $folder_handlebar.find($(arrow_id));
   }
 
   transition_folder_dropdown_arrow()
@@ -121,22 +221,15 @@ class Folder extends Dropdown_Widget
       this.arrow.addClass("compressed");
     }
   }
-}
+}*/
 
-class Menu extends Dropdown_Widget
+/*
+class Menu_Button
 {
-  contructor($root_menu_widget, inner_html, jQuery_selector, child_widget)
+  constructor(button_id)
   {
-
-  }
-}
-
-class Add_New_Button
-{
-  constructor(DOM_button)
-  {
-    this.button = DOM_button;
-    this.jQuery_selector = "#" + DOM_button.id;
+    this.button = document.getElementById(button_id);
+    this.button_jQuery_selector = "#" + button_id;
     this.active = true;
   }
 
@@ -144,8 +237,8 @@ class Add_New_Button
   {
     if(this.active === false)
     {
-      $(this.jQuery_selector).removeClass("blue-to-green-button");
-      $(this.jQuery_selector).addClass("not-allowed");
+      $(this.button_jQuery_selector).removeClass("blue-to-green-button");
+      $(this.button_jQuery_selector).addClass("not-allowed");
     }
   }
-}
+}*/

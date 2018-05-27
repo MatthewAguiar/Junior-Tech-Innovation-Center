@@ -13,12 +13,26 @@ Copyright (C) 2018 Matthew Aguiar
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
 
+var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form], ["add-student-button", "remove-student", "students-box", add_student_mini_field]);
+/*
+var $dropdown_widgets = $(".dropdown");
+$dropdown_widgets.on("click",
+  function()
+  {
+    var $widget_class = $(this).attr("class");
 
-var add_class_widget = new Menu($("div.add-class-form-container"), new_class_form, "form#new-class-form", null);
-var add_class_button = new Add_New_Button(document.getElementById("add-class-button"));
-var add_student_widget;
-var add_student_button;
+    switch($widget_class)
+    {
+      case "folder":
 
+
+      case "menu":
+
+    }
+  }
+);
+*/
+/*
 var $folder_button = $("h4.folder-arrow");
 $folder_button.on("click",
   function()
@@ -27,10 +41,7 @@ $folder_button.on("click",
     var $folder_id = $(this).attr("id");
     switch($folder_id)
     {
-      case "class2018":
-        classes_folder.transition_folder_dropdown_arrow();
-        classes_folder.manage_widget_content(false, 0, false, 0, "px", 15);
-        break;
+
     }
     //console.log($folder_handlebar);
     //console.log(gamemaker_project_folder.expanded);
@@ -38,28 +49,4 @@ $folder_button.on("click",
     //console.log($folder_handlebar.attr("id"));
     //transition_folder_dropdown_arrow($folder_handlebar.find(".expand-arrow"));
   });
-
-add_class_button.button.addEventListener("click",
-  function()
-  {
-    if(add_class_button.active === true)
-    {
-      add_class_widget.manage_widget_content(false, 0, false, 0, "px", 15);
-      add_class_widget.expanded = false;
-      add_class_button.active = false;
-      add_class_button.update_button_status();
-      add_student_widget = new Dropdown_Widget($("div.students-box"), add_new_student_mini_field, "div.students-box", []);
-      add_class_widget.child_widget = add_student_widget;
-      add_student_button = new Add_New_Button(document.getElementById("add-student-button"));
-      add_student_button.button.addEventListener("click",
-        function()
-        {
-          add_student_widget.manage_widget_content(false, 0, false, 0, "px", 15);
-          add_class_widget.expand_HTML_element_contents(false, 0, true, add_class_widget.expanded_height + add_student_widget.expanded_height, "px", 0);
-          //console.log(add_class_widget.expanded_height);
-          //console.log(add_student_widget.expanded_height);
-        }
-      );
-    }
-  }
-);
+*/

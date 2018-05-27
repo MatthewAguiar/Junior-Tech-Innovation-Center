@@ -43,6 +43,7 @@ html, input, textarea{
 main{
   /*Pushes the main content of EACH PAGE, which is just below the header, downward to space it out.*/
   margin-top: 36px;
+  margin-bottom: 30px;
 }
 
 textarea{
@@ -108,7 +109,7 @@ REVIEW: All styling rules below do the following:
   color: rgb(88, 185, 71);
 }
 
-.STEM-purple-text{
+.STEM-pink-text{
   color: rgb(216, 11, 140);
 }
 
@@ -122,12 +123,16 @@ REVIEW: All styling rules below do the following:
   background-color: rgb(88, 185, 71);
 }
 
-.STEM-purple-background{
+.STEM-pink-background{
   background-color: rgb(216, 11, 140);
 }
 
 .STEM-orange-background{
   background-color: rgb(245, 130, 32);
+}
+
+.STEM-purple-background{
+    background-color: rgb(87, 51, 147);
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,12 +167,12 @@ REVIEW: All styling rules below do the following:
   background-color: rgb(58, 155, 41);
 }
 
-.purple-to-orange-button:hover{
-  /*Changes a button to a STEM purple color when a button is being hovered over. NOTE: All buttons have their backgrounds original styled by the STEM BACKGROUND COLOR rules above.*/
+.pink-to-orange-button:hover{
+  /*Changes a button to a STEM pink color when a button is being hovered over. NOTE: All buttons have their backgrounds original styled by the STEM BACKGROUND COLOR rules above.*/
   background-color: rgb(245, 130, 32);
 }
 
-.purple-to-orange-button:active{
+.pink-to-orange-button:active{
   background-color: rgb(215, 100, 2);
 }
 /*
@@ -194,7 +199,7 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 header.main-header{
-  /*Make a purple border along the top and green border along the bottom of the main title bar.*/
+  /*Make a pink border along the top and green border along the bottom of the main title bar.*/
   border-top: 34px solid rgb(216, 11, 140);
   border-bottom: 3px solid rgb(88, 185, 71);
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);

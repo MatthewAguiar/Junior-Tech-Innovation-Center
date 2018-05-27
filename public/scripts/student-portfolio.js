@@ -26,12 +26,12 @@ $folder_button.on("click",
     {
       case "gamemaker-folder":
         gamemaker_project_folder.transition_folder_dropdown_arrow();
-        gamemaker_project_folder.manage_widget_content(false, 0, false, 0, "px", 15);
+        gamemaker_project_folder.manage_widget_state(false, 0, false, 0, "px", 15);
         break;
 
       case "html-5-games-folder":
         html_5_game_folder.transition_folder_dropdown_arrow();
-        html_5_game_folder.manage_widget_content(false, 0, false, 0, "px", 15);
+        html_5_game_folder.manage_widget_state(false, 0, false, 0, "px", 15);
     }
     //console.log($folder_handlebar);
     //console.log(gamemaker_project_folder.expanded);

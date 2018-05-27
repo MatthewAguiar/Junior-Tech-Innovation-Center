@@ -157,7 +157,7 @@ var new_class_form =
           </div>
         </div>
         <div class = "student-add-container">
-          <div class = "students-box">
+          <div id = "students-box">
 
           </div>
           <div class = "new-student-add">
@@ -166,12 +166,13 @@ var new_class_form =
           </div>
         </div>
       </div>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-class-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
     </fieldset>
   </fieldset>
 </form>
 `;
 
-var add_new_student_mini_field =
+var add_student_mini_field =
 `
 <h6 class = "small-label-format make-bold">Student 1:</h6>
 <div class = "student-name-and-password-container border-color-and-radius">
@@ -191,6 +192,7 @@ var add_new_student_mini_field =
     <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
   </div>
   <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
+  <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-student" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
 </div>
 `;
 

@@ -18,7 +18,7 @@ Copyright (C) 2018 Matthew Aguiar
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-div.add-class-form-container, div.students-box{
+div#add-class-form-container, div#students-box{
   height: 0px;
   transition: height 750ms ease;
   overflow: hidden;
