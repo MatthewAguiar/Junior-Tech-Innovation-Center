@@ -12,41 +12,50 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-
-var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form], ["add-student-button", "remove-student", "students-box", add_student_mini_field]);
 /*
-var $dropdown_widgets = $(".dropdown");
-$dropdown_widgets.on("click",
-  function()
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ADMIN CLASS ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+class Admin_User
+{
+  constructor(add_class_menu_array, add_student_menu_array)
   {
-    var $widget_class = $(this).attr("class");
-
-    switch($widget_class)
-    {
-      case "folder":
-
-
-      case "menu":
-
-    }
+    this.add_class_menu = new Single_Dropdown_Menu(add_class_menu_array[0], add_class_menu_array[1], add_class_menu_array[2], add_class_menu_array[3], []);
+    this.add_class_menu.student_add_button_active = false;
+    this.add_student_menu;
+    this.add_class_menu.$menu_expand_handle.on("click",
+      function()
+      {
+        if(!this.add_class_menu.student_add_button_active)
+        {
+          this.add_student_menu = new Cummulative_Menu(add_student_menu_array[0], add_student_menu_array[1], add_student_menu_array[2], add_student_menu_array[3], add_student_menu_array[4],
+                                                       add_student_menu_array[5],  [this.add_class_menu]);
+          this.add_class_menu.student_add_button_active = true;
+          this.add_class_menu.$menu_collapse_handle.on("click",
+            function()
+            {
+              this.add_class_menu.$widget_body.on("transitionend",
+                function(event)
+                {
+                  //console.log(event.target.id);
+                  if(event.target.id === this.add_class_menu.$widget_body.attr("id"))
+                  {
+                    this.add_class_menu.student_add_button_active = false;
+                  }
+                }.bind(this)
+              );
+            }.bind(this)
+          );
+        }
+      }.bind(this)
+    );
   }
-);
-*/
+}
 /*
-var $folder_button = $("h4.folder-arrow");
-$folder_button.on("click",
-  function()
-  {
-    //console.log(document.location);
-    var $folder_id = $(this).attr("id");
-    switch($folder_id)
-    {
-
-    }
-    //console.log($folder_handlebar);
-    //console.log(gamemaker_project_folder.expanded);
-    //console.log(html_5_game_folder.expanded);
-    //console.log($folder_handlebar.attr("id"));
-    //transition_folder_dropdown_arrow($folder_handlebar.find(".expand-arrow"));
-  });
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ MAIN CODE --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
+var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form],
+                           ["add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field]);

@@ -24,6 +24,16 @@ div#add-class-form-container, div#students-box{
   overflow: hidden;
 }
 
+div#add-class-form-container{
+  margin-bottom: 15px;
+}
+
+div.js-student-box{
+  transition: height 750ms ease;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
 div.choose-class-type{
   margin-bottom: 15px;
 }
@@ -121,7 +131,6 @@ div.student-stat-box > span{
 
 div.student-name-and-password-container{
   padding: 12px;
-  margin-bottom: 15px;
 }
 
 div.student-activate-input-box:last-child{
@@ -151,6 +160,14 @@ div.add-student-container{
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+div.student-add-container{
+  margin: 15px 0px;
+}
+
+div.student-add-container > div#number-of-students-input-box{
+  margin-bottom: 15px;
 }
 
 .inline-label{
