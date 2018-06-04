@@ -133,10 +133,6 @@ div.student-name-and-password-container{
   padding: 12px;
 }
 
-div.student-activate-input-box:last-child{
-  margin-top: 10px;
-}
-
 div.student-activate-input-box > input{
   width: 75%;
 }
@@ -195,4 +191,12 @@ div.student-add-container > div#number-of-students-input-box{
 .make-bold{
   font-size: 11px !important;
   font-weight: 700;
+}
+
+span.warning-message{
+  line-height: 16px;
+  font-size: 11px;
+  visibility: hidden;
+  color: transparent;
+  transition: color 325ms linear;
 }

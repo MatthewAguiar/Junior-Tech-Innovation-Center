@@ -240,12 +240,17 @@ class Cummulative_Menu extends Menu
 
   renumber_item_box_ids(starting_index)
   {
-    console.log(starting_index);
+    //console.log(starting_index);
     for(let i = starting_index; i < this.item_box_array.length; i++)
     {
       this.item_box_array[i].$item_box.attr("id", this.item_box_array[i].dummy_id_stem + i.toString());
       this.item_box_array[i].item_box_number = i;
     }
+  }
+
+  get_item_box_number(item_box_id)
+  {
+    return parseInt(item_box_id.substring(item_box_id.length - 1));
   }
 }
 
@@ -267,17 +272,15 @@ class Item_Box extends Dropdown_Widget
       {
         this.collapse_widget_contents(false, 0, "px", this.widget_margin_bottom);
         this.collapse_parent_widgets();
+        this.menu_object.item_box_array.splice(this.item_box_number, 1);
+        this.menu_object.renumber_item_box_ids(this.item_box_number);
+        this.menu_object.current_number_of_item_boxes--;
         this.$item_box.on("transitionend",
           function(event)
           {
             if(event.target.id === this.$item_box.attr("id"))
             {
-              //console.log(this.menu_object.item_box_array);
-              this.menu_object.item_box_array.splice(this.item_box_number, 1);
-              //console.log(this.menu_object.item_box_array);
               this.$item_box.remove();
-              this.menu_object.renumber_item_box_ids(this.item_box_number);
-              this.menu_object.current_number_of_item_boxes--;
             }
           }.bind(this)
         );

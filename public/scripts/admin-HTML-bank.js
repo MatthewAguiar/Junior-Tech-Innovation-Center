@@ -31,21 +31,22 @@ var new_class_form =
           <div class = "course-type-flexbox border-color-and-radius">
             <div>
               <label class = "inline-label" for = "gamemaker-student"><img class = "course-icons" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""></label>
-              <input class = "inline-checkbox" id = "gamemaker-student" type = "radio" name = "course_type" value="">
+              <input class = "inline-checkbox" id = "gamemaker-student" type = "radio" name = "course_type">
             </div>
             <div>
               <label class = "inline-label" for = "python-student"><img class = "course-icons" src = "Images/Coding Logos/Python/python-logo.png" alt=""></label>
-              <input class = "inline-checkbox" id = "python-student" type = "radio" name = "course_type" value="">
+              <input class = "inline-checkbox" id = "python-student" type = "radio" name = "course_type">
             </div>
             <div>
               <label class = "inline-label" for = "c++-student"><img class = "course-icons" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""></label>
-              <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type" value="">
+              <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type">
             </div>
             <div>
-              <label class = "inline-label" for = "ai-student"><img class = "course-icons" src = "Images/Coding Logos/TensorFlow/tensorflow-logo.png" alt=""></label>
-              <input class = "inline-checkbox" id = "ai-student" type = "radio" name = "course_type" value="">
+              <label class = "inline-label" for = "adobe-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe-animate.jpg" alt=""></label>
+              <input class = "inline-checkbox" id = "adobe-student" type = "radio" name = "course_type">
             </div>
           </div>
+          <span style = "display: block;" id = "class-type-warning" class = "warning-message">Please choose one class.</span>
         </div>
         <div class = "student-add-container">
           <div id = "students-box">
@@ -58,7 +59,11 @@ var new_class_form =
           </div>
         </div>
       </div>
-      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-class-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+      <div style = "margin-bottom: 15px;">
+        <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "create-class-button" class = "STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">Create</button>
+        <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-class-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+        <span style = "margin-left: 5px;" id = "incorrect-credentials-warning" class = "warning-message">Please confirm <u>all</u> credientials.</span>
+      </div>
     </fieldset>
   </fieldset>
 </form>
@@ -79,13 +84,15 @@ var add_student_mini_field =
     </div>
     <div class = "student-activate-input-box form-vertical-spacing-rule">
       <label class = "small-label-format" for = "student-name">New Student Name:</label>
-      <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+      <input class = "student-name-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+      <span style = "display: block;" class = "name-warning warning-message">Please enter a username.</span>
     </div>
-    <div class = "student-activate-input-box form-vertical-spacing-rule">
+    <div class = "student-activate-input-box" style = "margin-top: 7px;">
       <label class = "small-label-format" for = "student-password">New Student Password:</label>
-      <input class = "input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+      <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+      <span style = "display: block;" class = "password-warning warning-message">Please enter a <u>secure</u> password.</span>
     </div>
-    <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
+    <button class = "confirm-student-info STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
     <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove-student remove general-button-format" type = "button" name = "remove_student">Cancel</button>
   </div>
 </div>
