@@ -35,7 +35,7 @@ div.js-student-box{
 }
 
 div.choose-class-type{
-  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 div.course-type-flexbox{
@@ -199,4 +199,8 @@ span.warning-message{
   visibility: hidden;
   color: transparent;
   transition: color 325ms linear;
+}
+
+div.new-student-add{
+  margin-top: 5px;
 }

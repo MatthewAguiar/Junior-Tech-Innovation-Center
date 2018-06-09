@@ -250,7 +250,21 @@ class Cummulative_Menu extends Menu
 
   get_item_box_number(item_box_id)
   {
-    return parseInt(item_box_id.substring(item_box_id.length - 1));
+    var number_string = "0123456789";
+    var i = item_box_id.length - 1;
+    while(i > 0)
+    {
+      if(number_string.indexOf(item_box_id[i]) !== -1)
+      {
+        i--;
+      }
+      else
+      {
+        i++;
+        break;
+      }
+    }
+    return parseInt(item_box_id.substring(i, item_box_id.length));
   }
 }
 

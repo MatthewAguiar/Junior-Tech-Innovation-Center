@@ -14,62 +14,62 @@ Copyright (C) 2018 Matthew Aguiar
 */
 //TEST user
 /*
-const AUTHENTICATION = firebase.auth(); //Saves all firebase authentication methods in the "AUTHENTICATION" constant for later use in creating/loging into user accounts.
-const USER_LOGIN = AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@jrtechinnovation.org", "SonicBoom");
+const FIREBASE_AUTHENTICATION = firebase.auth(); //Saves all firebase FIREBASE_AUTHENTICATION methods in the "FIREBASE_AUTHENTICATION" constant for later use in creating/loging into user accounts.
+const USER_LOGIN = FIREBASE_AUTHENTICATION.createUserWithEmailAndPassword("matthew-aguiar@jrtechinnovation.org", "SonicBoom");
 USER_LOGIN.catch(function(error){
   alert("An error has occured. Please try again later.");
   console.log(error);
 });
 */
-const DATABASE = firebase.database().ref();
-const AUTHENTICATION = firebase.auth();
-
+const FIREBASE_DATABASE = firebase.database().ref();
+const FIREBASE_AUTHENTICATION = firebase.auth();
 const USERNAME_INPUT_FIELD = document.getElementById("username-input");
 const PASSWORD_INPUT_FIELD = document.getElementById("password-input");
 const SUBMIT_BUTTON = document.getElementById("sign-in-button");
 const RESET_PASSWORD_BUTTON = document.getElementById("reset-password-button");
 var incorrect_credentials_message = document.getElementsByTagName("output")[0];
+const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
+const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
+console.log(DATABASE_ADMIN_BRANCH);
+
+FIREBASE_AUTHENTICATION.signOut().then(
+  function(error)
+  {
+    console.log(error);
+  }
+);
 
 SUBMIT_BUTTON.addEventListener("click",
   function()
   {
-    var username_input = convert_username_to_dummy_email(USERNAME_INPUT_FIELD.value);
+    var username_input = USERNAME_INPUT_FIELD.value;
     var password_input = PASSWORD_INPUT_FIELD.value;
-    var sign_in = AUTHENTICATION.signInWithEmailAndPassword(username_input, password_input);
-    sign_in.catch(
+    FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).catch(
       function(incorrect_credentials)
       {
         incorrect_credentials_message.id = "show";
-      });
+      }
+    );
+  }
+);
 
-    AUTHENTICATION.onAuthStateChanged(
-      function(JTIC_user)
-      {
-        if(JTIC_user)
-        {
-          console.log(JTIC_user);
-          //DATABASE.child("Users/Students").set("none");
-          //DATABASE.child("Users/Administrators/" + JTIC_user.uid + "/Account Type").set("Administrator");
-          //DATABASE.child("Users/Administrators/" + JTIC_user.uid + "/Name").set("Matthew Aguiar");
-          var JTIC_user_data = DATABASE.child("Users");
-          JTIC_user_data.on("value", function(firebase_data_object){
-            var user_data = firebase_data_object.val();
-            //console.log(user_data["Administrators"][JTIC_user.uid]["Account Type"]);
-            if(user_data["Students"][JTIC_user.uid] !== undefined)
-            {
-              document.location.href = "student_portfolio.html";
-            }
-            else
-            {
-              document.location.href = "admin.html";
-            }
-            //console.log(user_data);
-          });
-          //document.location.href = "student_portfolio.html";
-        }
-        else
-        {
-          console.log("Not logged in!");
-        }
+FIREBASE_AUTHENTICATION.onAuthStateChanged(
+  function(JTIC_user)
+  {
+    if(JTIC_user)
+    {
+      //console.log(JTIC_user);
+      var JTIC_user_data = FIREBASE_DATABASE.child("Users");
+      JTIC_user_data.on("value", function(firebase_data_object){
+        var user_data = firebase_data_object.val();
+          window.localStorage.setItem("Username", username_input);
+          window.localStorage.setItem("Password", password_input);
+          document.location.href = "admin.html";
       });
-  });
+    }
+    else
+    {
+      console.log("Not logged in!");
+    }
+  }
+);

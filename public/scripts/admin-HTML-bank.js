@@ -24,8 +24,13 @@ var new_class_form =
   <fieldset id = "add-class-form-content" class = "border-color-and-radius">
     <legend>New Class</legend>
     <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
-      <legend class = "bold-heading">Add Students:</legend>
+      <legend class = "bold-heading">Class Setup</legend>
       <div class = "SUB-fieldset-content">
+        <div>
+          <label class = "small-label-format" for = "class-name">Class Name:</label>
+          <input class = "input-half-width input-height-and-font"  id = "class-name" type = "text">
+          <span style = "display: block;" id = "class-name-warning" class = "name-warning warning-message">Please enter a class name.</span>
+        </div>
         <div class = "choose-class-type">
           <h6 class = "small-label-format">Class Type:</h6>
           <div class = "course-type-flexbox border-color-and-radius">
@@ -48,6 +53,11 @@ var new_class_form =
           </div>
           <span style = "display: block;" id = "class-type-warning" class = "warning-message">Please choose one class.</span>
         </div>
+      </div>
+    </fieldset>
+    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
+      <legend class = "bold-heading">Add Students:</legend>
+      <div class = "SUB-fieldset-content">
         <div class = "student-add-container">
           <div id = "students-box">
 
@@ -90,7 +100,7 @@ var add_student_mini_field =
     <div class = "student-activate-input-box" style = "margin-top: 7px;">
       <label class = "small-label-format" for = "student-password">New Student Password:</label>
       <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
-      <span style = "display: block;" class = "password-warning warning-message">Please enter a <u>secure</u> password.</span>
+      <span style = "display: block;" class = "password-warning warning-message">Please enter a password.</span>
     </div>
     <button class = "confirm-student-info STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
     <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove-student remove general-button-format" type = "button" name = "remove_student">Cancel</button>

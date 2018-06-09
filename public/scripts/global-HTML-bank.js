@@ -12,20 +12,26 @@ Copyright (C) 2018 Matthew Aguiar
   JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
   It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
 */
-var help_guide =
+var message_box =
 `
 <div id = "help-guide-overlay"></div>
 <aside id = "help-guide-box">
   <div class = "color-header-container">
-    <div class = "color-strip STEM-blue-background"></div><div class = "color-strip STEM-orange-background"></div><div class = "color-strip STEM-green-background"></div><div class = "color-strip STEM-purple-background"></div>
+    <div class = "color-strip STEM-blue-background"></div><div class = "color-strip STEM-orange-background"></div><div class = "color-strip STEM-green-background"></div><div class = "color-strip STEM-pink-background"></div>
   </div>
-  <header id = "help-guide-header">
-    <img id = "notification-JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.png" alt = "">
-    <span>Jr Tech Help Guide: Student Portfolio</span>
-  </header>
-  <div id = "help-content">
-    <hr id = "help-guide-divider">
-    <p><u>Info</u>: The student portfolio is a beast!</p>
+  <div id = info-box-inner-content>
+    <header id = "help-guide-header">
+      <img id = "notification-JTIC-logo" src = "Images/Landing Page/Junior-Tech-Innovation-Center-Logo.png" alt = "">
+      <span id = "notification-name"></span>
+    </header>
+    <div id = "help-content">
+      <hr id = "help-guide-divider">
+      <p id = "notification-content"><u>Info</u>:</p>
+    </div>
+    <div id = "button-box">
+    </div>
   </div>
 </aside>
 `;
+
+//var loading bar = "<img id = 'in-progress' src = 'Images/JTIC Loading Bar/JTIC-loading-bar.gif'>";
