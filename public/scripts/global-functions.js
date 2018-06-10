@@ -20,11 +20,6 @@ function convert_username_to_dummy_email(username)
   return username_lower_case_format + "@jrtechinnovation.org";
 }
 
-function get_users_from_database(admin_users, student_users)
-{
-  
-}
-
 class Info_Box
 {
   constructor(description, content, loading_bar_bool)

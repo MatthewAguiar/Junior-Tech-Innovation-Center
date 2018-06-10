@@ -209,9 +209,9 @@ class Single_Dropdown_Menu extends Menu
 
 class Cummulative_Menu extends Menu
 {
-  constructor(menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parent_menus)
+  constructor(menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
-    super(menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parent_menus);
+    super(menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parents);
     this.current_number_of_item_boxes = 0;
     this.item_box_class = item_box_class;
     this.item_box_cancel_class = item_box_cancel_class;
@@ -312,47 +312,76 @@ class Item_Box extends Dropdown_Widget
   }
 }
 
-
-/*
 class Folder extends Dropdown_Widget
 {
-  constructor(folder_expand_handle_id, folder_collapse_handle_id, folder_body_id, folder_content_id, arrow_id)
+  constructor(expand_and_collapse_handle_id, folder_body_id, folder_content, array_of_parents)
   {
-    super(folder_expand_handle_id, folder_collapse_handle_id, folder_body_id, folder_content_id);
-    this.arrow = $folder_handlebar.find($(arrow_id));
+    super(folder_body_id, folder_content, array_of_parents);
+    this.$folder_expand_collapse_handle = $('#' + expand_and_collapse_handle_id).find(".folder-arrow");
+    this.$folder_arrow_icon = this.$folder_expand_collapse_handle.find(".expand-arrow");
+    console.log(this);
+    this.$folder_expand_collapse_handle.on("click",
+      function()
+      {
+        if(this.expanded)
+        {
+          this.$widget_body.on("transitionend",
+            function(event)
+            {
+              if(event.target.id === this.$widget_body.attr("id"))
+              {
+                this.$widget_body.children().remove();
+                this.widget_content_show = false;
+              }
+            }.bind(this)
+          );
+        }
+        this.manage_widget_state(false, 0, false, 0, "px");
+        this.change_arrow_states();
+        console.log(this);
+      }.bind(this)
+    );
   }
 
-  transition_folder_dropdown_arrow()
+  manage_widget_state(fixed_collapse_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height, units)
   {
+    if(!this.widget_content_show && !this.expanded)
+    {
+      this.$widget_body.append(this.widget_content);
+      this.widget_content_show = true;
+    }
     if(!this.expanded)
     {
-      this.arrow.removeClass("compressed");
-      this.arrow.addClass("expanded");
+      this.$widget_body.off("transitionend");
+      this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, units, this.widget_margin_bottom);
+      if(this.array_of_parents.length > 0)
+      {
+        this.expand_parent_widgets();
+      }
+      this.expanded = true;
     }
     else
     {
-      this.arrow.removeClass("expanded");
-      this.arrow.addClass("compressed");
+      this.collapse_widget_contents(fixed_collapse_height_bool, fixed_collapsed_height, units, this.widget_margin_bottom);
+      if(this.array_of_parents.length > 0)
+      {
+        this.collapse_parent_widgets();
+      }
+      this.expanded = false;
     }
   }
-}*/
 
-/*
-class Menu_Button
-{
-  constructor(button_id)
+  change_arrow_states()
   {
-    this.button = document.getElementById(button_id);
-    this.button_jQuery_selector = "#" + button_id;
-    this.active = true;
-  }
-
-  update_button_status()
-  {
-    if(this.active === false)
+    if(this.expanded)
     {
-      $(this.button_jQuery_selector).removeClass("blue-to-green-button");
-      $(this.button_jQuery_selector).addClass("not-allowed");
+      this.$folder_arrow_icon.removeClass("compressed");
+      this.$folder_arrow_icon.addClass("expanded");
+    }
+    else
+    {
+      this.$folder_arrow_icon.removeClass("expanded");
+      this.$folder_arrow_icon.addClass("compressed");
     }
   }
-}*/
+}
