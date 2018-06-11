@@ -20,6 +20,68 @@ function convert_username_to_dummy_email(username)
   return username_lower_case_format + "@jrtechinnovation.org";
 }
 
+async function organize_all_users(admin_branch, student_branch)
+{
+  try
+  {
+    var admin_data = await get_data(admin_branch);
+    var student_data = await get_data(student_branch);
+  }
+  catch(exception)
+  {
+    alert("An error has occured: " + exception);
+    return [];
+  }
+  var users = [[],[],[]];
+  for(var admin_id in admin_data)
+  {
+    users[0].push(admin_data[admin_id]["Name"]);
+    users[1].push(admin_data[admin_id]["Account Type"]);
+    users[2].push(admin_id);
+  }
+  for(var student_id in student_data)
+  {
+    users[0].push(student_data[student_id]["Name"]);
+    users[1].push(student_data[student_id]["Account Type"]);
+    users[2].push(student_id);
+  }
+  return users;
+}
+
+function get_data(branch)
+{
+  return new Promise(
+    function(resolve, reject)
+    {
+      branch.once("value").then(
+        function(data)
+        {
+          resolve(data.val());
+        }
+      ).catch(
+        function(error)
+        {
+          reject(error);
+        }
+      );
+    }
+  );
+}
+
+function get_student_or_admin(username, user_3D_array)
+{
+  console.log(user_3D_array);
+  if(user_3D_array[0].indexOf(username) === -1)
+  {
+    return "null";
+  }
+  else
+  {
+    var index_of_admin_or_student_string = user_3D_array[0].indexOf(username);
+    return user_3D_array[1][index_of_admin_or_student_string];
+  }
+}
+
 class Info_Box
 {
   constructor(description, content, loading_bar_bool)

@@ -142,6 +142,7 @@ button.search-student{
   vertical-align: bottom;
   padding: 0px 3px;
   margin-left: 3px;
+  transition: width 750ms ease;
 }
 
 button.search-student > img{
@@ -184,7 +185,7 @@ div.student-add-container > div#number-of-students-input-box{
 }
 
 .existing-student-field-seperator{
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   border-bottom: 1px solid rgba(102, 102, 102, 0.6);
 }
 
@@ -194,7 +195,7 @@ div.student-add-container > div#number-of-students-input-box{
 }
 
 span.warning-message{
-  line-height: 16px;
+  line-height: 18px;
   font-size: 11px;
   visibility: hidden;
   color: transparent;

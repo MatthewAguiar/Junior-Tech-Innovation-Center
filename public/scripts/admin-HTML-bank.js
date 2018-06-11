@@ -88,19 +88,22 @@ var add_student_mini_field =
     <div class = "student-activate-input-box existing-student-field-seperator">
       <label class = "small-label-format" for = "student-name">Search Existing Student:</label>
       <div>
-        <input class = "input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+        <input class = "existing-student-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
         <button class = "search-student STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
+        <span style = "display: block;" class = "existing-student-warning warning-message">Student not found.</span>
       </div>
     </div>
-    <div class = "student-activate-input-box form-vertical-spacing-rule">
-      <label class = "small-label-format" for = "student-name">New Student Name:</label>
-      <input class = "student-name-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
-      <span style = "display: block;" class = "name-warning warning-message">Please enter a username.</span>
-    </div>
-    <div class = "student-activate-input-box" style = "margin-top: 7px;">
-      <label class = "small-label-format" for = "student-password">New Student Password:</label>
-      <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
-      <span style = "display: block;" class = "password-warning warning-message">Please enter a password.</span>
+    <div class = "new-student-info">
+      <div class = "student-activate-input-box form-vertical-spacing-rule">
+        <label class = "small-label-format" for = "student-name">New Student Name:</label>
+        <input class = "student-name-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+        <span style = "display: block;" class = "name-warning warning-message">Please enter a username.</span>
+      </div>
+      <div class = "student-activate-input-box" style = "margin-top: 7px;">
+        <label class = "small-label-format" for = "student-password">New Student Password:</label>
+        <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+        <span style = "display: block;" class = "password-warning warning-message">Please enter a password.</span>
+      </div>
     </div>
     <button class = "confirm-student-info STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button" name = "activate_student_profile">Add to Class</button>
     <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove-student remove general-button-format" type = "button" name = "remove_student">Cancel</button>

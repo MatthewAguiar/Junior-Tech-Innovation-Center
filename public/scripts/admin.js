@@ -88,23 +88,103 @@ class Admin_User
   {
     var box_index = this.add_student_menu.item_box_array.length - 1;
     this.add_student_menu.item_box_array[box_index].$confirm_student_button = this.add_student_menu.item_box_array[box_index].$item_box.find("button.confirm-student-info");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_field = this.add_student_menu.item_box_array[box_index].$item_box.find("input.existing-student-input");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.existing-student-warning");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_button = this.add_student_menu.item_box_array[box_index].$item_box.find("button.search-student");
+    //this.add_student_menu.item_box_array[box_index].$new_student_name_and_password_container = this.add_student_menu.item_box_array[box_index].$item_box.find("div.new-student-info");
     this.add_student_menu.item_box_array[box_index].$student_name_input_element = this.add_student_menu.item_box_array[box_index].$item_box.find("input.student-name-input");
     this.add_student_menu.item_box_array[box_index].$name_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.name-warning");
     this.add_student_menu.item_box_array[box_index].$student_password_input_element = this.add_student_menu.item_box_array[box_index].$item_box.find("input.student-password-input");
     this.add_student_menu.item_box_array[box_index].$password_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.password-warning");
+    this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials;
     this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials;
     this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials;
+    this.add_student_menu.item_box_array[box_index].existing_student_mode = false;
     this.add_student_menu.item_box_array[box_index].confirm_mode = false;
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_button.on("click",
+      function(event)
+      {
+        var box_index = this.add_student_menu.get_item_box_number($(event.target).closest("div.js-student-box").attr("id"));
+        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", true);
+        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+        this.add_student_menu.item_box_array[box_index].$student_name_input_element.val("");
+        this.add_student_menu.item_box_array[box_index].$student_password_input_element.val("");
+        if(!this.add_student_menu.item_box_array[box_index].confirm_mode)
+        {
+          var potential_student_name = this.add_student_menu.item_box_array[box_index].$search_existing_student_field.val()
+          if(potential_student_name !== "")
+          {
+            user_2D_array.then(
+              function(array)
+              {
+                var user_type = get_student_or_admin(potential_student_name, array);
+                if(user_type === "Student")
+                {
+                  this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element.text("Student '" + potential_student_name + "' found! Click 'Add to Class'.");
+                  this.add_student_menu.item_box_array[box_index].existing_student_mode = true;
+                }
+                else
+                {
+                  this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element.text("Student '" + potential_student_name + "' not found.");
+                  this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
+                }
+              }.bind(this)
+            );
+          }
+          else
+          {
+            this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element.text("Please enter an existing user.");
+            this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
+          }
+        }
+      }.bind(this)
+    );
     this.add_student_menu.item_box_array[box_index].$confirm_student_button.on("click",
       function(event)
       {
         var box_index = this.add_student_menu.get_item_box_number($(event.target).closest("div.js-student-box").attr("id"));
-        this.manage_student_box_state(box_index, false);
+        if(this.add_student_menu.item_box_array[box_index].existing_student_mode)
+        {
+          this.manage_existing_student_box_state(box_index);
+        }
+        else
+        {
+          this.manage_new_student_box_state(box_index, false);
+        }
       }.bind(this)
     );
   }
 
-  manage_student_box_state(box_index, global_proof_check_bool)
+  manage_existing_student_box_state(box_index)
+  {
+    switch(this.add_student_menu.item_box_array[box_index].confirm_mode)
+    {
+      case false:
+        var student_username = this.add_student_menu.item_box_array[box_index].$search_existing_student_field.val();
+        this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials = $("<span>" + student_username +"</span>");
+        this.add_student_menu.item_box_array[box_index].$search_existing_student_field.val("");
+        this.add_student_menu.item_box_array[box_index].$search_existing_student_field.replaceWith(this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials);
+        this.add_student_menu.item_box_array[box_index].$search_existing_student_button.css("visibility", "hidden");
+        this.add_student_menu.item_box_array[box_index].$student_name_input_element.val("").attr("disabled", true);
+        this.add_student_menu.item_box_array[box_index].$student_password_input_element.val("").attr("disabled", true);
+        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+        this.update_add_to_class_button(box_index);
+        this.add_student_menu.item_box_array[box_index].confirm_mode = true;
+        break;
+
+      case true:
+        this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials.replaceWith(this.add_student_menu.item_box_array[box_index].$search_existing_student_field);
+        this.add_student_menu.item_box_array[box_index].$search_existing_student_button.css("visibility", "visible");
+        this.add_student_menu.item_box_array[box_index].$student_name_input_element.attr("disabled", false);
+        this.add_student_menu.item_box_array[box_index].$student_password_input_element.attr("disabled", false);
+        this.update_add_to_class_button(box_index);
+        this.add_student_menu.item_box_array[box_index].confirm_mode = false;
+        this.add_student_menu.item_box_array[box_index].existing_student_mode = false;
+    }
+  }
+
+  manage_new_student_box_state(box_index, global_proof_check_bool)
   {
     switch(this.add_student_menu.item_box_array[box_index].confirm_mode)
     {
@@ -145,47 +225,52 @@ class Admin_User
             this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials = $("<span>" + student_password + "</span>");
             this.add_student_menu.item_box_array[box_index].$student_name_input_element.replaceWith(this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials);
             this.add_student_menu.item_box_array[box_index].$student_password_input_element.replaceWith(this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials);
-            this.add_student_menu.item_box_array[box_index].$confirm_student_button.removeClass("STEM-blue-background").removeClass("blue-to-green-button");
-            this.add_student_menu.item_box_array[box_index].$confirm_student_button.addClass("STEM-pink-background").addClass("pink-to-orange-button");
-            var width_to_keep = this.add_student_menu.item_box_array[box_index].$confirm_student_button.css("width");
-            this.add_student_menu.item_box_array[box_index].$confirm_student_button.text("Edit");
-            this.add_student_menu.item_box_array[box_index].$confirm_student_button.css("width", width_to_keep);
+            this.add_student_menu.item_box_array[box_index].$search_existing_student_field.val("").attr("disabled", true);
+            this.add_student_menu.item_box_array[box_index].$search_existing_student_button.removeClass("blue-to-green-button");
+            this.add_student_menu.item_box_array[box_index].$search_existing_student_button.addClass("not-allowed");
+            this.update_add_to_class_button(box_index);
             this.add_student_menu.item_box_array[box_index].confirm_mode = true;
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && !student_username_valid_characters && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Invalid character: ' " + invalid_username_character + " '");
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
           this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && !student_username_valid_characters && student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Invalid character: ' " + invalid_username_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && student_username_valid_characters && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && student_password_required_length && student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Please enter a username.");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && student_password_required_length && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Please enter a username.");
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && !student_password_required_length && student_username_valid_characters)
         {
@@ -197,8 +282,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && !student_password_required_length && !student_username_valid_characters)
         {
@@ -211,8 +297,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && !student_password_required_length)
         {
@@ -225,8 +312,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         break;
 
@@ -235,20 +323,39 @@ class Admin_User
         {
           this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials.replaceWith(this.add_student_menu.item_box_array[box_index].$student_name_input_element);
           this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials.replaceWith(this.add_student_menu.item_box_array[box_index].$student_password_input_element);
-          this.add_student_menu.item_box_array[box_index].$confirm_student_button.removeClass("STEM-pink-background").removeClass("pink-to-orange-button");
-          this.add_student_menu.item_box_array[box_index].$confirm_student_button.addClass("STEM-blue-background").addClass("blue-to-green-button");
-          this.add_student_menu.item_box_array[box_index].$confirm_student_button.text("Add to Class");
+          this.add_student_menu.item_box_array[box_index].$search_existing_student_field.attr("disabled", false);
+          this.add_student_menu.item_box_array[box_index].$search_existing_student_button.removeClass("not-allowed");
+          this.add_student_menu.item_box_array[box_index].$search_existing_student_button.addClass("blue-to-green-button");
+          this.update_add_to_class_button(box_index);
           this.add_student_menu.item_box_array[box_index].confirm_mode = false;
         }
     }
   }
 
-  transition_error_messages($message_object, show_bool)
+  update_add_to_class_button(box_index)
+  {
+    if(!this.add_student_menu.item_box_array[box_index].confirm_mode)
+    {
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.removeClass("STEM-blue-background").removeClass("blue-to-green-button");
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.addClass("STEM-pink-background").addClass("pink-to-orange-button");
+      var width_to_keep = this.add_student_menu.item_box_array[box_index].$confirm_student_button.css("width");
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.text("Edit");
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.css("width", width_to_keep);
+    }
+    else
+    {
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.removeClass("STEM-pink-background").removeClass("pink-to-orange-button");
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.addClass("STEM-blue-background").addClass("blue-to-green-button");
+      this.add_student_menu.item_box_array[box_index].$confirm_student_button.text("Add to Class");
+    }
+  }
+
+  transition_error_messages($message_object, color, show_bool)
   {
     if(show_bool)
     {
       $message_object.off("transitionend");
-      $message_object.css("visibility", "visible").css("color", "red");
+      $message_object.css("visibility", "visible").css("color", color);
     }
     else
     {
@@ -278,103 +385,146 @@ class Admin_User
 
   proof_check_class_menu()
   {
-    var class_name_complete = false;
-    var class_type_complete = false;
-    var student_credentials_complete = true;
-    var i = 0;
-    while(i < this.add_class_menu.radio_button_array.length)
-    {
-      if(this.add_class_menu.radio_button_array[i].is(":checked"))
+    var classes_data = get_data(FIREBASE_DATABASE.child("Users/Students"));
+    return classes_data.then(
+      function(classes)
       {
-        class_type_complete = true;
-      }
-      i++;
-    }
-    if(this.add_class_menu.$class_name_element.val() === "")
-    {
-      this.transition_error_messages(this.add_class_menu.$class_name_error, true);
-    }
-    else
-    {
-      class_name_complete = true;
-      this.transition_error_messages(this.add_class_menu.$class_name_error, false);
-    }
-    if(!class_type_complete)
-    {
-      this.transition_error_messages(this.add_class_menu.$class_type_error, true);
-    }
-    else
-    {
-      this.transition_error_messages(this.add_class_menu.$class_type_error, false);
-    }
-    i = 0;
-    if(this.add_student_menu.item_box_array.length > 0)
-    {
-      while(i < this.add_student_menu.item_box_array.length)
-      {
-        if(!this.add_student_menu.item_box_array[i].confirm_mode)
+        var class_already_exists = false;
+        var class_name_filled = false;
+        var class_type_complete = false;
+        var student_credentials_complete = true;
+        if(this.add_class_menu.$class_name_element.val() === "")
         {
-          for(let j = i; j < this.add_student_menu.item_box_array.length; j++)
-          {
-            this.manage_student_box_state(j, true);
-          }
-          student_credentials_complete = false;
-          break
+          this.add_class_menu.$class_name_error.text("Please enter a class name.");
+          this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
         }
-        i++;
-      }
-    }
-    else
-    {
-      student_credentials_complete = false;
-    }
-    if(!class_type_complete || !student_credentials_complete || !class_name_complete)
-    {
-      this.transition_error_messages(this.add_class_menu.$general_credentials_error, true);
-      return false;
-    }
-    else
-    {
-      return true;
-    }
+        else
+        {
+          class_name_filled = true;
+          for(var class_name in classes)
+          {
+            if(class_name === this.add_class_menu.$class_name_element.val() && this.add_class_menu.$class_name_element.val() !== "All Students")
+            {
+              this.add_class_menu.$class_name_error.text("The class: '" + class_name + "' already exists.");
+              this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+              class_already_exists = true;
+            }
+            else if(this.add_class_menu.$class_name_element.val() === "All Students")
+            {
+              this.add_class_menu.$class_name_element.val("");
+              this.add_class_menu.$class_name_error.text("Please enter a class name.");
+              this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+              class_already_exists = true;
+            }
+          }
+          if(!class_already_exists)
+          {
+            this.transition_error_messages(this.add_class_menu.$class_name_error, "red", false);
+          }
+        }
+        var i = 0;
+        while(i < this.add_class_menu.radio_button_array.length)
+        {
+          if(this.add_class_menu.radio_button_array[i].is(":checked"))
+          {
+            class_type_complete = true;
+          }
+          i++;
+        }
+        if(!class_type_complete)
+        {
+          this.transition_error_messages(this.add_class_menu.$class_type_error, "red", true);
+        }
+        else
+        {
+          this.transition_error_messages(this.add_class_menu.$class_type_error, "red", false);
+        }
+        i = 0;
+        if(this.add_student_menu.item_box_array.length > 0)
+        {
+          while(i < this.add_student_menu.item_box_array.length)
+          {
+            if(!this.add_student_menu.item_box_array[i].confirm_mode)
+            {
+              for(let j = i; j < this.add_student_menu.item_box_array.length; j++)
+              {
+                this.manage_new_student_box_state(j, true);
+              }
+              student_credentials_complete = false;
+              break
+            }
+            i++;
+          }
+        }
+        else
+        {
+          student_credentials_complete = false;
+        }
+        if(!class_type_complete || !student_credentials_complete || !class_name_filled || !class_already_exists)
+        {
+          this.transition_error_messages(this.add_class_menu.$general_credentials_error, "red", true);
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      }.bind(this)
+    );
   }
 
   setup_student(box_index, class_type, notification_box)
   {
     //NOTE: Always keep an eye on what is occuring in .onAuthStateChanged() in main code! See order of events here:
     FIREBASE_AUTHENTICATION.signOut(); //1) User is signed out first and the auth state is changed! See the .onAuthStateChanged() in the main code.
+    var class_name = this.add_class_menu.$class_name_element.val();
     if(box_index < this.add_student_menu.item_box_array.length)
     {
-      var class_name = this.add_class_menu.$class_name_element.val();
-      var username = this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials.text();
-      var password = this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials.text();
-      FIREBASE_AUTHENTICATION.createUserWithEmailAndPassword(convert_username_to_dummy_email(username), password).then( //2) Next a student is created with username and password.
-        function()
-        {
-          //alert("CREATE ACCOUNT");
-          FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username), password).then( //3) User is signed in after account is fully created.
-            function()
-            {
-              //alert("SIGN IN");
-              //console.log("BOX INDEX:" + box_index.toString());
-              this.populate_new_student_database(class_name, FIREBASE_AUTHENTICATION.currentUser.uid, username, class_type);
-              this.setup_student(box_index + 1, class_type, notification_box);
-            }.bind(this)
-          ).catch(
-            function(error)
-            {
-              alert("An error has occured.");
-              console.log(error);
-            }
-          );
-        }.bind(this)
-      ).catch(
-        function(error)
-        {
-          alert("An error has occured. This account already exists!");
-          console.log(error);
-        }
-      );
+      if(!this.add_student_menu.item_box_array[box_index].existing_student_mode)
+      {
+        var username = this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials.text();
+        var password = this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials.text();
+        FIREBASE_AUTHENTICATION.createUserWithEmailAndPassword(convert_username_to_dummy_email(username), password).then( //2) Next a student is created with username and password.
+          function()
+          {
+            //alert("CREATE ACCOUNT");
+            FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username), password).then( //3) User is signed in after account is fully created.
+              function()
+              {
+                //alert("SIGN IN");
+                //console.log("BOX INDEX:" + box_index.toString());
+                this.populate_new_student_database(FIREBASE_AUTHENTICATION.currentUser.uid, username, class_name, class_type);
+                this.setup_student(box_index + 1, class_type, notification_box);
+              }.bind(this)
+            ).catch(
+              function(error)
+              {
+                alert("An error has occured.");
+                console.log(error);
+              }
+            );
+          }.bind(this)
+        ).catch(
+          function(error)
+          {
+            alert("An error has occured. This account already exists!");
+            console.log(error);
+          }
+        );
+      }
+      else
+      {
+        user_2D_array.then(
+          function(array)
+          {
+            var username = this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials.text();
+            var index_of_username = array[0].indexOf(username);
+            var student_id_to_add = array[2][index_of_username]
+            this.add_existing_student_to_new_class(student_id_to_add, username, class_name, class_type);
+            this.setup_student(box_index + 1, class_type, notification_box);
+          }.bind(this)
+        );
+      }
     }
     else
     {
@@ -417,12 +567,43 @@ class Admin_User
     }
   }
 
-  populate_new_student_database(class_name, new_student_id, username, class_type)
+  populate_new_student_database(new_student_id, username, class_name, class_type)
   {
-    var class_database_reference = FIREBASE_DATABASE.child("Users/Students/" + class_name + "/" + new_student_id);
-    class_database_reference.child("Account Type").set("Student");
-    class_database_reference.child("Name").set(username);
-    class_database_reference.child("Classes/1").set(class_type);
+    var student_database_reference = FIREBASE_DATABASE.child("Users/Students");
+    student_database_reference.child(class_name + "/" + new_student_id).set(username);
+    var student_id_reference = student_database_reference.child("All Students/" + new_student_id);
+    student_id_reference.child("Account Type").set("Student");
+    student_id_reference.child("Name").set(username);
+    student_id_reference.child("Classes/1").set(class_type);
+  }
+
+  add_existing_student_to_new_class(student_id, username, class_name, class_type)
+  {
+    var student_database_reference = FIREBASE_DATABASE.child("Users/Students");
+    student_database_reference.child(class_name + "/" + student_id).set(username);
+    var student_classes_reference = student_database_reference.child("All Students/" + student_id + "/Classes");
+    var student_data = get_data(student_classes_reference);
+    student_data.then(
+      function(classes)
+      {
+        for(var class_number in classes)
+        {
+          //console.log(class_number);
+          var new_class_number = (parseInt(class_number) + 1).toString();
+          if(classes[class_number] !== class_type)
+          {
+            if(classes[new_class_number] === undefined)
+            {
+              student_classes_reference.child(new_class_number).set(class_type);
+            }
+          }
+          else
+          {
+            break;
+          }
+        }
+      }
+    );
   }
 }
 /*
@@ -432,6 +613,9 @@ class Admin_User
 */
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
+const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
+const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students/All Students");
+var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH);
 var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form],
                            ["add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field]);
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
