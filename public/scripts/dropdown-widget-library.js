@@ -139,9 +139,9 @@ class Menu extends Dropdown_Widget
 
 class Single_Dropdown_Menu extends Menu
 {
-  constructor(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parent_menus)
+  constructor(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parents)
   {
-    super(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parent_menus);
+    super(menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content, array_of_parents);
     this.$menu_expand_handle.on("click",
       function()
       {

@@ -14,13 +14,24 @@ Copyright (C) 2018 Matthew Aguiar
 */
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- TODO ---------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ GAMEMAKER FOLDER CONTENT -----------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-var project_list_content =
+var gamemaker_folder =
+`
+<li id = "gamemaker-folder" class = "root-folder-selector">
+  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
+  <ul style = "margin-bottom: 15px;" id = "gamemaker-student-projects-folder" class = "list-content">
+
+  </ul>
+  <hr class = "folder-divider">
+</li>
+`;
+
+var gamemaker_project_folder_content =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
@@ -30,31 +41,207 @@ var project_list_content =
     <span>Download Project</span>
   </a>
 </li>
-<li>
-  <form class = "form-vertical-spacing-rule sub-console-content-vertical-spacing">
-    <fieldset class = "border-color-and-radius">
-      <legend>New Project</legend>
-      <div id = "new-project-form-content">
-        <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-        <textarea id = "project-add-textarea" name = "name"></textarea>
-        <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-        <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
-            <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
-            <span>Upload Project</span>
-        </label>
-      </div>
-    </fieldset>
-  </form>
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-gamemaker-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var gamemaker_add_project_menu_content =
+`
+<form class = "sub-console-content-vertical-spacing">
+  <fieldset class = "border-color-and-radius">
+    <legend>New Project</legend>
+    <div class = "new-project-form-content">
+      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+      <textarea class = "project-add-textarea" name = "name"></textarea>
+      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+          <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+          <span>Upload Project</span>
+      </label>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-gamemaker-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+    </div>
+  </fieldset>
+</form>
+`;
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ PYTHON FOLDER CONTENT --------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+var python_folder =
+`
+<li id = "python-folder" class = "root-folder-selector">
+  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Python/python-logo.png" alt=""><span>Python</span></h4>
+  <ul style = "margin-bottom: 15px;" id = "python-student-projects-folder" class = "list-content">
+
+  </ul>
+  <hr class = "folder-divider">
 </li>
 `;
 
+var python_project_folder_content =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/Python/python-logo.png" alt = "">
+  <div class = "data-box-info">
+    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  </div>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
+</li>
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-python-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-python-project-menu" class = "project-menu">
 
-//STUDENT
+</li>
+<hr class = "folder-divider">
+`;
 
+var python_add_project_menu_content =
+`
+<form class = "sub-console-content-vertical-spacing">
+  <fieldset class = "border-color-and-radius">
+    <legend>New Project</legend>
+    <div class = "new-project-form-content">
+      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+      <textarea class = "project-add-textarea" name = "name"></textarea>
+      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+          <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+          <span>Upload Project</span>
+      </label>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-python-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+    </div>
+  </fieldset>
+</form>
+`;
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ C++ FOLDER CONTENT -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+var cpp_folder =
+`
+<li id = "cpp-folder" class = "root-folder-selector">
+  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""><span>C++</span></h4>
+  <ul style = "margin-bottom: 15px;" id = "cpp-student-projects-folder" class = "list-content">
+
+  </ul>
+  <hr class = "folder-divider">
+</li>
+`;
+
+var cpp_project_folder_content =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/C++/cpp-logo.png" alt = "">
+  <div class = "data-box-info">
+    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  </div>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
+</li>
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-cpp-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-cpp-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var cpp_add_project_menu_content =
+`
+<form class = "sub-console-content-vertical-spacing">
+  <fieldset class = "border-color-and-radius">
+    <legend>New Project</legend>
+    <div class = "new-project-form-content">
+      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+      <textarea class = "project-add-textarea" name = "name"></textarea>
+      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+          <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+          <span>Upload Project</span>
+      </label>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-cpp-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+    </div>
+  </fieldset>
+</form>
+`;
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ADOBE ANIMATE FOLDER CONTENT -------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+var adobe_animate_folder =
+`
+<li id = "adobe-animate-folder" class = "root-folder-selector">
+  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Adobe/adobe-animate.png" alt=""><span>Adobe Animate</span></h4>
+  <ul style = "margin-bottom: 15px;" id = "adobe-animate-student-projects-folder" class = "list-content">
+
+  </ul>
+  <hr class = "folder-divider">
+</li>
+`;
+
+var adobe_animate_project_folder_content =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/Adobe/adobe-animate.png" alt = "">
+  <div class = "data-box-info">
+    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  </div>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
+</li>
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-adobe-animate-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-adobe-animate-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var adobe_animate_add_project_menu_content =
+`
+<form class = "sub-console-content-vertical-spacing">
+  <fieldset class = "border-color-and-radius">
+    <legend>New Project</legend>
+    <div class = "new-project-form-content">
+      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
+      <textarea class = "project-add-textarea" name = "name"></textarea>
+      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+          <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+          <span>Upload Project</span>
+      </label>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-adobe-animate-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+    </div>
+  </fieldset>
+</form>
+`;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var student_project_item =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+  <img class = "project-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
@@ -85,7 +272,7 @@ var student_project_item =
 var html_5_game_item =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "gamemaker-thumbnail" src = "Images/Flippy the Penguin Idle Sprite.png" alt = "">
+  <img class = "project-thumbnail" src = "Images/Flippy the Penguin Idle Sprite.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Title: <u>Flippy the Penguin</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
@@ -96,7 +283,7 @@ var html_5_game_item =
   </a>
 </li>
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "gamemaker-thumbnail" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt = "">
+  <img class = "project-thumbnail" src = "https://pre00.deviantart.net/b061/th/pre/f/2016/028/d/f/vector_icon_classic_sonic_set4_by_nibroc_rock-d9pordj.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Title: <u>Sonic Unleashed</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2100</h6>
@@ -124,7 +311,7 @@ var holder =
           <h4 id = "class2018" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt=""><span>GameMaker-Studio: February 20<sup>th</sup> - 23<sup>rd</sup></span></h4>
           <ul class = "list-content">
             <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-              <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+              <img class = "project-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
               <div class = "data-box-info">
                 <div class = "student-stat-box">
                   <h6 class = " pointer-mouse-type">Name:</h6>
@@ -141,7 +328,7 @@ var holder =
               </div>
             </li>
             <li class = "folder-item folder-item-clicked hover-shade-dark-tan pointer-mouse-type">
-              <img class = "gamemaker-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
+              <img class = "project-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
               <div class = "data-box-info">
                 <div class = "student-stat-box">
                   <h6 class = " pointer-mouse-type">Name:</h6>

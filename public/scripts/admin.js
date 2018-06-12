@@ -369,9 +369,9 @@ class Admin_User
     }
   }
 
-  collect_student_credentials()
+  async collect_student_credentials()
   {
-    var valid = this.proof_check_class_menu();
+    var valid = await this.proof_check_class_menu();
     if(valid)
     {
       var i = 0;
@@ -381,96 +381,92 @@ class Admin_User
       var processing_students_notification = new Info_Box("Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Please wait...", true);
       this.setup_student(i, class_type, processing_students_notification);
     }
+    console.log(valid);
   }
 
-  proof_check_class_menu()
+  async proof_check_class_menu()
   {
-    var classes_data = get_data(FIREBASE_DATABASE.child("Users/Students"));
-    return classes_data.then(
-      function(classes)
+    var classes_data = await get_data(FIREBASE_DATABASE.child("Users/Students"));
+    var class_already_exists = false;
+    var class_name_filled = false;
+    var class_type_complete = false;
+    var student_credentials_complete = true;
+    if(this.add_class_menu.$class_name_element.val() === "")
+    {
+      this.add_class_menu.$class_name_error.text("Please enter a class name.");
+      this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+    }
+    else
+    {
+      class_name_filled = true;
+      for(var class_name in classes_data)
       {
-        var class_already_exists = false;
-        var class_name_filled = false;
-        var class_type_complete = false;
-        var student_credentials_complete = true;
-        if(this.add_class_menu.$class_name_element.val() === "")
+        if(class_name === this.add_class_menu.$class_name_element.val() && this.add_class_menu.$class_name_element.val() !== "All Students")
         {
+          this.add_class_menu.$class_name_error.text("The class: '" + class_name + "' already exists.");
+          this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+          class_already_exists = true;
+        }
+        else if(this.add_class_menu.$class_name_element.val() === "All Students")
+        {
+          this.add_class_menu.$class_name_element.val("");
           this.add_class_menu.$class_name_error.text("Please enter a class name.");
           this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+          class_already_exists = true;
         }
-        else
+      }
+      if(!class_already_exists)
+      {
+        this.transition_error_messages(this.add_class_menu.$class_name_error, "red", false);
+      }
+    }
+    var i = 0;
+    while(i < this.add_class_menu.radio_button_array.length)
+    {
+      if(this.add_class_menu.radio_button_array[i].is(":checked"))
+      {
+        class_type_complete = true;
+      }
+      i++;
+    }
+    if(!class_type_complete)
+    {
+      this.transition_error_messages(this.add_class_menu.$class_type_error, "red", true);
+    }
+    else
+    {
+      this.transition_error_messages(this.add_class_menu.$class_type_error, "red", false);
+    }
+    i = 0;
+    if(this.add_student_menu.item_box_array.length > 0)
+    {
+      while(i < this.add_student_menu.item_box_array.length)
+      {
+        if(!this.add_student_menu.item_box_array[i].confirm_mode)
         {
-          class_name_filled = true;
-          for(var class_name in classes)
+          for(let j = i; j < this.add_student_menu.item_box_array.length; j++)
           {
-            if(class_name === this.add_class_menu.$class_name_element.val() && this.add_class_menu.$class_name_element.val() !== "All Students")
-            {
-              this.add_class_menu.$class_name_error.text("The class: '" + class_name + "' already exists.");
-              this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
-              class_already_exists = true;
-            }
-            else if(this.add_class_menu.$class_name_element.val() === "All Students")
-            {
-              this.add_class_menu.$class_name_element.val("");
-              this.add_class_menu.$class_name_error.text("Please enter a class name.");
-              this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
-              class_already_exists = true;
-            }
+            this.manage_new_student_box_state(j, true);
           }
-          if(!class_already_exists)
-          {
-            this.transition_error_messages(this.add_class_menu.$class_name_error, "red", false);
-          }
-        }
-        var i = 0;
-        while(i < this.add_class_menu.radio_button_array.length)
-        {
-          if(this.add_class_menu.radio_button_array[i].is(":checked"))
-          {
-            class_type_complete = true;
-          }
-          i++;
-        }
-        if(!class_type_complete)
-        {
-          this.transition_error_messages(this.add_class_menu.$class_type_error, "red", true);
-        }
-        else
-        {
-          this.transition_error_messages(this.add_class_menu.$class_type_error, "red", false);
-        }
-        i = 0;
-        if(this.add_student_menu.item_box_array.length > 0)
-        {
-          while(i < this.add_student_menu.item_box_array.length)
-          {
-            if(!this.add_student_menu.item_box_array[i].confirm_mode)
-            {
-              for(let j = i; j < this.add_student_menu.item_box_array.length; j++)
-              {
-                this.manage_new_student_box_state(j, true);
-              }
-              student_credentials_complete = false;
-              break
-            }
-            i++;
-          }
-        }
-        else
-        {
           student_credentials_complete = false;
+          break
         }
-        if(!class_type_complete || !student_credentials_complete || !class_name_filled || !class_already_exists)
-        {
-          this.transition_error_messages(this.add_class_menu.$general_credentials_error, "red", true);
-          return false;
-        }
-        else
-        {
-          return true;
-        }
-      }.bind(this)
-    );
+        i++;
+      }
+    }
+    else
+    {
+      student_credentials_complete = false;
+    }
+    if(!class_type_complete || !student_credentials_complete || !class_name_filled || class_already_exists)
+    {
+      this.transition_error_messages(this.add_class_menu.$general_credentials_error, "red", true);
+      return false;
+    }
+    else
+    {
+      return true;
+    }
   }
 
   setup_student(box_index, class_type, notification_box)
@@ -574,7 +570,7 @@ class Admin_User
     var student_id_reference = student_database_reference.child("All Students/" + new_student_id);
     student_id_reference.child("Account Type").set("Student");
     student_id_reference.child("Name").set(username);
-    student_id_reference.child("Classes/1").set(class_type);
+    student_id_reference.child("Classes/0").set(class_type);
   }
 
   add_existing_student_to_new_class(student_id, username, class_name, class_type)
@@ -614,8 +610,8 @@ class Admin_User
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
-const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students/All Students");
-var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH);
+const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
+var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH.child("All Students"));
 var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form],
                            ["add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field]);
 FIREBASE_AUTHENTICATION.onAuthStateChanged(

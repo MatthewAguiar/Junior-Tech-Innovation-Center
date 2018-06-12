@@ -47,8 +47,8 @@ var new_class_form =
               <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type">
             </div>
             <div>
-              <label class = "inline-label" for = "adobe-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe-animate.jpg" alt=""></label>
-              <input class = "inline-checkbox" id = "adobe-student" type = "radio" name = "course_type">
+              <label class = "inline-label" for = "adobe-animate-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe-animate.jpg" alt=""></label>
+              <input class = "inline-checkbox" id = "adobe-animate-student" type = "radio" name = "course_type">
             </div>
           </div>
           <span style = "display: block;" id = "class-type-warning" class = "warning-message">Please choose one class.</span>

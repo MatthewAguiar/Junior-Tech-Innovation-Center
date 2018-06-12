@@ -33,15 +33,30 @@ li.folder-item > div.data-box-info{
   margin-left: 4px;
 }
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form div#new-project-form-content{
+form div.new-project-form-content{
   /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
 }
 
-form div#new-project-form-content > textarea#project-add-textarea{
+form div.new-project-form-content > textarea.project-add-textarea{
   /*Re-adjust the textarea in the "New Project" form and set a height for it.*/
   height: 100px;
+}
+
+li.new-project-add{
+  margin: 15px 0px;
+}
+
+li.project-menu{
+  height: 0px;
+  transition: height 750ms ease;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+li.root-folder-selector{
+  margin-bottom: 30px;
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

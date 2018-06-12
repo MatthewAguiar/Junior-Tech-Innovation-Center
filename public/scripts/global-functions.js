@@ -68,17 +68,17 @@ function get_data(branch)
   );
 }
 
-function get_student_or_admin(username, user_3D_array)
+function get_student_or_admin(username, user_2D_array)
 {
-  console.log(user_3D_array);
-  if(user_3D_array[0].indexOf(username) === -1)
+  console.log(user_2D_array);
+  if(user_2D_array[0].indexOf(username) === -1)
   {
     return "null";
   }
   else
   {
-    var index_of_admin_or_student_string = user_3D_array[0].indexOf(username);
-    return user_3D_array[1][index_of_admin_or_student_string];
+    var index_of_admin_or_student_string = user_2D_array[0].indexOf(username);
+    return user_2D_array[1][index_of_admin_or_student_string];
   }
 }
 

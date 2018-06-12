@@ -51,6 +51,7 @@ SUBMIT_BUTTON.addEventListener("click",
       {
         console.log(array);
         user_type = get_student_or_admin(username_input, array);
+        console.log(user_type);
         if(user_type !== "null")
         {
           FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).catch(

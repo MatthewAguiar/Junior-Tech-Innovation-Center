@@ -187,7 +187,7 @@ button.remove:active{
   background-color: rgb(220, 0, 0);
 }
 
-ul.master-list{
+ul#master-project-list, ul#master-game-list{
   margin-bottom: 20px;
 }
 
@@ -253,7 +253,7 @@ li.folder-item:first-child{
   border-top: none;
 }
 
-li.folder-item > img.gamemaker-thumbnail{
+li.folder-item > img.project-thumbnail{
   /*Make the image icon inside of student boxes small and space them from the left of the box.*/
   width: 9%;
   height: auto;
