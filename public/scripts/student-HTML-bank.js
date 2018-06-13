@@ -30,6 +30,17 @@ var gamemaker_folder =
 
 var gamemaker_project_folder_content =
 `
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-gamemaker-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var gamemaker_project_download_box =
+`
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
   <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
@@ -41,13 +52,6 @@ var gamemaker_project_folder_content =
     <span>Download Project</span>
   </a>
 </li>
-<li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-gamemaker-project-menu" class = "project-menu">
-</li>
-<hr class = "folder-divider">
 `;
 
 var gamemaker_add_project_menu_content =
@@ -58,8 +62,9 @@ var gamemaker_add_project_menu_content =
     <div class = "new-project-form-content">
       <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
       <textarea class = "project-add-textarea" name = "name"></textarea>
-      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+      <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
+      <input class = "real-file-upload-hide" id = "gamemaker-upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "gamemaker-upload-button-selector">
           <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
           <span>Upload Project</span>
       </label>
@@ -86,17 +91,6 @@ var python_folder =
 
 var python_project_folder_content =
 `
-<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/Python/python-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-  </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
-</li>
 <li class = "new-project-add">
   <h6 class = "small-label-format">New Project:</h6>
   <button id = "add-python-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
@@ -107,6 +101,21 @@ var python_project_folder_content =
 <hr class = "folder-divider">
 `;
 
+var python_project_download_box =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
+  <div class = "data-box-info">
+    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  </div>
+  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+    <span>Download Project</span>
+  </a>
+</li>
+`;
+
 var python_add_project_menu_content =
 `
 <form class = "sub-console-content-vertical-spacing">
@@ -115,8 +124,9 @@ var python_add_project_menu_content =
     <div class = "new-project-form-content">
       <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
       <textarea class = "project-add-textarea" name = "name"></textarea>
-      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+      <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
+      <input class = "real-file-upload-hide" id = "python-upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "python-upload-button-selector">
           <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
           <span>Upload Project</span>
       </label>
@@ -143,8 +153,19 @@ var cpp_folder =
 
 var cpp_project_folder_content =
 `
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-cpp-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-cpp-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var cpp_project_download_box =
+`
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/C++/cpp-logo.png" alt = "">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
@@ -154,13 +175,6 @@ var cpp_project_folder_content =
     <span>Download Project</span>
   </a>
 </li>
-<li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-cpp-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-cpp-project-menu" class = "project-menu">
-</li>
-<hr class = "folder-divider">
 `;
 
 var cpp_add_project_menu_content =
@@ -171,8 +185,9 @@ var cpp_add_project_menu_content =
     <div class = "new-project-form-content">
       <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
       <textarea class = "project-add-textarea" name = "name"></textarea>
-      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+      <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
+      <input class = "real-file-upload-hide" id = "cpp-upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "cpp-upload-button-selector">
           <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
           <span>Upload Project</span>
       </label>
@@ -199,8 +214,19 @@ var adobe_animate_folder =
 
 var adobe_animate_project_folder_content =
 `
+<li class = "new-project-add">
+  <h6 class = "small-label-format">New Project:</h6>
+  <button id = "add-adobe-animate-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+</li>
+<li id = "add-adobe-animate-project-menu" class = "project-menu">
+</li>
+<hr class = "folder-divider">
+`;
+
+var adobe_animate_project_download_box =
+`
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/Adobe/adobe-animate.png" alt = "">
+  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
   <div class = "data-box-info">
     <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
     <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
@@ -210,13 +236,6 @@ var adobe_animate_project_folder_content =
     <span>Download Project</span>
   </a>
 </li>
-<li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-adobe-animate-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-adobe-animate-project-menu" class = "project-menu">
-</li>
-<hr class = "folder-divider">
 `;
 
 var adobe_animate_add_project_menu_content =
@@ -227,8 +246,9 @@ var adobe_animate_add_project_menu_content =
     <div class = "new-project-form-content">
       <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
       <textarea class = "project-add-textarea" name = "name"></textarea>
-      <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
+      <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
+      <input class = "real-file-upload-hide" id = "adobe-animate-upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "adobe-animate-upload-button-selector">
           <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
           <span>Upload Project</span>
       </label>

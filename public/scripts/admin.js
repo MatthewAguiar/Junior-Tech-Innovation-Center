@@ -105,9 +105,9 @@ class Admin_User
       function(event)
       {
         var box_index = this.add_student_menu.get_item_box_number($(event.target).closest("div.js-student-box").attr("id"));
-        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", true);
-        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
-        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+        transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", true);
+        transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+        transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
         this.add_student_menu.item_box_array[box_index].$student_name_input_element.val("");
         this.add_student_menu.item_box_array[box_index].$student_password_input_element.val("");
         if(!this.add_student_menu.item_box_array[box_index].confirm_mode)
@@ -127,7 +127,7 @@ class Admin_User
                 else
                 {
                   this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element.text("Student '" + potential_student_name + "' not found.");
-                  this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
+                  transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
                 }
               }.bind(this)
             );
@@ -135,7 +135,7 @@ class Admin_User
           else
           {
             this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element.text("Please enter an existing user.");
-            this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
+            transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "red", true);
           }
         }
       }.bind(this)
@@ -168,7 +168,7 @@ class Admin_User
         this.add_student_menu.item_box_array[box_index].$search_existing_student_button.css("visibility", "hidden");
         this.add_student_menu.item_box_array[box_index].$student_name_input_element.val("").attr("disabled", true);
         this.add_student_menu.item_box_array[box_index].$student_password_input_element.val("").attr("disabled", true);
-        this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+        transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         this.update_add_to_class_button(box_index);
         this.add_student_menu.item_box_array[box_index].confirm_mode = true;
         break;
@@ -231,46 +231,46 @@ class Admin_User
             this.update_add_to_class_button(box_index);
             this.add_student_menu.item_box_array[box_index].confirm_mode = true;
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && !student_username_valid_characters && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Invalid character: ' " + invalid_username_character + " '");
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && !student_username_valid_characters && student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Invalid character: ' " + invalid_username_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && student_password_required_length && student_username_valid_characters && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && student_password_required_length && student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Please enter a username.");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && student_password_required_length && !student_password_valid_characters)
         {
           this.add_student_menu.item_box_array[box_index].$name_error_element.text("Please enter a username.");
           this.add_student_menu.item_box_array[box_index].$password_error_element.text("Invalid character: ' " + invalid_password_character + " '");
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && !student_password_required_length && student_username_valid_characters)
         {
@@ -282,9 +282,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(student_username_populated && !student_password_required_length && !student_username_valid_characters)
         {
@@ -297,9 +297,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         else if(!student_username_populated && !student_password_required_length)
         {
@@ -312,9 +312,9 @@ class Admin_User
           {
             this.add_student_menu.item_box_array[box_index].$password_error_element.text("Password must exceed 5 characters.");
           }
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
-          this.transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$name_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$password_error_element, "red", true);
+          transition_error_messages(this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element, "green", false);
         }
         break;
 
@@ -350,25 +350,6 @@ class Admin_User
     }
   }
 
-  transition_error_messages($message_object, color, show_bool)
-  {
-    if(show_bool)
-    {
-      $message_object.off("transitionend");
-      $message_object.css("visibility", "visible").css("color", color);
-    }
-    else
-    {
-      $message_object.css("color", "transparent");
-      $message_object.one("transitionend",
-        function(event)
-        {
-          $message_object.css("visibility", "hidden");
-        }
-      );
-    }
-  }
-
   async collect_student_credentials()
   {
     var valid = await this.proof_check_class_menu();
@@ -377,8 +358,9 @@ class Admin_User
       var i = 0;
       var class_type = document.querySelector("input[name = 'course_type']:checked").id;
       $("*").off("click");
-      $("body").prepend(message_box);
-      var processing_students_notification = new Info_Box("Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Please wait...", true);
+      var processing_students_notification = new Info_Box(
+        "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students." true, "admin.html"
+      );
       this.setup_student(i, class_type, processing_students_notification);
     }
     console.log(valid);
@@ -394,7 +376,7 @@ class Admin_User
     if(this.add_class_menu.$class_name_element.val() === "")
     {
       this.add_class_menu.$class_name_error.text("Please enter a class name.");
-      this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+      transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
     }
     else
     {
@@ -404,20 +386,20 @@ class Admin_User
         if(class_name === this.add_class_menu.$class_name_element.val() && this.add_class_menu.$class_name_element.val() !== "All Students")
         {
           this.add_class_menu.$class_name_error.text("The class: '" + class_name + "' already exists.");
-          this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+          transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
           class_already_exists = true;
         }
         else if(this.add_class_menu.$class_name_element.val() === "All Students")
         {
           this.add_class_menu.$class_name_element.val("");
           this.add_class_menu.$class_name_error.text("Please enter a class name.");
-          this.transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
+          transition_error_messages(this.add_class_menu.$class_name_error, "red", true);
           class_already_exists = true;
         }
       }
       if(!class_already_exists)
       {
-        this.transition_error_messages(this.add_class_menu.$class_name_error, "red", false);
+        transition_error_messages(this.add_class_menu.$class_name_error, "red", false);
       }
     }
     var i = 0;
@@ -431,11 +413,11 @@ class Admin_User
     }
     if(!class_type_complete)
     {
-      this.transition_error_messages(this.add_class_menu.$class_type_error, "red", true);
+      transition_error_messages(this.add_class_menu.$class_type_error, "red", true);
     }
     else
     {
-      this.transition_error_messages(this.add_class_menu.$class_type_error, "red", false);
+      transition_error_messages(this.add_class_menu.$class_type_error, "red", false);
     }
     i = 0;
     if(this.add_student_menu.item_box_array.length > 0)
@@ -460,7 +442,7 @@ class Admin_User
     }
     if(!class_type_complete || !student_credentials_complete || !class_name_filled || class_already_exists)
     {
-      this.transition_error_messages(this.add_class_menu.$general_credentials_error, "red", true);
+      transition_error_messages(this.add_class_menu.$general_credentials_error, "red", true);
       return false;
     }
     else
@@ -531,26 +513,7 @@ class Admin_User
       FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(admin_username), admin_password).then(
         function()
         {
-          notification_box.$info_box.css("transform", "translate(-50%, -50%) scale(0, 0)");
-          notification_box.$info_box.one("transitionend",
-            function(event)
-            {
-              if(event.target.id === notification_box.$info_box.attr("id"))
-              {
-                notification_box.$box_content_container.find("img#in-progress").remove();
-                notification_box.$decription_element.text("Jr Tech Notification: All done!");
-                notification_box.$content_element.text("Finished: Jr Tech has created your students.");
-                notification_box.$info_box.css("transform", "translate(-50%, -50%) scale(1, 1)");
-                notification_box.$confirm_button = notification_box.$button_container.append("<button id = 'finish' class = 'STEM-blue-background blue-to-green-button general-button-format'><img src = 'Images/JTIC-checkmark.svg'></button>");
-                notification_box.$confirm_button.on("click",
-                  function()
-                  {
-                    document.location.href = "admin.html";
-                  }
-                );
-              }
-            }
-          );
+          notification_box.firebase_mode_confirm_completion();
           //document.location.href = "admin.html";
         }
       ).catch( //5)Re-sign in as admin!

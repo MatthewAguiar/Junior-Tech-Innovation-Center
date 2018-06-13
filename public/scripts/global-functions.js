@@ -20,6 +20,25 @@ function convert_username_to_dummy_email(username)
   return username_lower_case_format + "@jrtechinnovation.org";
 }
 
+function transition_error_messages($message_object, color, show_bool)
+{
+  if(show_bool)
+  {
+    $message_object.off("transitionend");
+    $message_object.css("visibility", "visible").css("color", color);
+  }
+  else
+  {
+    $message_object.css("color", "transparent");
+    $message_object.one("transitionend",
+      function(event)
+      {
+        $message_object.css("visibility", "hidden");
+      }
+    );
+  }
+}
+
 async function organize_all_users(admin_branch, student_branch)
 {
   try
@@ -82,10 +101,56 @@ function get_student_or_admin(username, user_2D_array)
   }
 }
 
+function has_text(string)
+{
+  if(string.length === 0)
+  {
+    return false;
+  }
+  for(let i = 0; i < string.length; i++)
+  {
+    if(string[i] !== " " && string[i] !== "\t")
+    {
+      return true
+    }
+  }
+  return false;
+}
+
+function check_file_extension(file_name, allowed_file_extension_array)
+{
+  if(file_name.indexOf(".") === -1)
+  {
+    return false;
+  }
+  for(let i = 0; i < allowed_file_extension_array.length; i++)
+  {
+    var file_extension = allowed_file_extension_array[i];
+    //console.log(file_extension);
+    var extension_from_file = "";
+    for(let j = file_name.length - 1; j > 0; j--)
+    {
+      extension_from_file = file_name[j] + extension_from_file;
+      //console.log(extension_from_file);
+      if(file_name[j] === "." && extension_from_file === file_extension)
+      {
+        //console.log("TRUE");
+        return true;
+      }
+      else if(file_name[j] === ".")
+      {
+        break
+      }
+    }
+  }
+  return false;
+}
+
 class Info_Box
 {
-  constructor(description, content, loading_bar_bool)
+  constructor(description, content, firebase_mode, firebase_finished_description, firebase_finished_content, reload_bool, reload_location)
   {
+    $("body").prepend(message_box);
     this.$info_box = $("aside#help-guide-box");
     this.$background = this.$info_box.prev();
     this.$background.css("background-color");
@@ -98,9 +163,57 @@ class Info_Box
     this.$content_element.text(content);
     this.$box_content_container = this.$info_box.find("div#help-content");
     this.$button_container = this.$info_box.find("div#button-box");
-    if(loading_bar_bool)
+    this.firebase_mode = firebase_mode;
+    if(reload_bool)
     {
+      this.reload_bool = reload_bool;
+      this.reload_location = reload_location;
+    }
+    if(this.firebase_mode)
+    {
+      this.firebase_finished_description = firebase_finished_description;
+      this.firebase_finished_content = firebase_finished_content;
       this.$box_content_container.append("<img id = 'in-progress' src = 'Images/JTIC Loading Bar/JTIC-loading-bar.gif'>");
+    }
+  }
+
+  firebase_mode_confirm_completion()
+  {
+    if(this.firebase_mode)
+    {
+      this.$info_box.css("transform", "translate(-50%, -50%) scale(0, 0)");
+      this.$info_box.one("transitionend",
+        function(event)
+        {
+          if(event.target.id === this.$info_box.attr("id"))
+          {
+            this.$box_content_container.find("img#in-progress").remove();
+            this.$decription_element.text(this.firebase_finished_description);
+            this.$content_element.text(this.firebase_finished_content);
+            this.$info_box.css("transform", "translate(-50%, -50%) scale(1, 1)");
+            this.$confirm_button = this.$button_container.append("<button id = 'finish' class = 'STEM-blue-background blue-to-green-button general-button-format'><img src = 'Images/JTIC-checkmark.svg'></button>");
+            if(this.reload_bool)
+            {
+              this.$confirm_button.on("click",
+                function()
+                {
+                  document.location.href = this.reload_location;
+                }.bind(this)
+              );
+            }
+            else
+            {
+              this.$confirm_button.on("click",
+                function()
+                {
+                  this.$info_box.remove();
+                  this.$background.remove();
+                }.bind(this)
+              );
+            }
+          }
+        }.bind(this)
+      );
     }
   }
 }

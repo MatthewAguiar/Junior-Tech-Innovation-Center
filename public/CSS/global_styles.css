@@ -395,3 +395,15 @@ button#finish > img{
   width: 50%;
   height: 50%;
 }
+
+span.warning-message{
+  line-height: 18px;
+  font-size: 11px;
+  visibility: hidden;
+  color: transparent;
+  transition: color 325ms linear;
+}
+
+p#notification-content{
+  line-height: 30px;
+}

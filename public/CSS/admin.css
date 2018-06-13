@@ -194,14 +194,6 @@ div.student-add-container > div#number-of-students-input-box{
   font-weight: 700;
 }
 
-span.warning-message{
-  line-height: 18px;
-  font-size: 11px;
-  visibility: hidden;
-  color: transparent;
-  transition: color 325ms linear;
-}
-
 div.new-student-add{
   margin-top: 5px;
 }
