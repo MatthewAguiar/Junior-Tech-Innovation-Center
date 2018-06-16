@@ -48,10 +48,8 @@ li.new-project-add{
   margin: 15px 0px;
 }
 
-li.project-menu{
+div.project-menu{
   height: 0px;
-  transition: height 750ms ease;
-  overflow: hidden;
   margin-bottom: 15px;
 }
 
@@ -160,4 +158,8 @@ REVIEW: All styling rules below do the following:
 
 input.submit-html5-game{
   margin: 15px 0px;
+}
+
+div.download-box-expansion-content{
+  margin: 5px 10px 0px 10px;
 }

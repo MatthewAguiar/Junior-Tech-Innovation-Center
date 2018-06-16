@@ -21,7 +21,7 @@ var gamemaker_folder =
 `
 <li id = "gamemaker-folder" class = "root-folder-selector">
   <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
-  <ul style = "margin-bottom: 15px;" id = "gamemaker-student-projects-folder" class = "list-content">
+  <ul id = "gamemaker-student-projects-folder" class = "list-content">
 
   </ul>
   <hr class = "folder-divider">
@@ -30,28 +30,47 @@ var gamemaker_folder =
 
 var gamemaker_project_folder_content =
 `
+
 <li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  <div style = "margin-bottom: 15px;">
+    <h6 class = "small-label-format">New Project:</h6>
+    <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  </div>
+  <div id = "add-gamemaker-project-menu" class = "project-menu">
+  </div>
+  <hr class = "folder-divider">
 </li>
-<li id = "add-gamemaker-project-menu" class = "project-menu">
-</li>
-<hr class = "folder-divider">
 `;
 
 var gamemaker_project_download_box =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  <div class = "main-content">
+    <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
+    <div class = "data-box-info">
+      <h6 class = "project-name data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
+      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+    </div>
+    <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+      <span>Download Project</span>
+    </a>
   </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
 </li>
+`;
+
+var gamemaker_download_box_expansion_content =
+`
+<div class = "download-box-expansion-content">
+  <div>
+    <h6 class = "small-label-format">Project</h6>
+    <p class = "project-description-paragraph"></p>
+  </div>
+  <div class = "project-management-buttons">
+    <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format">Upload Newer Version</button>
+    <button class = "remove general-button-format">Delete</button>
+  </div>
+</div>
 `;
 
 var gamemaker_add_project_menu_content =

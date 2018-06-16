@@ -19,9 +19,9 @@ Copyright (C) 2018 Matthew Aguiar
 */
 class Admin_User
 {
-  constructor(add_class_menu_array, add_student_menu_array)
+  constructor()
   {
-    this.add_class_menu = new Single_Dropdown_Menu(add_class_menu_array[0], add_class_menu_array[1], add_class_menu_array[2], add_class_menu_array[3], []);
+    this.add_class_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
     this.add_class_menu.student_add_button_active = false;
     this.add_class_menu.$class_name_element;
     this.add_class_menu.$class_name_error;
@@ -29,10 +29,10 @@ class Admin_User
     this.add_class_menu.$class_type_error;
     this.add_class_menu.$general_credentials_error;
     this.add_student_menu;
-    this.bind_class_menu_click_events(add_student_menu_array);
+    this.bind_class_menu_click_events();
   }
 
-  bind_class_menu_click_events(add_student_menu_array)
+  bind_class_menu_click_events()
   {
     this.add_class_menu.$menu_expand_handle.on("click",
       function()
@@ -43,8 +43,9 @@ class Admin_User
           {
             this.add_class_menu.radio_button_array.push($("input:radio").eq(i));
           }
-          this.add_student_menu = new Cummulative_Menu(add_student_menu_array[0], add_student_menu_array[1], add_student_menu_array[2], add_student_menu_array[3], add_student_menu_array[4],
-                                                       add_student_menu_array[5],  [this.add_class_menu]);
+          this.add_student_menu = new Cummulative_Menu(
+            "750", "ms", "0", "ms", "px", ["750", "ms", "0", "ms", "px"], "add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
+          );
           this.add_student_menu.$menu_expand_handle.on("click",
             function()
             {
@@ -359,7 +360,7 @@ class Admin_User
       var class_type = document.querySelector("input[name = 'course_type']:checked").id;
       $("*").off("click");
       var processing_students_notification = new Info_Box(
-        "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students." true, "admin.html"
+        "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students.", true, "admin.html"
       );
       this.setup_student(i, class_type, processing_students_notification);
     }
@@ -575,8 +576,7 @@ const FIREBASE_AUTHENTICATION = firebase.auth();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH.child("All Students"));
-var admin = new Admin_User(["add-class-button", "remove-class-button", "add-class-form-container", new_class_form],
-                           ["add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field]);
+var admin = new Admin_User();
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
   function(JTIC_user)
   {

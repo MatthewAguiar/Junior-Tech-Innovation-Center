@@ -146,6 +146,27 @@ function check_file_extension(file_name, allowed_file_extension_array)
   return false;
 }
 
+function manipulate_file_extension_for_database(file_name, remove)
+{
+  if(remove)
+  {
+    return file_name.replace(/\./g, "{dot}");
+  }
+  else
+  {
+    return file_name.replace(/{dot}/g, ".");
+  }
+}
+
+function get_date(date_object)
+{
+  var month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var month = month_array[date_object.getMonth()];
+  var date = date_object.getDate();
+  var year = date_object.getFullYear();
+  return month + " " + date + ", " + year;
+}
+
 class Info_Box
 {
   constructor(description, content, firebase_mode, firebase_finished_description, firebase_finished_content, reload_bool, reload_location)

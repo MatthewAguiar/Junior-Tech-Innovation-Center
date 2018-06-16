@@ -27,6 +27,7 @@ class Student_User
                                               [gamemaker_add_project_menu_content, python_add_project_menu_content, cpp_add_project_menu_content, adobe_animate_add_project_menu_content]
                                             ];
     this.gamemaker_project_folder;
+    this.gamemaker_project_array;
     this.python_project_folder;
     this.cpp_project_folder;
     this.adobe_animate_project_folder;
@@ -42,21 +43,73 @@ class Student_User
       {
         case "gamemaker-student":
           this.$master_projects_list.append(gamemaker_folder);
-          this.gamemaker_project_folder = new Folder("gamemaker-folder", "gamemaker-student-projects-folder", gamemaker_project_folder_content, []);
-          this.gamemaker_project_folder.$folder_expand_collapse_handle.on("click",
-            function()
+          this.gamemaker_projects_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/GameMaker-Studio"));
+          this.gamemaker_folder_array_of_content = [gamemaker_project_folder_content];
+          this.gamemaker_projects_collection.then(
+            function(projects_collection)
             {
-              this.gamemaker_project_folder.add_project_menu = new Single_Dropdown_Menu("add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", gamemaker_add_project_menu_content, [this.gamemaker_project_folder]);
-              this.gamemaker_project_folder.add_project_menu.$menu_expand_handle.on("click",
+              for(var project in projects_collection)
+              {
+                this.gamemaker_folder_array_of_content.push(gamemaker_project_download_box);
+              }
+              this.gamemaker_project_folder = new Folder("750", "ms", "0", "ms", "px", "gamemaker-folder", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
+              this.gamemaker_project_folder.$folder_expand_collapse_handle.on("click",
                 function()
                 {
-                  this.setup_add_project_menu(this.gamemaker_project_folder.add_project_menu, 0, "GameMaker-Studio", [".gmz", ".yyz"]);
+                  if(!this.gamemaker_project_folder.main_code_expanded)//TODO
+                  {
+                    this.gamemaker_project_folder.clickbox_array = [];
+                    this.gamemaker_project_folder.add_project_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", [gamemaker_add_project_menu_content], [this.gamemaker_project_folder]);
+                    this.gamemaker_project_folder.add_project_menu.$menu_expand_handle.on("click",
+                      function()
+                      {
+                        this.setup_add_project_menu(this.gamemaker_project_folder.add_project_menu, 0, "GameMaker-Studio", [".gmz", ".yyz"]);
+                      }.bind(this)
+                    );
+                    var project_coutner = 0;
+                    for(var project in projects_collection)
+                    {
+                      this.gamemaker_project_folder.clickbox_array.push(
+                        new Clickbox("750", "ms", "0", "ms", "px", this.gamemaker_project_folder.$widget_body.find("li.folder-item").eq(project_coutner), gamemaker_download_box_expansion_content, "download-box-expansion-content", project_coutner, [this.gamemaker_project_folder])
+                      );
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element = this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.find(".project-name");
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$date_uploaded_element = this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.find(".date-uploaded");
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element.text("Name: " + manipulate_file_extension_for_database(project, false));
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$date_uploaded_element.text("Uploaded on: " + projects_collection[project]["Date Uploaded"]);
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element.css("text-decoration", "underline");
+                      this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.on("click",
+                        function(event)
+                        {
+                          var clickbox_index = Clickbox.get_clickbox_number($(event.target).closest(".folder-item").attr("id"));
+                          console.log(clickbox_index);
+                          if(!this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded_bool)
+                          {
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element = this.gamemaker_project_folder.clickbox_array[clickbox_index].$widget_body.find(".project-description-paragraph");
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element.text(projects_collection[project]["Description"]);
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_widget_contents(false, 0, "px", 0);
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_parent_widgets();
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded_bool = true;
+                          }
+                          else
+                          {
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].manage_main_code_expanded_bool();
+                          }
+                        }.bind(this)
+                      );
+                      project_coutner++;
+                    }
+                    this.gamemaker_project_folder.main_code_expanded_bool = true;
+                  }
+                  else
+                  {
+                    this.gamemaker_project_folder.manage_main_code_expanded_bool();
+                  }
                 }.bind(this)
               );
             }.bind(this)
           );
           break;
-
+/*
         case "python-student":
           this.$master_projects_list.append(python_folder);
           this.python_project_folder = new Folder("python-folder", "python-student-projects-folder", python_project_folder_content, []);
@@ -88,10 +141,28 @@ class Student_User
               this.adobe_animate_project_folder.add_project_menu = new Single_Dropdown_Menu("add-adobe-animate-project-button", "remove-adobe-animate-project-button", "add-adobe-animate-project-menu", adobe_animate_add_project_menu_content, [this.adobe_animate_project_folder]);
             }.bind(this)
           );
-          break;
+          break;*/
       }
     }
   }
+/*
+  async get_number_of_projects(database_path)
+  {
+    var student_data = await get_data(database_path);
+    if(student_data === null)
+    {
+      return 0;
+    }
+    else
+    {
+      var project_counter = 0;
+      for(var project in student_data)
+      {
+        project_counter++;
+      }
+      return project_counter;
+    }
+  }*/
 
   setup_add_project_menu(new_project_menu_instance, html_framework_index, class_folder_name, allowed_file_extension_array)
   {
@@ -118,20 +189,26 @@ class Student_User
         "Jr Tech Notification: Uploading Project", "Processing: Jr Tech is storing your project so you may download it later. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", true, "student.html"
       );
       console.log(upload_file_notification_box);
-      var storage_location = FIREBASE_STORAGE.ref("Students/" + this.user_id + '/' + class_folder_name + '/' + file.name);
-      var store = storage_location.put(file);
       $(window).on("beforeunload",
         function()
         {
-          return;
+          return "";
         }
       );
+      var storage_location = FIREBASE_STORAGE.ref("Students/" + this.user_id + '/Projects/' + class_folder_name + '/' + file.name);
+      var store = storage_location.put(file);
       store.then(
         function()
         {
-          $(window).off("beforeunload");
-          upload_file_notification_box.firebase_mode_confirm_completion();
-        }
+          storage_location.getDownloadURL().then(
+            function(download_link)
+            {
+              this.populate_project_database_tree(new_project_menu_instance, file["name"], download_link, class_folder_name);
+              $(window).off("beforeunload");
+              upload_file_notification_box.firebase_mode_confirm_completion();
+            }.bind(this)
+          );
+        }.bind(this)
       );
     }
     else
@@ -140,16 +217,16 @@ class Student_User
     }
   }
 
-  proof_check_new_project_form(menu_instance, file_name, allowed_file_extension_array)
+  proof_check_new_project_form(project_menu_instance, file_name, allowed_file_extension_array)
   {
-    var description_has_text = has_text(menu_instance.$description_field.val());
+    var description_has_text = has_text(project_menu_instance.$description_field.val());
     //console.log(description_has_text);
     var valid_file_extension = check_file_extension(file_name, allowed_file_extension_array);
     //console.log(valid_file_extension);
     if(!description_has_text)
     {
-      menu_instance.$error_message.text("Please add a description.");
-      transition_error_messages(menu_instance.$error_message, "red", true);
+      project_menu_instance.$error_message.text("Please add a description.");
+      transition_error_messages(project_menu_instance.$error_message, "red", true);
       return false;
     }
     else if(!valid_file_extension)
@@ -167,14 +244,27 @@ class Student_User
           error_message = error_message + ", ";
         }
       }
-      menu_instance.$error_message.text(error_message);
-      transition_error_messages(menu_instance.$error_message, "red", true);
+      project_menu_instance.$error_message.text(error_message);
+      transition_error_messages(project_menu_instance.$error_message, "red", true);
       return false;
     }
     else
     {
       return true;
     }
+  }
+
+  populate_project_database_tree(project_menu_instance, file_name, download_link, class_folder_name)
+  {
+    console.log(download_link);
+    file_name = manipulate_file_extension_for_database(file_name, true);
+    var database_project_link = "All Students/" + this.user_id + "/Projects/" + class_folder_name + "/" + file_name;
+    DATABASE_STUDENT_BRANCH.child(database_project_link + "/Date Uploaded").set(DATE);
+    DATABASE_STUDENT_BRANCH.child(database_project_link + "/Description").set(project_menu_instance.$description_field.val());
+    DATABASE_STUDENT_BRANCH.child(database_project_link + "/Storage Location").set(
+      "gs://jr-tech-innovation-center.appspot.com/Students/" + this.user_id +  "/Projects/" + class_folder_name + "/" + file_name
+    );
+    DATABASE_STUDENT_BRANCH.child(database_project_link + "/Download Link").set(download_link);
   }
 }
 
@@ -184,6 +274,8 @@ const FIREBASE_AUTHENTICATION = firebase.auth();
 const FIREBASE_STORAGE = firebase.storage();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
+const DATE = get_date(new Date());
+console.log(DATE);
 
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
   function(JTIC_user)

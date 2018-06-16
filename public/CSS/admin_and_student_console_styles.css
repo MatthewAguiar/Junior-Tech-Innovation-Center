@@ -223,9 +223,7 @@ ul.list-content{
   /*Make the list containing each box item smaller and centered within the "master list" of root folders.*/
   width: 92%;
   height: 0px;
-  margin: 15px auto 0px auto;
-  transition: height 750ms ease;
-  overflow: hidden;
+  margin: 15px auto;
 }
 
 li.folder-item{
@@ -233,19 +231,9 @@ li.folder-item{
   Each folder list item will act as a container for student projects and HTML 5 games. The reason why the background-color is transitioned is that each time
   a user hovers over a box, the box will highlight in a slightly darker shade of tan.
   */
-  position: relative;
   transition: background-color 100ms linear;
   padding: 6px 0px;
   border-bottom: 1px solid rgba(106, 106, 106, 0.6);
-}
-
-li.folder-item-clicked{
-  /*
-  Each folder list item will act as a container for student projects and HTML 5 games. The reason why the background-color is transitioned is that each time
-  a user hovers over a box, the box will highlight in a slightly darker shade of tan.
-  */
-  height: 375px;
-  background-color: rgb(255, 248, 210);
 }
 
 li.folder-item:first-child{
@@ -253,11 +241,21 @@ li.folder-item:first-child{
   border-top: none;
 }
 
-li.folder-item > img.project-thumbnail{
+div.main-content{
+  position: relative;
+}
+
+div.main-content > img.project-thumbnail{
   /*Make the image icon inside of student boxes small and space them from the left of the box.*/
   width: 9%;
   height: auto;
   margin-left: 10px;
+}
+
+div.data-box-info{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
 }
 
 div.data-box-info > h6.data-box-text-format, li.student-project > h6.data-box-text-format{
