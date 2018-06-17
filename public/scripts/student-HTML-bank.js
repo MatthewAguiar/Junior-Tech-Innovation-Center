@@ -19,8 +19,8 @@ Copyright (C) 2018 Matthew Aguiar
 */
 var gamemaker_folder =
 `
-<li id = "gamemaker-folder" class = "root-folder-selector">
-  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
+<li class = "root-folder-selector">
+  <h4 id = "gamemaker-arrow" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span>GameMaker-Studio</span></h4>
   <ul id = "gamemaker-student-projects-folder" class = "list-content">
 
   </ul>
@@ -30,13 +30,13 @@ var gamemaker_folder =
 
 var gamemaker_project_folder_content =
 `
-
 <li class = "new-project-add">
   <div style = "margin-bottom: 15px;">
     <h6 class = "small-label-format">New Project:</h6>
     <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
   </div>
   <div id = "add-gamemaker-project-menu" class = "project-menu">
+  
   </div>
   <hr class = "folder-divider">
 </li>

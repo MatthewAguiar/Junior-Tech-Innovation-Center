@@ -52,20 +52,21 @@ class Student_User
               {
                 this.gamemaker_folder_array_of_content.push(gamemaker_project_download_box);
               }
-              this.gamemaker_project_folder = new Folder("750", "ms", "0", "ms", "px", "gamemaker-folder", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
+              this.gamemaker_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "gamemaker-arrow", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
               this.gamemaker_project_folder.$folder_expand_collapse_handle.on("click",
                 function()
                 {
-                  if(!this.gamemaker_project_folder.main_code_expanded)//TODO
+                  if(!this.gamemaker_project_folder.main_code_expanded)
                   {
+                    this.gamemaker_project_folder.main_code_expanded = true;
                     this.gamemaker_project_folder.clickbox_array = [];
-                    this.gamemaker_project_folder.add_project_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", [gamemaker_add_project_menu_content], [this.gamemaker_project_folder]);
+                    this.gamemaker_project_folder.add_project_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", [gamemaker_add_project_menu_content], [this.gamemaker_project_folder]);
                     this.gamemaker_project_folder.add_project_menu.$menu_expand_handle.on("click",
                       function()
                       {
                         this.setup_add_project_menu(this.gamemaker_project_folder.add_project_menu, 0, "GameMaker-Studio", [".gmz", ".yyz"]);
                       }.bind(this)
-                    );
+                    );/*
                     var project_coutner = 0;
                     for(var project in projects_collection)
                     {
@@ -82,27 +83,18 @@ class Student_User
                         {
                           var clickbox_index = Clickbox.get_clickbox_number($(event.target).closest(".folder-item").attr("id"));
                           console.log(clickbox_index);
-                          if(!this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded_bool)
+                          if(!this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded)
                           {
                             this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element = this.gamemaker_project_folder.clickbox_array[clickbox_index].$widget_body.find(".project-description-paragraph");
                             this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element.text(projects_collection[project]["Description"]);
                             this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_widget_contents(false, 0, "px", 0);
                             this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_parent_widgets();
-                            this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded_bool = true;
-                          }
-                          else
-                          {
-                            this.gamemaker_project_folder.clickbox_array[clickbox_index].manage_main_code_expanded_bool();
+
                           }
                         }.bind(this)
                       );
                       project_coutner++;
-                    }
-                    this.gamemaker_project_folder.main_code_expanded_bool = true;
-                  }
-                  else
-                  {
-                    this.gamemaker_project_folder.manage_main_code_expanded_bool();
+                    }*/
                   }
                 }.bind(this)
               );

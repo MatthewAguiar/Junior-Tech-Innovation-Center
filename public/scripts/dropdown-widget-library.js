@@ -71,32 +71,6 @@ class Dropdown_Widget
     }
   }
 
-  check_expanded()
-  {
-    //RETURNS: TRUE OR FALSE.
-    /*This method is highly important for use in the main code where one wants to run certain code/create certain objects only if the widget is open or closed. Highly effective in "if statements"!
-    Returns true IF: the widget is in the process of opening. Reutrns false IF: the widget is FULLY closed.*/
-    if(this.main_code_expanded)
-    {
-      this.$widget_body.on("transitionend", //Wait for widget transition to end then return false.
-        function(event)
-        {
-          if(event.target.id === this.$widget_body.attr("id"))
-          {
-            this.main_code_expanded = false;
-            return this.main_code_expanded; //TODO: Take a look at return in .on
-          }
-        }.bind(this)
-      );
-    }
-    else
-    {
-      this.$widget_body.off("transitionend")
-      this.main_code_expanded = true;
-      return this.main_code_expanded;
-    }
-  }
-
   manage_widget_state(fixed_collapsed_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height)
   {
     /*
@@ -142,6 +116,7 @@ class Dropdown_Widget
         {
           $object_to_remove.remove();
           this.widget_content_show = false;
+          this.main_code_expanded = false;
         }
       }.bind(this)
     );
@@ -186,7 +161,7 @@ class Dropdown_Widget
     else //If fixed_collapsed_height_bool parameter is false, collapse the widget to 0 units.
     {
       this.expanded_height = 0;
-      this.$widget_body.css("height", "0" + this.units);
+      this.$widget_body.css("height", "0" + this.height_units);
     }
     if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
     {
@@ -238,65 +213,59 @@ class Dropdown_Widget
 ------------------ MENU CLASS -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 REVIEW: List of CONSTRUCTOR parameters!
-1) 
+1 - 5) transition_duration through height_units parameters are the exact same as the "Dropdown_Widget" class. DATATYPES: SAME AS "Dropdown_Widget".
+6) menu_expand_handle_id - This is a string representing the HTML id of the button you would like as the open button for the menu. DATATYPE: STRING.
+7) menu_collapse_handle_id - A string representing the button which will close the menu once it is open. DATATYPE: STRING.
+8) menu_body_id - The HTML id representing the $widget_body of the menu widget. DATATYPE: STRING.
+9) menu_content_array - An array with the HTML content to be added to the menu. DATATYPE: ARRAY.
+10) array_of_parents - An array representing parent widgets. For example, a menu within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
+both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
+its array_of_parents. DATATYPE: ARRAY.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-class Menu extends Dropdown_Widget
+class Menu extends Dropdown_Widget //Inherits all instance variables and methods from Dropdown_Widget.
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parent_menus)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_body_id, menu_content_array, array_of_parent_menus);
-    this.$menu_expand_handle = $('#' + menu_expand_handle_id);
-    this.$menu_collapse_handle;
-    this.children_exist = false;
-    this.expand_handle_active = true;
-  }
-
-  update_expand_handle_styles()//TODO: CHECK
-  {
-    switch(this.expand_handle_active)
-    {
-      case false:
-        this.$menu_expand_handle.one("mouseleave",
-          function()
-          {
-            this.$menu_expand_handle.removeClass("blue-to-green-button");
-            this.$menu_expand_handle.addClass("not-allowed");
-          }.bind(this)
-        );
-        break;
-
-      case true:
-        this.$menu_expand_handle.removeClass("not-allowed");
-        this.$menu_expand_handle.addClass("blue-to-green-button");
-    }
+    //RETURNS: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_body_id, menu_content_array, array_of_parents); //Call the constructor of the Dropdown_Widget class.
+    this.$menu_expand_handle = $('#' + menu_expand_handle_id); //Make a jQuery object out of the menu_expand_handle_id so it may be used later to detect clicks.
+    this.$menu_collapse_handle; //This is an undefined instance variable which will EVENTUALLY hold a jQuery object of the menu_collapse_handle_id once the menu has been opened. NOTE: Would be best to put collapse button inside of menu!
+    this.expand_handle_active = true; //A boolean to keep track of whether the expand button is active and the menu is ready to be dropped down.
   }
 }
-
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ SINGLE DROPDOWN MENU CLASS ---------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: List of CONSTRUCTOR parameters!
+1 - 10) transition_duration through array_of_parents parameters are the same as in the "Menu" class which this "Single_Dropdown_Menu" class inherits from. DATATYPES: Same as previous classes.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
 class Single_Dropdown_Menu extends Menu
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents);
-    this.$menu_expand_handle.on("click",
+    //RETURNS: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents); //Call "Menu" class constructor.
+    this.$menu_expand_handle.on("click", //When the open menu jQuery object is clicked do the following.
       function()
       {
-        if(this.expand_handle_active)
+        if(this.expand_handle_active) //If this.expand_handle_active is true then set it to false so this code cannot be repeated until it returns back to true when the menu closes. Manage the widgets state (expand or collapse).
         {
           this.expand_handle_active = false;
-          this.update_expand_handle_styles();
           this.manage_widget_state(false, 0, false, 0);
-          this.$menu_collapse_handle = $('#' + menu_collapse_handle_id);
-          this.$menu_collapse_handle.on("click",
+          this.$menu_collapse_handle = $('#' + menu_collapse_handle_id); //Once expanded define the previously undefined "this.$menu_collapse_handle" variable as a new jQuery object.
+          this.$menu_collapse_handle.on("click", //When the collapse handle is clicked do the following to collapse the menu...
             function()
             {
-              if(!this.expand_handle_active)
+              if(!this.expand_handle_active) //If the this.expand_handle_active is false, which it should be...
               {
-                this.expand_handle_active = true;
-                this.update_expand_handle_styles();
-                this.manage_widget_state(false, 0, false, 0);
-                this.manage_collapse_transitionend(this.$widget_body.children());
+                this.expand_handle_active = true; //Set it to true.
+                this.manage_widget_state(false, 0, false, 0); //Mange the widget's state.
+                this.manage_collapse_transitionend(this.$widget_body.children()); //Trigger the transitionend listener and when the menu fully collapse remove the menu's inner content/children.
               }
             }.bind(this)
           );
@@ -305,18 +274,37 @@ class Single_Dropdown_Menu extends Menu
     );
   }
 }
-
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ CUMMULATIVE MENU CLASS -------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NOTE: Cummulative menus and item boxes(below) work together. Cummulative menus add item boxes filled with HTML.
+REVIEW: List of CONSTRUCTOR parameters!
+1 - 5) transition_duration through height_units parameters are the exact same as the "Dropdown_Widget" and "Menu" classes. DATATYPES: SAME AS "Dropdown_Widget" and "Menu".
+6) item_box_transition_properties_array - Because cummulative menus append boxes of HTML and since those boxes also collapse with a transition, this array holds the following parameters for the "Item_Box" class below:
+[transition_duration(String, Int or Float), duration_units(String), transition_delay(String, Int or Float), delay_units(String), height_units(String)]. DATATYPE: ARRAY.
+7 - 9) menu_expand_handle_id through menu_body_id parameters are the same as in the "Menu" class above. DATATYPE: Same as "Menu" class. DATATYPE: Same as ancestor classes.
+10) item_box_class - This is the HTML class name for the item boxes which will be appended in later methods. DATATYPE: String.
+11) item_box_cancel_class - This is the HTML class name for the cancel button/delete button which will remove item boxes from the cummulative menu. Again see later methods to see how this class is implemented. DATATYPE: String.
+12) item_box_content - NOT and array. Just a single chunk of HTML which will represent each item box which is appended to the menu. DATATYPE: STRING FULL OF HTML CONTENT.
+13) array_or_parents - An array representing parent widgets. For example, a menu within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
+both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
+its array_of_parents. DATATYPE: ARRAY.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
 class Cummulative_Menu extends Menu
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, item_box_transition_properties_array, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parents);
-    this.item_box_transition_properties_array = item_box_transition_properties_array;
-    this.current_number_of_item_boxes = 0;
+    //RETURNS: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parents); //Call parent class constructor.
     this.item_box_class = item_box_class;
     this.item_box_cancel_class = item_box_cancel_class;
     this.item_box_content = item_box_content;
-    this.item_box_array = [];
+    this.item_box_transition_properties_array = item_box_transition_properties_array;
+    this.item_box_array = []; //This array will hold all "Item_Box" objects.
+    this.current_number_of_item_boxes = 0; //This will keep track of the number of item boxes in this menu.
     this.$menu_expand_handle.on("click",
       function()
       {
@@ -327,18 +315,20 @@ class Cummulative_Menu extends Menu
 
   manage_widget_state(fixed_collapsed_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height)
   {
-    this.$widget_body.append(this.item_box_content);
+    //RETURNS: NOTHING.
+    this.$widget_body.append(this.item_box_content); //Before actually creating an item box object when the $menu_expand_handle is clicked, actually append the HTML first so the next line can properly create the "Item_Box".
     this.item_box_array.push(new Item_Box(
         this.item_box_transition_properties_array[0], this.item_box_transition_properties_array[1], this.item_box_transition_properties_array[2], this.item_box_transition_properties_array[3],
         this.item_box_transition_properties_array[4], this, $('.' + this.item_box_class).eq(this.current_number_of_item_boxes), this.item_box_content,
-        $('.' + this.item_box_cancel_class).eq(this.current_number_of_item_boxes), this.current_number_of_item_boxes, [this].concat(this.array_of_parents)));
+        $('.' + this.item_box_cancel_class).eq(this.current_number_of_item_boxes), this.current_number_of_item_boxes, [this].concat(this.array_of_parents))); //Push a new item box to the item_box_array variable.
+    this.current_number_of_item_boxes++; //Increment the number of item boxes this cummulative menu has.
     this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height);
-    this.current_number_of_item_boxes++;
   }
 
   renumber_item_box_ids(starting_index)
   {
-    //console.log(starting_index);
+    //RETURNS: NOTHING.
+    //This method will renumber all of the menu's item boxes if one gets collapsed.
     for(let i = starting_index; i < this.item_box_array.length; i++)
     {
       this.item_box_array[i].$widget_body.attr("id", this.item_box_array[i].dummy_id_stem + i.toString());
@@ -348,9 +338,10 @@ class Cummulative_Menu extends Menu
 
   get_item_box_number(item_box_id)
   {
+    //RETURNS: INTEGER.
     var number_string = "0123456789";
     var i = item_box_id.length - 1;
-    while(i > 0)
+    while(i > 0) //Start at back of string and work until a non-numerical character is met. Then return the number found!
     {
       if(number_string.indexOf(item_box_id[i]) !== -1)
       {
@@ -365,27 +356,43 @@ class Cummulative_Menu extends Menu
     return parseInt(item_box_id.substring(i, item_box_id.length));
   }
 }
-
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ITEM BOX CLASS ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: List of CONSTRUCTOR parameters!
+1 - 5) transition_duration through height_units parameters are the exact same as the "Dropdown_Widget", "Menu", "Single_Dropdown_Menu" and "Cummulative_Menu" classes. DATATYPES: SAME AS "Dropdown_Widget", "Menu", "Single_Dropdown_Menu" and "Cummulative_Menu".
+6) menu_object - This is the "Cummulative_Menu" object in which the new "Item_Box" will be placed in. DATATYPE: CUMMULATIVE MENU OBJECT.
+7) $item_box - A jQuery object representing the particular item box being added to the cummulative menu. DATATYPE jQuery OBJECT.
+8) item_box_content - The actual HTML which the item box is made out of. DATATYPE: STRING WITH HTML CONTENT.
+9) $item_box_cancel_button - Another jQuery object representing the button which will collapse the item box. DATATYPE: jQuery Object.
+10) item_box_number - An integer representing the order in which one item box falls in relation to others. DATATYPE: INTEGER.
+11) array_of_parents - An array representing parent widgets. For example, an item box within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
+both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
+its array_of_parents. DATATYPE: ARRAY.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
 class Item_Box extends Dropdown_Widget
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, menu_object, $item_box, item_box_content, $item_box_cancel_button, item_box_number, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, "", item_box_content, array_of_parents);
-    this.menu_object = menu_object;
-    this.item_box_number = item_box_number;
-    this.dummy_id_stem = "item-box-";
-    $item_box.attr("id", this.dummy_id_stem + this.item_box_number.toString());
-    this.setup_widget_body($item_box.attr("id"), transition_duration, duration_units, transition_delay, delay_units);
-    this.set_height_including_margin_top();
+    //RETURN: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, "", [item_box_content], array_of_parents); //Call "Dropdown_Widget" constructor.
+    this.menu_object = menu_object; //This is an instance variable holding the "Cummulative_Menu" which a particular "Item_Box" is inside of.
+    this.item_box_number = item_box_number; //Number the item box.
+    this.dummy_id_stem = "item-box-"; //All item boxes will start with this stem.
+    $item_box.attr("id", this.dummy_id_stem + this.item_box_number.toString()); //Set id of item box object.
+    this.setup_widget_body($item_box.attr("id"), transition_duration, duration_units, transition_delay, delay_units); //Then setup widget body!
+    this.set_height_including_margin_top(); //See this method for more info.
     this.$item_box_cancel_button = $item_box_cancel_button;
-    this.$item_box_cancel_button.on("click",
+    this.$item_box_cancel_button.on("click", //When a cancel button is clicked...
       function()
       {
+        this.menu_object.item_box_array.splice(this.item_box_number, 1); //Remove this particular item box from the "Cummulative_Menu" item_box_array.
+        this.menu_object.renumber_item_box_ids(this.item_box_number); //Renumber all other item boxes starting at the one removed.
+        this.menu_object.current_number_of_item_boxes--; //Subtract one from the "Cummulative_Menu" current_number_of_item_boxes variable.
         this.collapse_widget_contents(false, 0);
-        this.collapse_parent_widgets();
-        this.menu_object.item_box_array.splice(this.item_box_number, 1);
-        this.menu_object.renumber_item_box_ids(this.item_box_number);
-        this.menu_object.current_number_of_item_boxes--;
         this.manage_collapse_transitionend(this.$widget_body);
       }.bind(this)
     );
@@ -393,47 +400,49 @@ class Item_Box extends Dropdown_Widget
 
   set_height_including_margin_top()
   {
+    //RETURN: NOTHING.
+    /*Because we want the "Cummulative_Menu" object to collapse COMPLETELY, if the item boxes have any margin top or bottom then this will not allow the "Cummulative_Menu" to close fully as the margin is not included in the
+    height of any HTML element. Also, when the item boxes are removed, the margin remaining on the top or bottom will dissappear causing other widgets below to snap into place rather than slide up. Luckily this code turns any
+    margin top into height and shifts the boxes content down by that amount to simulate margin top!*/
     this.$widget_body.css("margin-top", "0px");
     var $item_box_children = this.$widget_body.children();
-    $item_box_children.css("position", "relative").css("top", this.widget_margin_top);
+    $item_box_children.css("position", "relative").css("top", this.widget_margin_top); //SEE HERE!!!
     this.expanded_height = this.$widget_body.height() + parseInt(this.widget_margin_top) + parseInt(this.widget_margin_bottom);
     this.$widget_body.css("height", this.expanded_height.toString() + "px");
   }
 }
-
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ FOLDER CLASS -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: List of CONSTRUCTOR parameters!
+1 - 5) transition_duration through height_units - Same as previous classes. DATATYPES: Also same as previous classes.
+6) expand_and_collapse_handle_id - Similar to the menu system this is a handlebar HTML id which will control the exapanding and contracting of folders. DATATYPE: STRING.
+7) folder_body_id - The HTML id of the container representing the folder body. DATATYPE: STRING.
+8) folder_content_array - An array of HTML content that should be appended the the folder's widget body. DATATYPE: ARRAY.
+9) array_of_parents - An array representing parent widgets. For example, a folder within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
+both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
+its array_of_parents. DATATYPE: ARRAY.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
 class Folder extends Dropdown_Widget
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expand_and_collapse_handle_id, folder_body_id, folder_content_array, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, folder_body_id, folder_content_array, array_of_parents);
-    this.$folder_expand_collapse_handle = $('#' + expand_and_collapse_handle_id).find(".folder-arrow");//TODO
-    this.$folder_arrow_icon = this.$folder_expand_collapse_handle.find(".expand-arrow");//TODO
-    this.$folder_expand_collapse_handle.on("click",
+    //RETURNS: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, folder_body_id, folder_content_array, array_of_parents); //Call constructor of "Dropdown_Widget".
+    this.$folder_expand_collapse_handle = $('#' + expand_and_collapse_handle_id); //Make the expand_and_collapse_handle_id into a jQuery object.
+    this.$folder_expand_collapse_handle.on("click", //When the folder handle is clicked, do the following...
       function()
       {
-        if(this.expanded)
+        if(this.expanded) //If the menu is already expanded get ready to collapse it.
         {
           this.manage_collapse_transitionend(this.$widget_body.children());
         }
         this.manage_widget_state(false, 0, false, 0);
-        this.change_arrow_states();
-        console.log(this);
       }.bind(this)
     );
-  }
-
-  change_arrow_states()
-  {
-    if(this.expanded)
-    {
-      this.$folder_arrow_icon.removeClass("compressed");
-      this.$folder_arrow_icon.addClass("expanded");
-    }
-    else
-    {
-      this.$folder_arrow_icon.removeClass("expanded");
-      this.$folder_arrow_icon.addClass("compressed");
-    }
   }
 }
 
@@ -442,7 +451,7 @@ class Folder extends Dropdown_Widget
 
 
 
-
+/*
 class Clickbox extends Dropdown_Widget
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, $clickbox, expansion_content, expansion_content_class, clickbox_number, array_of_parents)
@@ -502,4 +511,4 @@ class Clickbox extends Dropdown_Widget
       this.clickbox_number = i;
     }
   }
-}
+}*/
