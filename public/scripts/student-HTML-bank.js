@@ -24,7 +24,6 @@ var gamemaker_folder =
   <ul id = "gamemaker-student-projects-folder" class = "list-content">
 
   </ul>
-  <hr class = "folder-divider">
 </li>
 `;
 
@@ -36,9 +35,8 @@ var gamemaker_project_folder_content =
     <button id = "add-gamemaker-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
   </div>
   <div id = "add-gamemaker-project-menu" class = "project-menu">
-  
+
   </div>
-  <hr class = "folder-divider">
 </li>
 `;
 
@@ -51,7 +49,7 @@ var gamemaker_project_download_box =
       <h6 class = "project-name data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
       <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
     </div>
-    <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
       <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
       <span>Download Project</span>
     </a>
@@ -63,12 +61,16 @@ var gamemaker_download_box_expansion_content =
 `
 <div class = "download-box-expansion-content">
   <div>
-    <h6 class = "small-label-format">Project</h6>
+    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
     <p class = "project-description-paragraph"></p>
   </div>
   <div class = "project-management-buttons">
-    <button class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format">Upload Newer Version</button>
-    <button class = "remove general-button-format">Delete</button>
+    <input class = "update-project real-file-upload-hide" id = "update-gamemaker-project" type = "file" name = "" value = "">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-gamemaker-project">
+        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+        <span>Upload New Version</span>
+    </label>
+    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
   </div>
 </div>
 `;

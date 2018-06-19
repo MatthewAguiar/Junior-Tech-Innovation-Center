@@ -27,16 +27,15 @@ class Student_User
                                               [gamemaker_add_project_menu_content, python_add_project_menu_content, cpp_add_project_menu_content, adobe_animate_add_project_menu_content]
                                             ];
     this.gamemaker_project_folder;
-    this.gamemaker_project_array;
     this.python_project_folder;
     this.cpp_project_folder;
     this.adobe_animate_project_folder;
-    this.student_data.then(this.populate_project_tree.bind(this));
+    this.populate_project_tree();
   }
 
-  populate_project_tree(student_data)
+  populate_project_tree()
   {
-    var classes = student_data["Classes"];
+    var classes = this.student_data["Classes"];
     for(var class_type in classes)
     {
       switch(classes[class_type])
@@ -45,14 +44,18 @@ class Student_User
           this.$master_projects_list.append(gamemaker_folder);
           this.gamemaker_projects_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/GameMaker-Studio"));
           this.gamemaker_folder_array_of_content = [gamemaker_project_folder_content];
+          this.gamemaker_project_descriptions_array = [];
+          this.gamemaker_download_url_array = [];
           this.gamemaker_projects_collection.then(
             function(projects_collection)
             {
               for(var project in projects_collection)
               {
                 this.gamemaker_folder_array_of_content.push(gamemaker_project_download_box);
+                this.gamemaker_project_descriptions_array.push(projects_collection[project]["Description"]);
+                this.gamemaker_download_url_array.push(projects_collection[project]["Download Link"]);
               }
-              this.gamemaker_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "gamemaker-arrow", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
+              this.gamemaker_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "gamemaker-arrow", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
               this.gamemaker_project_folder.$folder_expand_collapse_handle.on("click",
                 function()
                 {
@@ -60,41 +63,46 @@ class Student_User
                   {
                     this.gamemaker_project_folder.main_code_expanded = true;
                     this.gamemaker_project_folder.clickbox_array = [];
-                    this.gamemaker_project_folder.add_project_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", [gamemaker_add_project_menu_content], [this.gamemaker_project_folder]);
+                    this.gamemaker_project_folder.add_project_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "18px", "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", [gamemaker_add_project_menu_content], [this.gamemaker_project_folder]);
                     this.gamemaker_project_folder.add_project_menu.$menu_expand_handle.on("click",
                       function()
                       {
                         this.setup_add_project_menu(this.gamemaker_project_folder.add_project_menu, 0, "GameMaker-Studio", [".gmz", ".yyz"]);
                       }.bind(this)
-                    );/*
+                    );
                     var project_coutner = 0;
                     for(var project in projects_collection)
                     {
                       this.gamemaker_project_folder.clickbox_array.push(
-                        new Clickbox("750", "ms", "0", "ms", "px", this.gamemaker_project_folder.$widget_body.find("li.folder-item").eq(project_coutner), gamemaker_download_box_expansion_content, "download-box-expansion-content", project_coutner, [this.gamemaker_project_folder])
+                        new JTIC_Clickbox("750", "ms", "0", "ms", "px", "5px", this.gamemaker_project_folder.$widget_body.find("li.folder-item").eq(project_coutner), [gamemaker_download_box_expansion_content], project_coutner, [this.gamemaker_project_folder])
                       );
                       this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element = this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.find(".project-name");
                       this.gamemaker_project_folder.clickbox_array[project_coutner].$date_uploaded_element = this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.find(".date-uploaded");
                       this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element.text("Name: " + manipulate_file_extension_for_database(project, false));
                       this.gamemaker_project_folder.clickbox_array[project_coutner].$date_uploaded_element.text("Uploaded on: " + projects_collection[project]["Date Uploaded"]);
-                      this.gamemaker_project_folder.clickbox_array[project_coutner].$project_name_element.css("text-decoration", "underline");
                       this.gamemaker_project_folder.clickbox_array[project_coutner].$widget_body.on("click",
                         function(event)
                         {
-                          var clickbox_index = Clickbox.get_clickbox_number($(event.target).closest(".folder-item").attr("id"));
-                          console.log(clickbox_index);
+                          var clickbox_index = this.gamemaker_project_folder.get_clickbox_number($(event.target).closest(".folder-item").attr("id"));
                           if(!this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded)
                           {
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].main_code_expanded = true;
                             this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element = this.gamemaker_project_folder.clickbox_array[clickbox_index].$widget_body.find(".project-description-paragraph");
-                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element.text(projects_collection[project]["Description"]);
-                            this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_widget_contents(false, 0, "px", 0);
-                            this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_parent_widgets();
-
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$project_description_element.text(this.gamemaker_project_descriptions_array[clickbox_index]);
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].expand_widget_contents(false, 0, "5px");
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$update_version_button = this.gamemaker_project_folder.clickbox_array[clickbox_index].$widget_body.find("input.update-project");
+                            this.gamemaker_project_folder.clickbox_array[clickbox_index].$update_version_button.on("change",
+                              function(event)
+                              {
+                                event.stopPropagation();
+                                this.add_file_to_storage(event, new_project_menu_instance, class_folder_name, false, allowed_file_extension_array); //TODO:APPPLU
+                              }.bind(this)
+                            );
                           }
                         }.bind(this)
                       );
                       project_coutner++;
-                    }*/
+                    }
                   }
                 }.bind(this)
               );
@@ -155,7 +163,6 @@ class Student_User
       return project_counter;
     }
   }*/
-
   setup_add_project_menu(new_project_menu_instance, html_framework_index, class_folder_name, allowed_file_extension_array)
   {
     new_project_menu_instance.$description_field = new_project_menu_instance.$widget_body.find("textarea.project-add-textarea");
@@ -164,17 +171,17 @@ class Student_User
     new_project_menu_instance.$file_uploader.on("change",
       function(event)
       {
-        this.add_file_to_storage(event, new_project_menu_instance, class_folder_name, allowed_file_extension_array);
+        this.add_file_to_storage(event, new_project_menu_instance, class_folder_name, false, allowed_file_extension_array);
       }.bind(this)
     );
   }
 
-  add_file_to_storage(file_change_event, new_project_menu_instance, class_folder_name, allowed_file_extension_array)
+  add_file_to_storage(file_change_event, new_project_menu_instance, class_folder_name, overwrite_bool, allowed_file_extension_array)
   {
     var file = file_change_event.target.files[0];
     //console.log(file);
     //console.log(file["name"]);
-    var valid = this.proof_check_new_project_form(new_project_menu_instance, file["name"], allowed_file_extension_array);
+    var valid = this.proof_check_new_project_form(new_project_menu_instance, file["name"], class_folder_name, overwrite_bool, allowed_file_extension_array);
     if(valid)
     {
       var upload_file_notification_box = new Info_Box(
@@ -209,7 +216,7 @@ class Student_User
     }
   }
 
-  proof_check_new_project_form(project_menu_instance, file_name, allowed_file_extension_array)
+  proof_check_new_project_form(project_menu_instance, file_name, class_folder_name, overwrite_bool, allowed_file_extension_array)
   {
     var description_has_text = has_text(project_menu_instance.$description_field.val());
     //console.log(description_has_text);
@@ -240,10 +247,20 @@ class Student_User
       transition_error_messages(project_menu_instance.$error_message, "red", true);
       return false;
     }
-    else
+    else if(!overwrite_bool)
     {
-      return true;
+      var files_in_database = this.student_data["Projects"][class_folder_name];
+      for(var file in files_in_database)
+      {
+        if(file === manipulate_file_extension_for_database(file_name, true))
+        {
+          project_menu_instance.$error_message.text("The file " + "'" + file_name + "'" + " already exists.");
+          transition_error_messages(project_menu_instance.$error_message, "red", true);
+          return false;
+        }
+      }
     }
+    return true;
   }
 
   populate_project_database_tree(project_menu_instance, file_name, download_link, class_folder_name)
@@ -276,8 +293,13 @@ FIREBASE_AUTHENTICATION.onAuthStateChanged(
     {
       console.log(JTIC_user);
       var student_data = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid));
-      var student = new Student_User(JTIC_user.uid, student_data, "master-project-list");
-      //alert("1LOGGED IN AS: " + JTIC_user.uid);
+      student_data.then(
+        function(data)
+        {
+          var student = new Student_User(JTIC_user.uid, data, "master-project-list");
+          //alert("1LOGGED IN AS: " + JTIC_user.uid);
+        }
+      );
     }
     else
     {
