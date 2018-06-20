@@ -378,10 +378,20 @@ img#in-progress{
   height: auto;
 }
 
-button#finish{
+button#finish, button#yes-button, button#no-button{
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+
+button#yes-button, button#no-button{
+  display: inline;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+button#no-button{
+  margin-left: 40px;
 }
 
 div#button-box{

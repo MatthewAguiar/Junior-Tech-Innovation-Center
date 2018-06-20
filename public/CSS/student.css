@@ -58,6 +58,10 @@ li.root-folder-selector{
   margin-bottom: 15px;
 }
 
+a.download-project{
+  text-decoration: none;
+}
+
 p.project-description-paragraph{
   font-size: 11px;
   line-height: 16px;

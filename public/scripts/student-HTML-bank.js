@@ -49,7 +49,7 @@ var gamemaker_project_download_box =
       <h6 class = "project-name data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
       <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
     </div>
-    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
+    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
       <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
       <span>Download Project</span>
     </a>
@@ -71,6 +71,7 @@ var gamemaker_download_box_expansion_content =
         <span>Upload New Version</span>
     </label>
     <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
+    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
   </div>
 </div>
 `;

@@ -169,7 +169,7 @@ function get_date(date_object)
 
 class Info_Box
 {
-  constructor(description, content, firebase_mode, firebase_finished_description, firebase_finished_content, reload_bool, reload_location)
+  constructor(description, content, firebase_mode, firebase_finished_description, firebase_finished_content, yes_no_mode, reload_bool, reload_location)
   {
     $("body").prepend(message_box);
     this.$info_box = $("aside#help-guide-box");
@@ -185,9 +185,11 @@ class Info_Box
     this.$box_content_container = this.$info_box.find("div#help-content");
     this.$button_container = this.$info_box.find("div#button-box");
     this.firebase_mode = firebase_mode;
-    if(reload_bool)
+    this.yes_no_mode = yes_no_mode;
+    this.reload_bool = reload_bool;
+    if(this.reload_bool)
     {
-      this.reload_bool = reload_bool;
+      this.reload_bool = true;
       this.reload_location = reload_location;
     }
     if(this.firebase_mode)
@@ -195,6 +197,13 @@ class Info_Box
       this.firebase_finished_description = firebase_finished_description;
       this.firebase_finished_content = firebase_finished_content;
       this.$box_content_container.append("<img id = 'in-progress' src = 'Images/JTIC Loading Bar/JTIC-loading-bar.gif'>");
+    }
+    else if(this.yes_no_mode)
+    {
+      this.$button_container.append("<button id = 'yes-button' class = 'STEM-blue-background blue-to-green-button general-button-format'><span>Yes</span></button>");
+      this.$button_container.append("<button id = 'no-button' class = 'STEM-pink-background pink-to-orange-button general-button-format'><span>No</span></button>");
+      this.$yes_button = this.$button_container.find("#yes-button");
+      this.$no_button = this.$button_container.find("#no-button");
     }
   }
 
@@ -218,23 +227,28 @@ class Info_Box
               this.$confirm_button.on("click",
                 function()
                 {
-                  document.location.href = this.reload_location;
+                  this.reload_page();
                 }.bind(this)
               );
             }
             else
             {
-              this.$confirm_button.on("click",
-                function()
-                {
-                  this.$info_box.remove();
-                  this.$background.remove();
-                }.bind(this)
-              );
+              this.$confirm_button.on("click", this.remove_self.bind(this));
             }
           }
         }.bind(this)
       );
     }
+  }
+
+  reload_page()
+  {
+    document.location.href = this.reload_location;
+  }
+
+  remove_self()
+  {
+    this.$info_box.remove();
+    this.$background.remove();
   }
 }
