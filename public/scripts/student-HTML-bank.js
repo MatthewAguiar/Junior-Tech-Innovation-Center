@@ -46,8 +46,8 @@ var gamemaker_project_download_box =
   <div class = "main-content">
     <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
     <div class = "data-box-info">
-      <h6 class = "project-name data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+      <h6 class = "project-name data-box-text-format pointer-mouse-type">Default Name</h6>
+      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
     </div>
     <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
       <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
@@ -55,25 +55,6 @@ var gamemaker_project_download_box =
     </a>
   </div>
 </li>
-`;
-
-var gamemaker_download_box_expansion_content =
-`
-<div class = "download-box-expansion-content">
-  <div>
-    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
-    <p class = "project-description-paragraph"></p>
-  </div>
-  <div class = "project-management-buttons">
-    <input class = "update-project real-file-upload-hide" id = "update-gamemaker-project" type = "file" name = "" value = "">
-    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-gamemaker-project">
-        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
-        <span>Upload New Version</span>
-    </label>
-    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
-    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
-  </div>
-</div>
 `;
 
 var gamemaker_add_project_menu_content =
@@ -95,6 +76,25 @@ var gamemaker_add_project_menu_content =
   </fieldset>
 </form>
 `;
+
+var gamemaker_download_box_expansion_content =
+`
+<div class = "download-box-expansion-content">
+  <div>
+    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
+    <p class = "project-description-paragraph"></p>
+  </div>
+  <div class = "project-management-buttons">
+    <input class = "update-project real-file-upload-hide" id = "update-gamemaker-project" type = "file" name = "" value = "">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-gamemaker-project">
+        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+        <span>Upload New Version</span>
+    </label>
+    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
+    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
+  </div>
+</div>
+`;
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ PYTHON FOLDER CONTENT --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,12 +102,11 @@ var gamemaker_add_project_menu_content =
 */
 var python_folder =
 `
-<li id = "python-folder" class = "root-folder-selector">
-  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Python/python-logo.png" alt=""><span>Python</span></h4>
-  <ul style = "margin-bottom: 15px;" id = "python-student-projects-folder" class = "list-content">
+<li class = "root-folder-selector">
+  <h4 id = "python-arrow" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Python/python-logo.png" alt=""><span>Python</span></h4>
+  <ul id = "python-student-projects-folder" class = "list-content">
 
   </ul>
-  <hr class = "folder-divider">
 </li>
 `;
 
@@ -119,22 +118,6 @@ var python_project_folder_content =
 </li>
 <li id = "add-python-project-menu" class = "project-menu">
 
-</li>
-<hr class = "folder-divider">
-`;
-
-var python_project_download_box =
-`
-<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
-  </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
 </li>
 `;
 
@@ -157,6 +140,42 @@ var python_add_project_menu_content =
   </fieldset>
 </form>
 `;
+
+var python_project_download_box =
+`
+<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+  <div class = "main-content">
+    <img class = "project-thumbnail" src = "Images/Coding Logos/Python/python-logo.png" alt = "">
+    <div class = "data-box-info">
+      <h6 class = "project-name data-box-text-format pointer-mouse-type">Default Name</h6>
+      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
+    </div>
+    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
+      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+      <span>Download Project</span>
+    </a>
+  </div>
+</li>
+`;
+
+var python_download_box_expansion_content =
+`
+<div class = "download-box-expansion-content">
+  <div>
+    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
+    <p class = "project-description-paragraph"></p>
+  </div>
+  <div class = "project-management-buttons">
+    <input class = "update-project real-file-upload-hide" id = "update-python-project" type = "file" name = "" value = "">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-python-project">
+        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+        <span>Upload New Version</span>
+    </label>
+    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
+    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
+  </div>
+</div>
+`;
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ C++ FOLDER CONTENT -----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -164,12 +183,11 @@ var python_add_project_menu_content =
 */
 var cpp_folder =
 `
-<li id = "cpp-folder" class = "root-folder-selector">
-  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""><span>C++</span></h4>
-  <ul style = "margin-bottom: 15px;" id = "cpp-student-projects-folder" class = "list-content">
+<li class = "root-folder-selector">
+  <h4 id = "cpp-arrow" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/C++/cpp-logo.png" alt=""><span>C++</span></h4>
+  <ul id = "cpp-student-projects-folder" class = "list-content">
 
   </ul>
-  <hr class = "folder-divider">
 </li>
 `;
 
@@ -181,21 +199,22 @@ var cpp_project_folder_content =
 </li>
 <li id = "add-cpp-project-menu" class = "project-menu">
 </li>
-<hr class = "folder-divider">
 `;
 
 var cpp_project_download_box =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  <div class = "main-content">
+    <img class = "project-thumbnail" src = "Images/Coding Logos/C++/cpp-logo.png" alt="">
+    <div class = "data-box-info">
+      <h6 class = "project-name data-box-text-format pointer-mouse-type">Default Name</h6>
+      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
+    </div>
+    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
+      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+      <span>Download Project</span>
+    </a>
   </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
 </li>
 `;
 
@@ -218,49 +237,68 @@ var cpp_add_project_menu_content =
   </fieldset>
 </form>
 `;
+
+var cpp_download_box_expansion_content =
+`
+<div class = "download-box-expansion-content">
+  <div>
+    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
+    <p class = "project-description-paragraph"></p>
+  </div>
+  <div class = "project-management-buttons">
+    <input class = "update-project real-file-upload-hide" id = "update-cpp-project" type = "file" name = "" value = "">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-cpp-project">
+        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+        <span>Upload New Version</span>
+    </label>
+    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
+    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
+  </div>
+</div>
+`;
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- ADOBE ANIMATE FOLDER CONTENT -------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ADOBE FOLDER CONTENT ---------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-var adobe_animate_folder =
+var adobe_folder =
 `
-<li id = "adobe-animate-folder" class = "root-folder-selector">
-  <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Adobe/adobe-animate.png" alt=""><span>Adobe Animate</span></h4>
-  <ul style = "margin-bottom: 15px;" id = "adobe-animate-student-projects-folder" class = "list-content">
+<li id = "adobe-folder" class = "root-folder-selector">
+  <h4 id = "adobe-arrow" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/Adobe/adobe.png" alt=""><span>Adobe</span></h4>
+  <ul id = "adobe-student-projects-folder" class = "list-content">
 
   </ul>
-  <hr class = "folder-divider">
 </li>
 `;
 
-var adobe_animate_project_folder_content =
+var adobe_project_folder_content =
 `
 <li class = "new-project-add">
   <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-adobe-animate-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  <button id = "add-adobe-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
 </li>
-<li id = "add-adobe-animate-project-menu" class = "project-menu">
+<li id = "add-adobe-project-menu" class = "project-menu">
 </li>
-<hr class = "folder-divider">
 `;
 
-var adobe_animate_project_download_box =
+var adobe_project_download_box =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+  <div class = "main-content">
+    <img class = "project-thumbnail" src = "Images/Coding Logos/Adobe/adobe.png" alt = "">
+    <div class = "data-box-info">
+      <h6 class = "project-name data-box-text-format pointer-mouse-type">Default Name</h6>
+      <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
+    </div>
+    <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
+      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+      <span>Download Project</span>
+    </a>
   </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
 </li>
 `;
 
-var adobe_animate_add_project_menu_content =
+var adobe_add_project_menu_content =
 `
 <form class = "sub-console-content-vertical-spacing">
   <fieldset class = "border-color-and-radius">
@@ -269,15 +307,34 @@ var adobe_animate_add_project_menu_content =
       <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
       <textarea class = "project-add-textarea" name = "name"></textarea>
       <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
-      <input class = "real-file-upload-hide" id = "adobe-animate-upload-button-selector" type = "file" name = "" value = "">
-      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "adobe-animate-upload-button-selector">
+      <input class = "real-file-upload-hide" id = "adobe-upload-button-selector" type = "file" name = "" value = "">
+      <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "adobe-upload-button-selector">
           <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
           <span>Upload Project</span>
       </label>
-      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-adobe-animate-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+      <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "remove-adobe-project-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
     </div>
   </fieldset>
 </form>
+`;
+
+var adobe_download_box_expansion_content =
+`
+<div class = "download-box-expansion-content">
+  <div>
+    <h6 class = "small-label-format"><u>Project Description</u>:</h6>
+    <p class = "project-description-paragraph"></p>
+  </div>
+  <div class = "project-management-buttons">
+    <input class = "update-project real-file-upload-hide" id = "update-adobe-project" type = "file" name = "" value = "">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-cpp-project">
+        <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+        <span>Upload New Version</span>
+    </label>
+    <button style = "font-size: 12px; padding: 6px; margin: auto 0px auto 4px" class = "remove general-button-format">Delete</button>
+    <span style = "margin-left: 5px;" class = "new-version-error warning-message">Projects do not match.</span>
+  </div>
+</div>
 `;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var student_project_item =

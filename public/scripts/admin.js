@@ -21,7 +21,7 @@ class Admin_User
 {
   constructor()
   {
-    this.add_class_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
+    this.add_class_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
     this.add_class_menu.student_add_button_active = false;
     this.add_class_menu.$class_name_element;
     this.add_class_menu.$class_name_error;
@@ -44,7 +44,7 @@ class Admin_User
             this.add_class_menu.radio_button_array.push($("input:radio").eq(i));
           }
           this.add_student_menu = new Cummulative_Menu(
-            "750", "ms", "0", "ms", "px", ["750", "ms", "0", "ms", "px"], "add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
+            "750", "ms", "0", "ms", "px", "15px", ["750", "ms", "0", "ms", "px", "15px"], "add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
           );
           this.add_student_menu.$menu_expand_handle.on("click",
             function()

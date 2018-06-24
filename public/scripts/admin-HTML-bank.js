@@ -59,10 +59,9 @@ var new_class_form =
       <legend class = "bold-heading">Add Students:</legend>
       <div class = "SUB-fieldset-content">
         <div class = "student-add-container">
-          <div id = "students-box">
+          <div class = "students-box">
 
           </div>
-          <hr class = "folder-divider">
           <div class = "new-student-add">
             <h6 class = "small-label-format">New Student:</h6>
             <button id = "add-student-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>

@@ -66,41 +66,7 @@ class Dropdown_Widget
     }
     catch(exception)
     {
-      console.log(exception);
-    }
-  }
-
-  manage_widget_state(fixed_collapsed_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height)
-  {
-    /*
-    RETURNS: NOTHING.
-    PARAMETERS:
-    NOTE: These parameters are all passed as arguments to expand_widget_contents() and collapse_widget_contents() methods.
-    1) fixed_collapsed_height_bool - Will be true or false. If true the next parameter, "fixed_collapsed_height", will be used as the concrete, pre-determined height the widget should collapse to. Otherwise the widget's height Will
-    automatically collapse to 0 units. DATATYPE: BOOLEAN.
-    2) fixed_collapsed_height - The fixed height a widget should collapse to if the previous parameter is true. DATATYPE: INTEGER or FLOAT.
-    3) fixed_expanded_height_bool - Same as "fixed_collapsed_height_bool" where, if true, the next parameter "fixed_expanded_height" will be a concrete, pre-determined height the widget should expand to. DATATYPE: BOOLEAN.
-    4) fixed_expanded_height - The fixed height a widget should expand to if the previous parameter is true. DATATYPE: INTEGER or FLOAT.
-    */
-    //This is a method that will automatically manage widget states as to whether a widget should be opening or closing WHEN CLICKED. NOTE: This method is overridden in classes such as "Cummulative_Menu" because those widgets work slightly differently.
-    if(!this.widget_content_show && !this.expanded) //If the widget is closed.
-    {
-      for(let i = 0; i < this.widget_content_array.length; i++) //Then start appending all of the HTML in the widgets content array.
-      {
-        this.$widget_body.append(this.widget_content_array[i]);
-      }
-      this.widget_content_show = true; //Content is showing once the HTML is appended.
-    }
-    if(!this.expanded) //Since the "this.expanded" variable changes everytime the widget changes opening and closing states, check if it is NOT true (widget is closing) and then re-expand the widget and its parents.
-    {
-      this.$widget_body.off("transitionend");
-      this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, this.expanded_spacing);
-      this.expanded = true;
-    }
-    else //If the this.expanded is true (widget is opening) start closing the widget.
-    {
-      this.collapse_widget_contents(fixed_collapsed_height_bool, fixed_collapsed_height, this.expanded_spacing);
-      this.expanded = false;
+      //console.log(exception);
     }
   }
 
@@ -137,6 +103,40 @@ class Dropdown_Widget
         }
       }.bind(this)
     );
+  }
+
+  manage_widget_state(fixed_collapsed_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height)
+  {
+    /*
+    RETURNS: NOTHING.
+    PARAMETERS:
+    NOTE: These parameters are all passed as arguments to expand_widget_contents() and collapse_widget_contents() methods.
+    1) fixed_collapsed_height_bool - Will be true or false. If true the next parameter, "fixed_collapsed_height", will be used as the concrete, pre-determined height the widget should collapse to. Otherwise the widget's height Will
+    automatically collapse to 0 units. DATATYPE: BOOLEAN.
+    2) fixed_collapsed_height - The fixed height a widget should collapse to if the previous parameter is true. DATATYPE: INTEGER or FLOAT.
+    3) fixed_expanded_height_bool - Same as "fixed_collapsed_height_bool" where, if true, the next parameter "fixed_expanded_height" will be a concrete, pre-determined height the widget should expand to. DATATYPE: BOOLEAN.
+    4) fixed_expanded_height - The fixed height a widget should expand to if the previous parameter is true. DATATYPE: INTEGER or FLOAT.
+    */
+    //This is a method that will automatically manage widget states as to whether a widget should be opening or closing WHEN CLICKED. NOTE: This method is overridden in classes such as "Cummulative_Menu" because those widgets work slightly differently.
+    if(!this.widget_content_show && !this.expanded) //If the widget is closed.
+    {
+      for(let i = 0; i < this.widget_content_array.length; i++) //Then start appending all of the HTML in the widgets content array.
+      {
+        this.$widget_body.append(this.widget_content_array[i]);
+      }
+      this.widget_content_show = true; //Content is showing once the HTML is appended.
+    }
+    if(!this.expanded) //Since the "this.expanded" variable changes everytime the widget changes opening and closing states, check if it is NOT true (widget is closing) and then re-expand the widget and its parents.
+    {
+      this.$widget_body.off("transitionend");
+      this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, this.expanded_spacing);
+      this.expanded = true;
+    }
+    else //If the this.expanded is true (widget is opening) start closing the widget.
+    {
+      this.collapse_widget_contents(fixed_collapsed_height_bool, fixed_collapsed_height, this.expanded_spacing);
+      this.expanded = false;
+    }
   }
 
   expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, expanded_spacing)
@@ -335,7 +335,7 @@ class Cummulative_Menu extends Menu
   {
     //RETURNS: NOTHING.
     super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parents); //Call parent class constructor.
-    this.item_box_class = item_box_class;
+    this.item_box_class = item_box_class; //TODO: LOOK AT MENU_BODY_ID
     this.item_box_cancel_class = item_box_cancel_class;
     this.item_box_content = item_box_content;
     this.item_box_transition_properties_array = item_box_transition_properties_array;
@@ -355,7 +355,7 @@ class Cummulative_Menu extends Menu
     this.$widget_body.append(this.item_box_content); //Before actually creating an item box object when the $menu_expand_handle is clicked, actually append the HTML first so the next line can properly create the "Item_Box".
     this.item_box_array.push(new Item_Box(
         this.item_box_transition_properties_array[0], this.item_box_transition_properties_array[1], this.item_box_transition_properties_array[2], this.item_box_transition_properties_array[3],
-        this.item_box_transition_properties_array[4], this, $('.' + this.item_box_class).eq(this.current_number_of_item_boxes), this.item_box_content,
+        this.item_box_transition_properties_array[4], this.item_box_transition_properties_array[5], this, $('.' + this.item_box_class).eq(this.current_number_of_item_boxes), this.item_box_content,
         $('.' + this.item_box_cancel_class).eq(this.current_number_of_item_boxes), this.current_number_of_item_boxes, [this].concat(this.array_of_parents))); //Push a new item box to the item_box_array variable.
     this.current_number_of_item_boxes++; //Increment the number of item boxes this cummulative menu has.
     this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, this.expanded_spacing);
@@ -510,13 +510,14 @@ class Clickbox extends Dropdown_Widget
     );
   }
 
-  renumber_item_box_ids(starting_index, number_of_boxes)
+  static renumber_clickbox_ids(starting_index, array_of_clickboxes)
   {
     //console.log(starting_index);
-    for(let i = starting_index; i < number_of_boxes; i++)
+    for(let i = starting_index; i < array_of_clickboxes.length; i++)
     {
-      this.$clickbox.attr("id", this.clickbox_id_stem + i.toString());
-      this.clickbox_number = i;
+      array_of_clickboxes[i].$widget_body.attr("id", "clickbox-" + i.toString());
+      array_of_clickboxes[i].clickbox_number = i;
     }
+    return array_of_clickboxes;
   }
 }
