@@ -157,6 +157,14 @@ REVIEW: All styling rules below do the following:
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
 }
 
+.real-file-upload-hide{
+  /*
+  This will hide the REAL file upload button in the "New Project" form in the student left sub-console. The reason for this is that, using a label element
+  with the class, "file-upload", I am able to create my own custom button rather than the standard grey one.
+  */
+  display: none;
+}
+
 .general-button-format:hover{
   /*Forces a little "hand" icon to appear when hovering over the buttons. (Used mainly to indicate to users that they are actually hovering over the button)*/
   cursor: pointer;

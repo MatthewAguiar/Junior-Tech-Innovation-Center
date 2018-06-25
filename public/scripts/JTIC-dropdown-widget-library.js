@@ -44,9 +44,9 @@ class JTIC_Single_Dropdown_Menu extends Single_Dropdown_Menu
 
 class JTIC_Cummulative_Menu extends Cummulative_Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents);
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents);
   }
 }
 

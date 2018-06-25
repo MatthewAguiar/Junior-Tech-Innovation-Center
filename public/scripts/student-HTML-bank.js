@@ -62,9 +62,9 @@ var gamemaker_add_project_menu_content =
 <form class = "sub-console-content-vertical-spacing">
   <fieldset class = "border-color-and-radius">
     <legend>New Project</legend>
-    <div class = "new-project-form-content">
-      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-      <textarea class = "project-add-textarea" name = "name"></textarea>
+    <div class = "new-form-content">
+      <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
+      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
       <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "gamemaker-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "gamemaker-upload-button-selector">
@@ -126,9 +126,9 @@ var python_add_project_menu_content =
 <form class = "sub-console-content-vertical-spacing">
   <fieldset class = "border-color-and-radius">
     <legend>New Project</legend>
-    <div class = "new-project-form-content">
-      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-      <textarea class = "project-add-textarea" name = "name"></textarea>
+    <div class = "new-form-content">
+      <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
+      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
       <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "python-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "python-upload-button-selector">
@@ -223,9 +223,9 @@ var cpp_add_project_menu_content =
 <form class = "sub-console-content-vertical-spacing">
   <fieldset class = "border-color-and-radius">
     <legend>New Project</legend>
-    <div class = "new-project-form-content">
-      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-      <textarea class = "project-add-textarea" name = "name"></textarea>
+    <div class = "new-form-content">
+      <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
+      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
       <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "cpp-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "cpp-upload-button-selector">
@@ -303,9 +303,9 @@ var adobe_add_project_menu_content =
 <form class = "sub-console-content-vertical-spacing">
   <fieldset class = "border-color-and-radius">
     <legend>New Project</legend>
-    <div class = "new-project-form-content">
-      <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-      <textarea class = "project-add-textarea" name = "name"></textarea>
+    <div class = "new-form-content">
+      <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
+      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
       <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "adobe-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "adobe-upload-button-selector">
@@ -337,37 +337,90 @@ var adobe_download_box_expansion_content =
 </div>
 `;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var student_project_item =
+
+var adobe_creative_portfolio_folder =
 `
-<li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
-  <img class = "project-thumbnail" src = "Images/Student Project Folder Icons/yoyo-games-logo.png" alt = "">
-  <div class = "data-box-info">
-    <h6 class = "data-box-text-format pointer-mouse-type">Project Name: <u>flippy_game.gmx</u></h6>
-    <h6 class = "data-box-text-format pointer-mouse-type">Uploaded On: November 15, 2018</h6>
+<div id = "adobe-creative-portfolio" class = "root-folder-selector">
+  <h4 id = "creative-portfolio-arrow" class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/HTML 5/HTML5-logo.png" alt=""><span>Designer Website</span></h4>
+  <div id = "adobe-porfolio-edit-folder" class = "list-content" style = "margin-top: 15px;">
+
   </div>
-  <a class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download">
-    <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
-    <span>Download Project</span>
-  </a>
-</li>
-<li>
-  <form class = "form-vertical-spacing-rule sub-console-content-vertical-spacing">
-    <fieldset class = "border-color-and-radius">
-      <legend>New Project</legend>
-      <div id = "new-project-form-content">
-        <label class = "small-label-format" for = "project-add-textarea">Project Description:</label>
-        <textarea id = "project-add-textarea" name = "name"></textarea>
-        <input class = "real-file-upload-hide" id = "upload-button-selector" type = "file" name = "" value = "">
-        <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "upload-button-selector">
-            <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
-            <span>Upload Project</span>
-        </label>
-      </div>
-    </fieldset>
-  </form>
-</li>
+</div>
 `;
 
+var adobe_creative_portfolio_folder_content =
+`
+<form class = "">
+  <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule border-color-and-radius">
+    <legend>Customize</legend>
+    <fieldset class = "shrink-and-center-SUB-fieldset">
+      <legend class = "bold-heading">Portfolio Descriptions</legend>
+      <div class = "new-form-content">
+        <div class = "adobe-section-content">
+          <label class = "small-label-format" for = "video-description">Video Description:</label>
+          <textarea id = "video-description" class = "creative-portfolio-text-dimensions"></textarea>
+        </div>
+        <div class = "adobe-section-content">
+          <label class = "small-label-format" for = "photo-description">Photo Description:</label>
+          <textarea id = "photo-description" class = "creative-portfolio-text-dimensions"></textarea>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class = "shrink-and-center-SUB-fieldset">
+      <legend class = "bold-heading">Themes</legend>
+      <div class = "new-form-content">
+        <div>
+          <h6 class = "small-label-format">Choose Theme:</h6>
+          <button id = "theme-menu-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button">+</button>
+        </div>
+        <div id = "theme-container">
+
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class = "shrink-and-center-SUB-fieldset">
+      <legend class = "bold-heading">Masterpieces</legend>
+      <div class = "new-form-content">
+        <ul id = "student-work-masterpieces">
+          <li>
+            <input class = "real-file-upload-hide" type = "file">
+            <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "real-file-upload-hide">
+                <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+                <span>Upload Masterpiece</span>
+            </label>
+            <span>flippy.png</span>
+          </li>
+          <li>
+            <input class = "real-file-upload-hide" type = "file">
+            <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "real-file-upload-hide">
+                <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+                <span>Upload Masterpiece</span>
+            </label>
+            <span>sonic.jpg</span>
+          </li>
+        </ul>
+      </div>
+    </fieldset>
+  </fieldset>
+</form>
+`;
+
+var themes =
+`
+<ul id = "theme-list">
+  <li class = "image-favicon-item theme-option">
+    <div class = "overlay pointer-mouse-type"></div>
+    <img class = "background-image" src = "Images/Adobe Portfolio Backgrounds/background0.png" alt="">
+  </li>
+  <li class = "image-favicon-item theme-option">
+    <div class = "overlay pointer-mouse-type"></div>
+    <img class = "background-image" src = "Images/Adobe Portfolio Backgrounds/background1.jpg" alt="">
+  </li>
+</ul>
+<button style = "font-size: 12px; padding: 6px; margin-left: 13px; margin-top: 15px;" id = "collapse-themes-menu-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+`;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var html_5_game_item =
 `
 <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">

@@ -130,11 +130,19 @@ class Dropdown_Widget
     {
       this.$widget_body.off("transitionend");
       this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, this.expanded_spacing);
+      if(this.array_of_parents.length > 0) //If the widget is nested within other widgets, expand all of its ancestors. See "expand_parent_widgets" for more.
+      {
+        this.expand_parent_widgets();
+      }
       this.expanded = true;
     }
     else //If the this.expanded is true (widget is opening) start closing the widget.
     {
       this.collapse_widget_contents(fixed_collapsed_height_bool, fixed_collapsed_height, this.expanded_spacing);
+      if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
+      {
+        this.collapse_parent_widgets();
+      }
       this.expanded = false;
     }
   }
@@ -157,10 +165,6 @@ class Dropdown_Widget
     }
     var expand_height = this.expanded_height.toString() + this.height_units; //Then, take whatever this.expanded_height came out to be and format it as a string, with units, in order to be used as CSS.
     this.$widget_body.css("height", expand_height);
-    if(this.array_of_parents.length > 0) //If the widget is nested within other widgets, expand all of its ancestors. See "expand_parent_widgets" for more.
-    {
-      this.expand_parent_widgets();
-    }
   }
 
   collapse_widget_contents(fixed_collapsed_height_bool, fixed_collapsed_height, expanded_spacing)
@@ -180,10 +184,6 @@ class Dropdown_Widget
       this.expanded_height = 0;
       this.$widget_body.css("height", "0" + this.height_units);
     }
-    if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
-    {
-      this.collapse_parent_widgets();
-    }
   }
 
   expand_parent_widgets()
@@ -198,7 +198,8 @@ class Dropdown_Widget
     {
       let expand_height = this.array_of_parents[i].expanded_height + (this.expanded_height - this.previous_height);
       this.array_of_parents[i].expand_widget_contents(true, expand_height, "0px"); //Use the calculated expand_height above and use it as a fixed_expanded_height to expand to!
-
+      console.log(this.expanded_height, this.previous_height);
+      console.log(this.array_of_parents[i].expanded_height, this.array_of_parents[i].previous_height);
       /*console.log(this.array_of_parents[i].$widget_body.attr("id") + "'s height previously was " + this.array_of_parents[i].previous_height.toString() + " pixels.");
       console.log(this.array_of_parents[i].$widget_body.attr("id") + "'s height is now " + this.array_of_parents[i].expanded_height.toString() + " pixels.");
       console.log(this.array_of_parents[i].$widget_body.attr("id") + " was increased in height by: " + (this.expanded_height - this.previous_height).toString() + " pixels.");*/
@@ -331,11 +332,11 @@ its array_of_parents. DATATYPE: ARRAY.
 */
 class Cummulative_Menu extends Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
     //RETURNS: NOTHING.
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, collapse_handle_id, menu_body_id, item_box_content, array_of_parents); //Call parent class constructor.
-    this.item_box_class = item_box_class; //TODO: LOOK AT MENU_BODY_ID
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, "", menu_body_id, item_box_content, array_of_parents); //Call parent class constructor.
+    this.item_box_class = item_box_class;
     this.item_box_cancel_class = item_box_cancel_class;
     this.item_box_content = item_box_content;
     this.item_box_transition_properties_array = item_box_transition_properties_array;
@@ -359,6 +360,10 @@ class Cummulative_Menu extends Menu
         $('.' + this.item_box_cancel_class).eq(this.current_number_of_item_boxes), this.current_number_of_item_boxes, [this].concat(this.array_of_parents))); //Push a new item box to the item_box_array variable.
     this.current_number_of_item_boxes++; //Increment the number of item boxes this cummulative menu has.
     this.expand_widget_contents(fixed_expanded_height_bool, fixed_expanded_height, this.expanded_spacing);
+    if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
+    {
+      this.expand_parent_widgets();
+    }
   }
 
   renumber_item_box_ids(starting_index)
@@ -420,6 +425,7 @@ class Item_Box extends Dropdown_Widget
     this.dummy_id_stem = "item-box-"; //All item boxes will start with this stem.
     $item_box.attr("id", this.dummy_id_stem + this.item_box_number.toString()); //Set id of item box object.
     this.setup_widget_body($item_box.attr("id"), transition_duration, duration_units, transition_delay, delay_units); //Then setup widget body!
+    this.$widget_body.css("border-bottom", "none");
     this.set_height_including_margins(); //See this method for more info.
     this.$item_box_cancel_button = $item_box_cancel_button;
     this.widget_margin_bottom;
@@ -431,6 +437,10 @@ class Item_Box extends Dropdown_Widget
         this.menu_object.renumber_item_box_ids(this.item_box_number); //Renumber all other item boxes starting at the one removed.
         this.menu_object.current_number_of_item_boxes--; //Subtract one from the "Cummulative_Menu" current_number_of_item_boxes variable.
         this.collapse_widget_contents(false, 0, this.expanded_spacing);
+        if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
+        {
+          this.collapse_parent_widgets();
+        }
         this.manage_collapse_transitionend(this.$widget_body);
       }.bind(this)
     );
@@ -497,7 +507,6 @@ class Clickbox extends Dropdown_Widget
     $clickbox.attr("id", this.clickbox_id_stem + this.clickbox_number.toString());
     this.setup_widget_body($clickbox.attr("id"), transition_duration, duration_units, transition_delay, delay_units);
     this.fixed_collapsed_height = parseInt(this.$widget_body.css("height"));
-    this.expansion_content_array_jQuery = [];
     this.$widget_body.on("click",
       function()
       {

@@ -47,7 +47,7 @@ var new_class_form =
               <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type">
             </div>
             <div>
-              <label class = "inline-label" for = "adobe-animate-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe-animate.jpg" alt=""></label>
+              <label class = "inline-label" for = "adobe-animate-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe.png" alt=""></label>
               <input class = "inline-checkbox" id = "adobe-animate-student" type = "radio" name = "course_type">
             </div>
           </div>
@@ -59,7 +59,7 @@ var new_class_form =
       <legend class = "bold-heading">Add Students:</legend>
       <div class = "SUB-fieldset-content">
         <div class = "student-add-container">
-          <div class = "students-box">
+          <div id = "students-box">
 
           </div>
           <div class = "new-student-add">

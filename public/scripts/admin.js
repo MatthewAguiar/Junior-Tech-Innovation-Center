@@ -21,7 +21,7 @@ class Admin_User
 {
   constructor()
   {
-    this.add_class_menu = new Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
+    this.add_class_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
     this.add_class_menu.student_add_button_active = false;
     this.add_class_menu.$class_name_element;
     this.add_class_menu.$class_name_error;
@@ -43,9 +43,10 @@ class Admin_User
           {
             this.add_class_menu.radio_button_array.push($("input:radio").eq(i));
           }
-          this.add_student_menu = new Cummulative_Menu(
-            "750", "ms", "0", "ms", "px", "15px", ["750", "ms", "0", "ms", "px", "15px"], "add-student-button", "remove-student", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
+          this.add_student_menu = new JTIC_Cummulative_Menu(
+            "750", "ms", "0", "ms", "px", "15px", ["750", "ms", "0", "ms", "px", "0px"], "add-student-button", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
           );
+          console.log(this.add_student_menu);
           this.add_student_menu.$menu_expand_handle.on("click",
             function()
             {
@@ -88,15 +89,15 @@ class Admin_User
   bind_student_box_click_events()
   {
     var box_index = this.add_student_menu.item_box_array.length - 1;
-    this.add_student_menu.item_box_array[box_index].$confirm_student_button = this.add_student_menu.item_box_array[box_index].$item_box.find("button.confirm-student-info");
-    this.add_student_menu.item_box_array[box_index].$search_existing_student_field = this.add_student_menu.item_box_array[box_index].$item_box.find("input.existing-student-input");
-    this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.existing-student-warning");
-    this.add_student_menu.item_box_array[box_index].$search_existing_student_button = this.add_student_menu.item_box_array[box_index].$item_box.find("button.search-student");
-    //this.add_student_menu.item_box_array[box_index].$new_student_name_and_password_container = this.add_student_menu.item_box_array[box_index].$item_box.find("div.new-student-info");
-    this.add_student_menu.item_box_array[box_index].$student_name_input_element = this.add_student_menu.item_box_array[box_index].$item_box.find("input.student-name-input");
-    this.add_student_menu.item_box_array[box_index].$name_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.name-warning");
-    this.add_student_menu.item_box_array[box_index].$student_password_input_element = this.add_student_menu.item_box_array[box_index].$item_box.find("input.student-password-input");
-    this.add_student_menu.item_box_array[box_index].$password_error_element = this.add_student_menu.item_box_array[box_index].$item_box.find("span.password-warning");
+    this.add_student_menu.item_box_array[box_index].$confirm_student_button = this.add_student_menu.item_box_array[box_index].$widget_body.find("button.confirm-student-info");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_field = this.add_student_menu.item_box_array[box_index].$widget_body.find("input.existing-student-input");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_error_element = this.add_student_menu.item_box_array[box_index].$widget_body.find("span.existing-student-warning");
+    this.add_student_menu.item_box_array[box_index].$search_existing_student_button = this.add_student_menu.item_box_array[box_index].$widget_body.find("button.search-student");
+    //this.add_student_menu.item_box_array[box_index].$new_student_name_and_password_container = this.add_student_menu.item_box_array[box_index].$widget_body.find("div.new-student-info");
+    this.add_student_menu.item_box_array[box_index].$student_name_input_element = this.add_student_menu.item_box_array[box_index].$widget_body.find("input.student-name-input");
+    this.add_student_menu.item_box_array[box_index].$name_error_element = this.add_student_menu.item_box_array[box_index].$widget_body.find("span.name-warning");
+    this.add_student_menu.item_box_array[box_index].$student_password_input_element = this.add_student_menu.item_box_array[box_index].$widget_body.find("input.student-password-input");
+    this.add_student_menu.item_box_array[box_index].$password_error_element = this.add_student_menu.item_box_array[box_index].$widget_body.find("span.password-warning");
     this.add_student_menu.item_box_array[box_index].$confirmed_existing_student_name_credentials;
     this.add_student_menu.item_box_array[box_index].$confirmed_name_credentials;
     this.add_student_menu.item_box_array[box_index].$confirmed_password_credentials;

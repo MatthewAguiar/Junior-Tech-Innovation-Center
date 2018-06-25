@@ -33,18 +33,18 @@ li.folder-item > div.data-box-info{
   margin-left: 4px;
 }
 /*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form div.new-project-form-content{
+form div.new-form-content{
   /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
 }
 
-form div.new-project-form-content > textarea.project-add-textarea{
+textarea.define-form-textarea-dimensions{
   /*Re-adjust the textarea in the "New Project" form and set a height for it.*/
   height: 100px;
 }
 
-li.new-project-add{
+.new-project-add{
   margin-top: 10px;
   margin-bottom: 15px;
 }
@@ -54,7 +54,7 @@ div.project-menu{
   margin-bottom: 15px;
 }
 
-li.root-folder-selector{
+.root-folder-selector{
   margin-bottom: 15px;
 }
 
@@ -142,6 +142,42 @@ ul.image-flex-box img.favicon{
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ ADOBE CREATIVE PORTFOLIO FORM RULES ------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+textarea.creative-portfolio-text-dimensions{
+  height: 125px;
+}
+
+.adobe-section-content:last-child{
+  margin-top: 15px;
+}
+
+div#theme-container{
+  margin-top: 15px;
+}
+
+ul#theme-list{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+ul#theme-list img{
+  width: 160px;
+  height: 120px;
+}
+
+li.theme-option{
+  margin-top: 15px;
+  display: inline-block;
+}
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ GENERAL FILE MANIPULATION BUTTON RULES ---------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,14 +187,6 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-.real-file-upload-hide{
-  /*
-  This will hide the REAL file upload button in the "New Project" form in the student left sub-console. The reason for this is that, using a label element
-  with the class, "file-upload", I am able to create my own custom button rather than the standard grey one.
-  */
-  display: none;
-}
-
 .play-button-positioning{
   /*
   These purple "Play!" buttons contain similar CSS as the blue buttons however, because the content in the "Play!" buttons are much smaller than in blue buttons.

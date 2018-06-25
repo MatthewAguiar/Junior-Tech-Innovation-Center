@@ -1,0 +1,68 @@
+/*
+Jr. Tech Innovation Center (JTIC): ADOBE STUDENT PORTFOLIO PAGE CSS
+Copyright (C) 2018 Matthew Aguiar
+
+  Jr. Tech's Mission:
+  Jr. Tech is a non-profit STEM organization and its mission is to provide young, 4th - 12th grade students,
+  with an opportunity to begin building their Science, Technology, Engineering and Mathematical skills for future success
+  in STEM related fields. Some of Jr. Tech's technological classes include, "Introduction to Computer Game Programming and Development with GameMaker-Studio 1.4",
+  "Introduction to Computer Programming and Algorithms with Python", "Introduction to C++ Game Programming" and even "Introduction to Artificial Intelligence".
+
+  What is JTIC?
+  JTIC is a website that serves to help Jr. Tech STEM students innovate, create and save their work for later access from anywhere.
+  It also gives computer game programming and development students a chance to publish their games on their own webpages to play from anywhere and show their friends.
+*/
+
+html, body{
+  margin: 0;
+  background-image: url("../Images/Adobe Portfolio Backgrounds/background1.jpg");
+  color: rgb(250, 250, 250);
+}
+
+hr{
+  width: 90%;
+  border: 2px solid rgb(250, 250, 250);
+  margin-bottom: 50px;
+}
+
+header#adobe-header{
+  font-size: 24pt;
+  font-weight: bold;
+  padding-top: 20px;
+  text-align: center;
+}
+
+main#main-content{
+  margin-top: 100px;
+}
+
+section#videos video, section#images img{
+  margin-top: 40px;
+  width: 30%;
+  height: auto;
+}
+
+div.content-container{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 75%;
+  margin: 0px auto 50px auto;
+}
+
+header.subheader{
+  margin-left: 10%;
+  width: 40%;
+}
+
+header.subheader > h2{
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+header.subheader > p{
+  font-size: 10pt;
+  line-height: 2;
+}

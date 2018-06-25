@@ -53,9 +53,13 @@ class Student_User
     this.adobe_folder_array_of_content = [adobe_project_folder_content];
     this.adobe_project_descriptions_array = [];
     this.adobe_download_url_array = [];
-    this.adobe_allowed_array_of_file_extensions = ["" , ".ai", ".fla"];
+    this.adobe_allowed_array_of_file_extensions = [".ai", ".fla"];
     this.adobe_project_folder;
     ////////////////////////////
+    this.mode = "";
+    this.$right_subconsole_label_element = $("h6#right-subconsole-label");
+    this.$right_subconsole = $("section#right-subconsole").find("div.sub-console-content-inner-liner");
+    this.adobe_creative_portfolio;
     this.folder_array = [];
     this.global_clickbox_array = [];
     this.global_clickbox_counter = 0;
@@ -167,6 +171,10 @@ class Student_User
     folder_object.$folder_expand_collapse_handle.on("click",
       function(event)
       {
+        if(this.mode !== folder_object.class_name)
+        {
+          this.setup_right_subconsole(folder_object.class_name);
+        }
         if(!folder_object.main_code_expanded)
         {
           folder_object.$widget_body.off("transitionend");
@@ -250,7 +258,10 @@ class Student_User
                   this.global_clickbox_array[clickbox_index].main_code_expanded = true;
                   this.global_clickbox_array[clickbox_index].$project_description_element = this.global_clickbox_array[clickbox_index].$widget_body.find(".project-description-paragraph");
                   this.global_clickbox_array[clickbox_index].$project_description_element.text(project_descriptions_array[folder_object.clickbox_number_array.indexOf(clickbox_index)]);
+                  console.log(project_descriptions_array[folder_object.clickbox_number_array.indexOf(clickbox_index)]);
+                  console.log(clickbox_index);
                   this.global_clickbox_array[clickbox_index].expand_widget_contents(false, 0, "5px");
+                  this.global_clickbox_array[clickbox_index].expand_parent_widgets(false, 0, "0px");
                   this.global_clickbox_array[clickbox_index].$update_version_button = this.global_clickbox_array[clickbox_index].$widget_body.find("input.update-project");
                   this.global_clickbox_array[clickbox_index].$update_version_error = this.global_clickbox_array[clickbox_index].$widget_body.find("span.new-version-error");
                   this.global_clickbox_array[clickbox_index].$update_version_button.on("change",
@@ -374,6 +385,41 @@ class Student_User
         else
         {
           new_project_menu_instance.$file_uploader.val("");
+        }
+      }.bind(this)
+    );
+  }
+
+  setup_right_subconsole(class_mode)
+  {
+
+    switch (class_mode) {
+      case "GameMaker-Studio":
+        break;
+
+      case "Python":
+        break;
+
+      case "C++":
+        break;
+
+      case "Adobe":
+        this.add_adobe_creative_portfolio();
+    }
+  }
+
+  add_adobe_creative_portfolio()
+  {
+    this.$right_subconsole_label_element.text("Creative Portfolio:");
+    this.$right_subconsole.append(adobe_creative_portfolio_folder);
+    this.adobe_creative_portfolio = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "creative-portfolio-arrow", "adobe-porfolio-edit-folder", [adobe_creative_portfolio_folder_content], []);
+    this.adobe_creative_portfolio.$folder_expand_collapse_handle.on("click",
+      function()
+      {
+        if(!this.adobe_creative_portfolio.main_code_expanded)
+        {
+          this.adobe_creative_portfolio.main_code_expanded = true;
+          this.adobe_creative_portfolio.themes_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "theme-menu-button", "collapse-themes-menu-button", "theme-container", [themes], [this.adobe_creative_portfolio]);
         }
       }.bind(this)
     );
