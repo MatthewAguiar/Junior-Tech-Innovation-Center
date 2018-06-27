@@ -289,6 +289,13 @@ REVIEW: All styling rules below do the following:
   font-weight: 700;
 }
 
+/*-----  FORM RULE -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+form div.new-form-content{
+  /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
+  width: 90%;
+  margin: 15px auto;
+}
+
 legend.bold-heading{
   font-size: 13px;
   margin-left: 10px;

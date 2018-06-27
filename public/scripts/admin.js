@@ -19,9 +19,13 @@ Copyright (C) 2018 Matthew Aguiar
 */
 class Admin_User
 {
-  constructor()
+  constructor(admin_firebase_id, admin_data, admin_nodes)
   {
+    this.admin_firebase_id = admin_firebase_id;
+    this.admin_data = admin_data;
+    this.admin_nodes = admin_nodes;
     this.add_class_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
+    this.adobe_creative_portfolio_options_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "15px", "adobe-arrow", "adobe-themes-folder", [adobe_creative_portfolio_folder_contents], []);
     this.add_class_menu.student_add_button_active = false;
     this.add_class_menu.$class_name_element;
     this.add_class_menu.$class_name_error;
@@ -29,7 +33,9 @@ class Admin_User
     this.add_class_menu.$class_type_error;
     this.add_class_menu.$general_credentials_error;
     this.add_student_menu;
+    //this.$right_subconsole = $("section#right-subconsole").find("div.sub-console-content-inner-liner");
     this.bind_class_menu_click_events();
+    this.bind_adobe_creative_portfolio_events();
   }
 
   bind_class_menu_click_events()
@@ -370,7 +376,7 @@ class Admin_User
 
   async proof_check_class_menu()
   {
-    var classes_data = await get_data(FIREBASE_DATABASE.child("Users/Students"));
+    var classes_data = await get_data(FIREBASE_DATABASE.child("Users/Students"), false);
     var class_already_exists = false;
     var class_name_filled = false;
     var class_type_complete = false;
@@ -543,7 +549,7 @@ class Admin_User
     var student_database_reference = FIREBASE_DATABASE.child("Users/Students");
     student_database_reference.child(class_name + "/" + student_id).set(username);
     var student_classes_reference = student_database_reference.child("All Students/" + student_id + "/Classes");
-    var student_data = get_data(student_classes_reference);
+    var student_data = get_data(student_classes_reference, false);
     student_data.then(
       function(classes)
       {
@@ -566,6 +572,274 @@ class Admin_User
       }
     );
   }
+
+  bind_adobe_creative_portfolio_events()
+  {
+    this.adobe_creative_portfolio_options_folder.$folder_expand_collapse_handle.on("click",
+      function()
+      {
+        if(!this.adobe_creative_portfolio_options_folder.main_code_expanded)
+        {
+          this.adobe_creative_portfolio_options_folder.main_code_expanded = true;
+          this.adobe_creative_portfolio_options_folder.$rgb_picker = this.adobe_creative_portfolio_options_folder.$widget_body.find("input#font-theme");
+          this.adobe_creative_portfolio_options_folder.$color_box = this.adobe_creative_portfolio_options_folder.$widget_body.find("rect#color-rectangle");
+          this.adobe_creative_portfolio_options_folder.$add_theme_from_web_field = this.adobe_creative_portfolio_options_folder.$widget_body.find("input#theme-url");
+          this.adobe_creative_portfolio_options_folder.$add_theme_from_web_button = this.adobe_creative_portfolio_options_folder.$widget_body.find("button#add-from-web-button");
+          this.adobe_creative_portfolio_options_folder.$web_theme_error = this.adobe_creative_portfolio_options_folder.$widget_body.find("span#theme-error");
+          this.adobe_creative_portfolio_options_folder.$upload_from_PC = this.adobe_creative_portfolio_options_folder.$widget_body.find("input#image-upload-button-selector");
+          this.adobe_creative_portfolio_options_folder.$upload_from_PC_error = this.adobe_creative_portfolio_options_folder.$widget_body.find("span#upload-theme-error");
+          this.adobe_creative_portfolio_options_folder.rgb_ready = false;
+          this.adobe_creative_portfolio_options_folder.$rgb_picker.on("keyup",
+            function(event)
+            {
+              var current_value = this.adobe_creative_portfolio_options_folder.$rgb_picker.val();
+              var valid_rgb_format = this.rgb_format_parser(current_value);
+              console.log(valid_rgb_format);
+              if(valid_rgb_format)
+              {
+                var valid_rgb_values = this.rgb_check_values(current_value);
+                if(valid_rgb_values)
+                {
+                  this.adobe_creative_portfolio_options_folder.$rgb_picker.css("background-color", "rgb(152,251,152)");
+                  this.adobe_creative_portfolio_options_folder.$color_box.css("fill", "rgb(" + current_value + ')');
+                  this.adobe_creative_portfolio_options_folder.rgb_ready = true;
+                }
+                else
+                {
+                  this.adobe_creative_portfolio_options_folder.$rgb_picker.css("background-color", "rgb(240, 128, 128)");
+                  this.adobe_creative_portfolio_options_folder.rgb_ready = false;
+                }
+              }
+              else
+              {
+                this.adobe_creative_portfolio_options_folder.$rgb_picker.css("background-color", "rgb(240, 128, 128)");
+                this.adobe_creative_portfolio_options_folder.rgb_ready = false;
+              }
+            }.bind(this)
+          );
+          this.adobe_creative_portfolio_options_folder.$add_theme_from_web_button.on("click",
+            function()
+            {
+              var file_path = this.adobe_creative_portfolio_options_folder.$add_theme_from_web_field.val();
+              verify_web_image_path(file_path,
+                function(path_exists)
+                {
+                  if(path_exists && this.adobe_creative_portfolio_options_folder.rgb_ready)
+                  {
+                    var save_theme_info_box = new Info_Box(
+                      "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
+                    );
+                    this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Web", file_path)
+                    setTimeout(
+                      function()
+                      {
+                        save_theme_info_box.firebase_mode_confirm_completion();
+                      },3000
+                    );
+                  }
+                  else if(!this.adobe_creative_portfolio_options_folder.rgb_ready)
+                  {
+                    this.adobe_creative_portfolio_options_folder.$web_theme_error.text("rgb value not valid.");
+                    transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
+                  }
+                  else
+                  {
+                    this.adobe_creative_portfolio_options_folder.$web_theme_error.text("URL does not exist.");
+                    transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
+                  }
+                }.bind(this)
+              );
+            }.bind(this)
+          );
+          this.adobe_creative_portfolio_options_folder.$upload_from_PC.on("change",
+            function(event)
+            {
+              var file = event.target.files[0];
+              var valid_file_extension = check_file_extension(file.name, [".jpeg", ".jpg", ".png", ".bmp", ".gif"]);
+              if(valid_file_extension && this.adobe_creative_portfolio_options_folder.rgb_ready)
+              {
+                var save_theme_info_box = new Info_Box(
+                  "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
+                );
+                var storage_and_database_reference = "Administrators/" + this.admin_firebase_id + "/Adobe Creative Portfolio Themes/";
+                this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Storage", "gs://jr-tech-innovation-center.appspot.com/" + storage_and_database_reference + file.name);
+                this.add_adobe_theme_photo_to_storage(storage_and_database_reference, file).then(
+                  function()
+                  {
+                    setTimeout(
+                      function()
+                      {
+                        save_theme_info_box.firebase_mode_confirm_completion();
+                      },3000
+                    );
+                    save_theme_info_box.firebase_mode_confirm_completion();
+                  }
+                );
+              }
+              else if(!this.adobe_creative_portfolio_options_folder.rgb_ready)
+              {
+                this.adobe_creative_portfolio_options_folder.$upload_from_PC_error.text("rgb value not valid.");
+                transition_error_messages(this.adobe_creative_portfolio_options_folder.$upload_from_PC_error, "red", true);
+              }
+              else
+              {
+                this.adobe_creative_portfolio_options_folder.$upload_from_PC_error.text("Non-valid image format.");
+                transition_error_messages(this.adobe_creative_portfolio_options_folder.$upload_from_PC_error, "red", true);
+              }
+            }.bind(this)
+          );
+        }
+      }.bind(this)
+    );
+  }
+
+  async add_adobe_theme_photo_to_storage(storage_reference, file)
+  {
+    FIREBASE_STORAGE.ref(storage_reference + file.name).put(file);
+  }
+
+  remove_adobe_theme_photo_to_storage()
+  {
+
+  }
+
+  add_adobe_theme_data_to_database(rgb_scheme, save_type, file_path)
+  {
+    transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", false);
+    if(this.admin_nodes.hasChild("Adobe Creative Portfolio Themes"))
+    {
+      var themes_data = this.admin_data["Adobe Creative Portfolio Themes"];
+      var temporary_themes_array = [];
+      for(var theme in themes_data)
+      {
+        temporary_themes_array.push(theme);
+      }
+      var last_theme_number = parseInt(temporary_themes_array[temporary_themes_array.length - 1]);
+      var new_theme_number = (last_theme_number + 1).toString();
+      var photo_number = new_theme_number;
+    }
+    else
+    {
+      var photo_number = "0";
+    }
+    var theme_reference = this.admin_firebase_id + "/Adobe Creative Portfolio Themes/" + photo_number;
+    DATABASE_ADMIN_BRANCH.child(theme_reference + "/Save Type").set(save_type);
+    DATABASE_ADMIN_BRANCH.child(theme_reference + "/File Path").set(file_path);
+    DATABASE_ADMIN_BRANCH.child(theme_reference + "/RGB Scheme").set(rgb_scheme);
+  }
+
+  remove_adobe_theme_data_to_database()
+  {
+
+  }
+
+  rgb_format_parser(rgb_value)
+  {
+    var indices_of_commas = [];
+    var number_of_commas = 0;
+    if(rgb_value[0] === "," || rgb_value[rgb_value.length - 1] === ",")
+    {
+      return false;
+    }
+    for(let i = 0; i < rgb_value.length; i++)
+    {
+      if(rgb_value[i] === ',')
+      {
+        indices_of_commas.push(i);
+        number_of_commas++;
+      }
+      if(number_of_commas > 2)
+      {
+        return false;
+      }
+    }
+    if(number_of_commas < 2)
+    {
+      return false;
+    }
+    else if(indices_of_commas[0] + 1 === indices_of_commas[1])
+    {
+      return false;
+    }
+    var numbers = "0123456789";
+    for(let i = indices_of_commas[0] - 1; i >= 0; i--)
+    {
+      if(numbers.indexOf(rgb_value[i]) === -1 && rgb_value[i] !== " ")
+      {
+        return false;
+      }
+    }
+    var middle_numbers = false;
+    for(let i = indices_of_commas[0] + 1; i < rgb_value.length; i++)
+    {
+      if(numbers.indexOf(rgb_value[i]) === -1 && rgb_value[i] !== " ")
+      {
+        return false;
+      }
+      else if(rgb_value[i] !== " ")
+      {
+        middle_numbers = true;
+      }
+      if(rgb_value[i + 1] === ",")
+      {
+        break;
+      }
+    }
+    if(!middle_numbers)
+    {
+      return false;
+    }
+    for(let i = indices_of_commas[1] + 1; i < rgb_value.length; i++)
+    {
+      if(numbers.indexOf(rgb_value[i]) === -1 && rgb_value[i] !== " ")
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  rgb_check_values(rgb_string)
+  {
+    var numbers = "0123456789";
+    var value = "";
+    var first_comma_index = rgb_string.indexOf(",", 0);
+    var last_comma_index = rgb_string.lastIndexOf(",");
+    var current_comma_index = first_comma_index;
+    var j = 0;
+    for(let i = 0; i < 3; i++)
+    {
+      var numbers_bool = false;
+      while(j < current_comma_index)
+      {
+        if(numbers.indexOf(rgb_string[j]) !== -1 && !numbers_bool)
+        {
+          numbers_bool = true;
+        }
+        value = value + rgb_string[j];
+        j++;
+      }
+      if(!numbers_bool)
+      {
+        return false
+      }
+      else if(parseInt(value) < 0 || parseInt(value) > 255)
+      {
+        return false;
+      }
+      value = "";
+      j = current_comma_index + 1;
+      if(i === 0)
+      {
+        current_comma_index = last_comma_index;
+      }
+      else if(i === 1)
+      {
+        current_comma_index = rgb_string.length;
+      }
+    }
+    return true;
+  }
 }
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -574,17 +848,19 @@ class Admin_User
 */
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
+const FIREBASE_STORAGE = firebase.storage();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH.child("All Students"));
-var admin = new Admin_User();
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
-  function(JTIC_user)
+  async function(JTIC_user)
   {
     if(JTIC_user)
     {
       console.log(JTIC_user);
-      //alert("1LOGGED IN AS: " + JTIC_user.uid);
+      var admin_data = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), false); //Get Dictionary.
+      var admin_nodes = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), true); //Get Nodes.
+      var admin = new Admin_User(JTIC_user.uid, admin_data, admin_nodes);
     }
     else
     {

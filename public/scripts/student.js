@@ -15,10 +15,12 @@ Copyright (C) 2018 Matthew Aguiar
 
 class Student_User
 {
-  constructor(user_id, student_data, master_projects_list_id)
+  constructor(user_id, student_data, student_nodes, master_projects_list_id)
   {
     this.user_id = user_id;
     this.student_data = student_data;
+    this.student_nodes = student_nodes;
+    console.log(this.student_data, this.student_nodes);
     this.$master_projects_list = $('#' + master_projects_list_id);
     this.array_of_project_html_frameworks = [
                                               [gamemaker_folder, python_folder, cpp_folder, adobe_folder],
@@ -76,7 +78,7 @@ class Student_User
       {
         case "gamemaker-student":
           this.add_folder_to_page(gamemaker_folder);
-          this.gamemaker_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/GameMaker-Studio"));
+          this.gamemaker_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/GameMaker-Studio"), false);
           this.gamemaker_project_collection.then(
             function(project_collection)
             {
@@ -93,7 +95,7 @@ class Student_User
 
         case "python-student":
           this.add_folder_to_page(python_folder);
-          this.python_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/Python"));
+          this.python_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/Python"), false);
           this.python_project_collection.then(
             function(project_collection)
             {
@@ -110,7 +112,7 @@ class Student_User
 
         case "c++-student":
           this.add_folder_to_page(cpp_folder);
-          this.cpp_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/C++"));
+          this.cpp_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/C++"), false);
           this.cpp_project_collection.then(
             function(project_collection)
             {
@@ -127,7 +129,7 @@ class Student_User
 
         case "adobe-student":
           this.add_folder_to_page(adobe_folder);
-          this.adobe_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/Adobe"));
+          this.adobe_project_collection = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Projects/Adobe"), false);
           this.adobe_project_collection.then(
             function(project_collection)
             {
@@ -556,18 +558,15 @@ const DATE = get_date(new Date());
 console.log(DATE);
 
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
-  function(JTIC_user)
+  async function(JTIC_user)
   {
     if(JTIC_user)
     {
       console.log(JTIC_user);
-      var student_data = get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid));
-      student_data.then(
-        function(data)
-        {
-          var student = new Student_User(JTIC_user.uid, data, "master-project-list");
-          //alert("1LOGGED IN AS: " + JTIC_user.uid);
-        }
+      var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid), false); //Get Data.
+      var student_nodes = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid), true); //Get Nodes
+      var student = new Student_User(JTIC_user.uid, student_data, student_nodes, "master-project-list");
+      //alert("1LOGGED IN AS: " + JTIC_user.uid);
       );
     }
     else

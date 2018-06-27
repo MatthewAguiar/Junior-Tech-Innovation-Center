@@ -32,12 +32,6 @@ li.folder-item > div.data-box-info{
   vertical-align: top;
   margin-left: 4px;
 }
-/*----- "NEW PROJECT" FORM RULES -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form div.new-form-content{
-  /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
-  width: 90%;
-  margin: 15px auto;
-}
 
 textarea.define-form-textarea-dimensions{
   /*Re-adjust the textarea in the "New Project" form and set a height for it.*/

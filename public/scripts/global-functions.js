@@ -43,8 +43,8 @@ async function organize_all_users(admin_branch, student_branch)
 {
   try
   {
-    var admin_data = await get_data(admin_branch);
-    var student_data = await get_data(student_branch);
+    var admin_data = await get_data(admin_branch, false);
+    var student_data = await get_data(student_branch, false);
   }
   catch(exception)
   {
@@ -67,7 +67,7 @@ async function organize_all_users(admin_branch, student_branch)
   return users;
 }
 
-function get_data(branch)
+function get_data(branch, nodes_bool)
 {
   return new Promise(
     function(resolve, reject)
@@ -75,7 +75,14 @@ function get_data(branch)
       branch.once("value").then(
         function(data)
         {
-          resolve(data.val());
+          if(!nodes_bool)
+          {
+            resolve(data.val());
+          }
+          else
+          {
+            resolve(data);
+          }
         }
       ).catch(
         function(error)
@@ -128,7 +135,7 @@ function check_file_extension(file_name, allowed_file_extension_array)
     var file_extension = allowed_file_extension_array[i];
     //console.log(file_extension);
     var extension_from_file = "";
-    for(let j = file_name.length - 1; j > 0; j--)
+    for(let j = file_name.length - 1; j >= 0; j--)
     {
       extension_from_file = file_name[j] + extension_from_file;
       //console.log(extension_from_file);
@@ -144,6 +151,36 @@ function check_file_extension(file_name, allowed_file_extension_array)
     }
   }
   return false;
+}
+
+function get_file_extension(file_name)
+{
+  if(file_name.indexOf(".") === -1)
+  {
+    return "";
+  }
+  var extension_from_file = "";
+  for(let i = file_name.length - 1; i >= 0; i--)
+  {
+    if(file_name[i] === ".")
+    {
+      //console.log("TRUE");
+      return extension_from_file;
+    }
+    extension_from_file = file_name[i] + extension_from_file;
+  }
+}
+
+function verify_web_image_path(url, callback)
+{
+  var image_holder = new Image();
+  image_holder.onload = function(){
+    callback(true);
+  };
+  image_holder.onerror = function(){
+    callback(false);
+  };
+  image_holder.src = url;
 }
 
 function manipulate_file_extension_for_database(file_name, remove)

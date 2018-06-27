@@ -109,3 +109,54 @@ var add_student_mini_field =
   </div>
 </div>
 `;
+
+//3. THIS CODE IS THE ADOBE CREATIVE PORTFOLIO FOLDER CONTENT IN THE RIGHT SUBCONSOLE.
+var adobe_creative_portfolio_folder_contents =
+`
+<form id = "new-class-form">
+  <fieldset style = "margin-top: 0;" id = "add-class-form-content" class = "shrink-and-center-SUB-fieldset border-color-and-radius">
+    <legend>Themes</legend>
+    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
+      <legend class = "bold-heading">Current Themes</legend>
+      <ul id = "themes-list">
+      </ul>
+    </fieldset>
+    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
+      <legend class = "bold-heading">New Theme</legend>
+      <div class = "new-form-content">
+        <div class = "color-chooser-container">
+          <div style = "margin-top: 15px;">
+            <label class = "small-label-format" for = "font-theme">RGB color code:</label>
+            <span>rgb(</span>
+            <input id = "font-theme" class = "input-half-width input-height-and-font rgb-input-resize" type = "text" placeholder = "250, 25, 160">
+            <span>)</span>
+          </div>
+          <div>
+            <svg id = "color-svg">
+              <rect id = "color-rectangle" />
+            </svg>
+          </div>
+        </div>
+        <div style = "margin-top: 15px;">
+          <div class = "">
+            <label class = "small-label-format" for = "theme-url">Web Image URL:</label>
+            <div class = "">
+              <input id = "theme-url" class = "input-height-and-font" type = "text">
+              <button id = "add-from-web-button" style = "display: inline; vertical-align: top; margin-top: 0;" class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button">Add from Web</button>
+              <span display: inline;" id = "theme-error" class = "warning-message">Default</span>
+            </div>
+          </div>
+          <div class = "">
+            <input class = "real-file-upload-hide" id = "image-upload-button-selector" type = "file">
+            <label style = "padding: 6px 5px; margin-top: 3px;  margin-bottom: 10px;" class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "image-upload-button-selector">
+                <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
+                <span>Upload Theme</span>
+            </label>
+            <span display: inline;" id = "upload-theme-error" class = "warning-message">Default</span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </fieldset>
+</form>
+`;
