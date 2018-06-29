@@ -126,6 +126,7 @@ function has_text(string)
 
 function check_file_extension(file_name, allowed_file_extension_array)
 {
+  file_name = file_name.toLowerCase();
   if(file_name.indexOf(".") === -1)
   {
     return false;
@@ -155,6 +156,7 @@ function check_file_extension(file_name, allowed_file_extension_array)
 
 function get_file_extension(file_name)
 {
+  file_name = file_name.toLowerCase();
   if(file_name.indexOf(".") === -1)
   {
     return "";

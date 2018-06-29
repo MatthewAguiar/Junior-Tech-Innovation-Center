@@ -290,7 +290,7 @@ REVIEW: All styling rules below do the following:
 }
 
 /*-----  FORM RULE -------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-form div.new-form-content{
+.new-form-content{
   /*The "div" container inside of each "New Project" form is just shrunk and centered within the form.*/
   width: 90%;
   margin: 15px auto;
@@ -315,7 +315,7 @@ div#help-guide-overlay{
   height: 100%;
   opacity: 0.4;
   background-color: transparent;
-  transition: background-color 175ms linear;
+  transition: background-color 250ms linear;
   z-index: 10;
 }
 

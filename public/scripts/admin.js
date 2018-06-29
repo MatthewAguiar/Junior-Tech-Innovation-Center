@@ -580,9 +580,11 @@ class Admin_User
       {
         if(!this.adobe_creative_portfolio_options_folder.main_code_expanded)
         {
+          this.arrange_portfolio_themes();
           this.adobe_creative_portfolio_options_folder.main_code_expanded = true;
           this.adobe_creative_portfolio_options_folder.$rgb_picker = this.adobe_creative_portfolio_options_folder.$widget_body.find("input#font-theme");
           this.adobe_creative_portfolio_options_folder.$color_box = this.adobe_creative_portfolio_options_folder.$widget_body.find("rect#color-rectangle");
+          this.adobe_creative_portfolio_options_folder.$color_box.attr("width", $("svg#color-svg").css("width")).attr("height", $("svg#color-svg").css("height"));
           this.adobe_creative_portfolio_options_folder.$add_theme_from_web_field = this.adobe_creative_portfolio_options_folder.$widget_body.find("input#theme-url");
           this.adobe_creative_portfolio_options_folder.$add_theme_from_web_button = this.adobe_creative_portfolio_options_folder.$widget_body.find("button#add-from-web-button");
           this.adobe_creative_portfolio_options_folder.$web_theme_error = this.adobe_creative_portfolio_options_folder.$widget_body.find("span#theme-error");
@@ -594,7 +596,6 @@ class Admin_User
             {
               var current_value = this.adobe_creative_portfolio_options_folder.$rgb_picker.val();
               var valid_rgb_format = this.rgb_format_parser(current_value);
-              console.log(valid_rgb_format);
               if(valid_rgb_format)
               {
                 var valid_rgb_values = this.rgb_check_values(current_value);
@@ -620,35 +621,39 @@ class Admin_User
           this.adobe_creative_portfolio_options_folder.$add_theme_from_web_button.on("click",
             function()
             {
-              var file_path = this.adobe_creative_portfolio_options_folder.$add_theme_from_web_field.val();
-              verify_web_image_path(file_path,
-                function(path_exists)
-                {
-                  if(path_exists && this.adobe_creative_portfolio_options_folder.rgb_ready)
+              if(!this.adobe_creative_portfolio_options_folder.rgb_ready)
+              {
+                this.adobe_creative_portfolio_options_folder.$web_theme_error.text("rgb value not valid.");
+                transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
+              }
+              else
+              {
+                var file_path = this.adobe_creative_portfolio_options_folder.$add_theme_from_web_field.val();
+                verify_web_image_path(file_path,
+                  async function(path_exists)
                   {
-                    var save_theme_info_box = new Info_Box(
-                      "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
-                    );
-                    this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Web", file_path)
-                    setTimeout(
-                      function()
-                      {
-                        save_theme_info_box.firebase_mode_confirm_completion();
-                      },3000
-                    );
-                  }
-                  else if(!this.adobe_creative_portfolio_options_folder.rgb_ready)
-                  {
-                    this.adobe_creative_portfolio_options_folder.$web_theme_error.text("rgb value not valid.");
-                    transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
-                  }
-                  else
-                  {
-                    this.adobe_creative_portfolio_options_folder.$web_theme_error.text("URL does not exist.");
-                    transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
-                  }
-                }.bind(this)
-              );
+                    if(path_exists)
+                    {
+                      transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", false);
+                      var save_theme_info_box = new Info_Box(
+                        "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
+                      );
+                      this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Web", file_path)
+                      setTimeout(
+                        function()
+                        {
+                          save_theme_info_box.firebase_mode_confirm_completion();
+                        }, 3000
+                      );
+                    }
+                    else
+                    {
+                      this.adobe_creative_portfolio_options_folder.$web_theme_error.text("Photo URL does not exist.");
+                      transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
+                    }
+                  }.bind(this)
+                );
+              }
             }.bind(this)
           );
           this.adobe_creative_portfolio_options_folder.$upload_from_PC.on("change",
@@ -661,28 +666,29 @@ class Admin_User
                 var save_theme_info_box = new Info_Box(
                   "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
                 );
-                var storage_and_database_reference = "Administrators/" + this.admin_firebase_id + "/Adobe Creative Portfolio Themes/";
-                this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Storage", "gs://jr-tech-innovation-center.appspot.com/" + storage_and_database_reference + file.name);
-                this.add_adobe_theme_photo_to_storage(storage_and_database_reference, file).then(
-                  function()
+                var storage_reference = "Administrators/" + this.admin_firebase_id + "/Adobe-Creative-Portfolio-Themes/";
+                this.add_adobe_theme_photo_to_storage(storage_reference, file).then(
+                  function(storage_url)
                   {
+                    this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Storage", storage_url);
                     setTimeout(
                       function()
                       {
                         save_theme_info_box.firebase_mode_confirm_completion();
-                      },3000
+                      }, 3000
                     );
-                    save_theme_info_box.firebase_mode_confirm_completion();
-                  }
+                  }.bind(this)
                 );
               }
               else if(!this.adobe_creative_portfolio_options_folder.rgb_ready)
               {
+                this.adobe_creative_portfolio_options_folder.$upload_from_PC.val("");
                 this.adobe_creative_portfolio_options_folder.$upload_from_PC_error.text("rgb value not valid.");
                 transition_error_messages(this.adobe_creative_portfolio_options_folder.$upload_from_PC_error, "red", true);
               }
               else
               {
+                this.adobe_creative_portfolio_options_folder.$upload_from_PC.val("");
                 this.adobe_creative_portfolio_options_folder.$upload_from_PC_error.text("Non-valid image format.");
                 transition_error_messages(this.adobe_creative_portfolio_options_folder.$upload_from_PC_error, "red", true);
               }
@@ -693,9 +699,95 @@ class Admin_User
     );
   }
 
+  arrange_portfolio_themes()
+  {
+    if(this.admin_nodes.hasChild("Adobe-Creative-Portfolio-Themes"))
+    {
+      $(current_themes_field).insertAfter(this.adobe_creative_portfolio_options_folder.$widget_body.find("fieldset#current-themes > legend"));
+      this.adobe_creative_portfolio_options_folder.$themes_container = this.adobe_creative_portfolio_options_folder.$widget_body.find("ul#themes-list");
+      var all_themes = this.admin_data["Adobe-Creative-Portfolio-Themes"];
+      for(var theme in all_themes)
+      {
+        this.adobe_creative_portfolio_options_folder.$themes_container.append(theme_box);
+        var $list_item = this.adobe_creative_portfolio_options_folder.$themes_container.find("li.theme").eq(theme);
+        var $image_object = $list_item.find("img.theme-image");
+        $image_object.attr("src", all_themes[theme]["File Path"]);
+        $list_item.on("mouseenter",
+          function()
+          {
+            var $remove_theme_button_object = $(this).find("button.theme-remove");
+            $remove_theme_button_object.css("visibility", "visible");
+          }
+        );
+        $list_item.on("mouseleave",
+          function()
+          {
+            var $remove_theme_button_object = $(this).find("button.theme-remove");
+            $remove_theme_button_object.css("visibility", "hidden");
+          }
+        );
+        $list_item.on("click",
+          function()
+          {
+            $("body").prepend("<div id = 'window-overlay'></div>");
+            $("body").prepend(expanded_theme_container);
+            var $screen_overlay = $("#window-overlay");
+            var $original_image_object = $(this).find("img.theme-image");
+            var theme_image_url = $original_image_object.attr("src");
+            $screen_overlay.css("background-color");
+            $screen_overlay.css("background-color", "black");
+            var $expanded_theme_container = $("div#expanded-theme");
+            var $expanded_theme_container_relative_content = $expanded_theme_container.find("div#expanded-theme-relative-position");
+            $original_image_object.css("visibility", "hidden");
+            $expanded_theme_container_relative_content.css("width", $original_image_object.css("width")).css("height", $original_image_object.css("height"));
+            $expanded_theme_container_relative_content.append("<img id = 'preview-theme' src = '" + theme_image_url + "' />");
+            var global_offsets = $original_image_object.offset();
+            $expanded_theme_container.css("top", (parseInt(global_offsets.top) - $original_image_object.height()).toString() + "px").css("left", global_offsets.left);
+
+            $expanded_theme_container.addClass("large-theme-preview");
+            setTimeout(
+              function()
+              {
+                $expanded_theme_container.css("top", "50%").css("left", "50%").css("transform", "translate(-50%, -50%)").css("width", ($expanded_theme_container.width() * 8).toString() + "px").css("height", ($expanded_theme_container.height() * 8).toString() + "px");
+                $expanded_theme_container_relative_content.css("width", "100%").css("height", "100%");
+              }, 1
+            );
+            $expanded_theme_container_relative_content.prepend("<button class = 'remove remove-expanded'>X</button>");
+            var preview_theme_offsets = $expanded_theme_container.offset();
+            $("button.remove-expanded").css("top", "-10px").css("right", "-10px");
+            $("button.remove-expanded").on("click",
+              function()
+              {
+                $expanded_theme_container.css("top", (parseInt(global_offsets.top) - $original_image_object.height()).toString() + "px").css("left", global_offsets.left).css("transform", "translate(0%, 0%)");
+                $expanded_theme_container_relative_content.css("width", $original_image_object.css("width")).css("height", $original_image_object.css("height"));
+                $("#window-overlay").css("background-color", "transparent");
+                $(this).remove();
+                $expanded_theme_container.on("transitionend",
+                  function()
+                  {
+                    $original_image_object.css("visibility", "visible");
+                    $(this).remove();
+                  }
+                );
+                $("#window-overlay").on("transitionend",
+                  function()
+                  {
+                    $(this).remove();
+                  }
+                );
+              }
+            );
+          }
+        );
+      }
+      this.adobe_creative_portfolio_options_folder.expand_widget_contents(false, 0, "15px");
+    }
+  }
+
   async add_adobe_theme_photo_to_storage(storage_reference, file)
   {
-    FIREBASE_STORAGE.ref(storage_reference + file.name).put(file);
+    await FIREBASE_STORAGE.ref(storage_reference + file.name).put(file);
+    return await FIREBASE_STORAGE.ref(storage_reference + file.name).getDownloadURL();
   }
 
   remove_adobe_theme_photo_to_storage()
@@ -706,9 +798,9 @@ class Admin_User
   add_adobe_theme_data_to_database(rgb_scheme, save_type, file_path)
   {
     transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", false);
-    if(this.admin_nodes.hasChild("Adobe Creative Portfolio Themes"))
+    if(this.admin_nodes.hasChild("Adobe-Creative-Portfolio-Themes"))
     {
-      var themes_data = this.admin_data["Adobe Creative Portfolio Themes"];
+      var themes_data = this.admin_data["Adobe-Creative-Portfolio-Themes"];
       var temporary_themes_array = [];
       for(var theme in themes_data)
       {
@@ -722,7 +814,7 @@ class Admin_User
     {
       var photo_number = "0";
     }
-    var theme_reference = this.admin_firebase_id + "/Adobe Creative Portfolio Themes/" + photo_number;
+    var theme_reference = this.admin_firebase_id + "/Adobe-Creative-Portfolio-Themes/" + photo_number;
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/Save Type").set(save_type);
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/File Path").set(file_path);
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/RGB Scheme").set(rgb_scheme);

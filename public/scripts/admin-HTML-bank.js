@@ -114,13 +114,8 @@ var add_student_mini_field =
 var adobe_creative_portfolio_folder_contents =
 `
 <form id = "new-class-form">
-  <fieldset style = "margin-top: 0;" id = "add-class-form-content" class = "shrink-and-center-SUB-fieldset border-color-and-radius">
+  <fieldset style = "margin-top: 0;" id = "current-themes" class = "shrink-and-center-SUB-fieldset border-color-and-radius">
     <legend>Themes</legend>
-    <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
-      <legend class = "bold-heading">Current Themes</legend>
-      <ul id = "themes-list">
-      </ul>
-    </fieldset>
     <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
       <legend class = "bold-heading">New Theme</legend>
       <div class = "new-form-content">
@@ -159,4 +154,32 @@ var adobe_creative_portfolio_folder_contents =
     </fieldset>
   </fieldset>
 </form>
+`;
+
+var current_themes_field =
+`
+<fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
+  <legend class = "bold-heading">Current Themes</legend>
+  <div style = "margin-top: 0px;" class = "new-form-content">
+    <ul id = "themes-list">
+    </ul>
+  </div>
+</fieldset>
+`;
+
+var theme_box =
+`
+<li class = "theme">
+  <button class = "remove theme-remove general-button-format">x</button>
+  <div class = "overlay"></div>
+  <img src = "" class = "theme-image"/>
+</li>
+`;
+
+var expanded_theme_container =
+`
+<div id = "expanded-theme">
+  <div id = "expanded-theme-relative-position">
+  </div>
+</div>
 `;
