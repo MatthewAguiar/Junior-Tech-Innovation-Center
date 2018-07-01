@@ -33,8 +33,10 @@ class Admin_User
     this.add_class_menu.$class_type_error;
     this.add_class_menu.$general_credentials_error;
     this.add_student_menu;
+    this.classes_folder_array = [];
     //this.$right_subconsole = $("section#right-subconsole").find("div.sub-console-content-inner-liner");
     this.bind_class_menu_click_events();
+    this.append_class_folders();
     this.bind_adobe_creative_portfolio_events();
   }
 
@@ -367,7 +369,7 @@ class Admin_User
       var class_type = document.querySelector("input[name = 'course_type']:checked").id;
       $("*").off("click");
       var processing_students_notification = new Info_Box(
-        "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students.", true, "admin.html"
+        "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students.", false, true, "admin.html"
       );
       this.setup_student(i, class_type, processing_students_notification);
     }
@@ -514,7 +516,7 @@ class Admin_User
     }
     else
     {
-      var admin_username = window.localStorage.getItem("Username");
+      var admin_username = this.admin_data["Name"];
       var admin_password = window.localStorage.getItem("Password");
       //alert("Signing in admin!");
       //FIREBASE_AUTHENTICATION.signOut(); //4) Once the recursion has reached the base case of the item_box_array's length, log out of which ever student is logged in.
@@ -536,32 +538,47 @@ class Admin_User
 
   populate_new_student_database(new_student_id, username, class_name, class_type)
   {
-    var student_database_reference = FIREBASE_DATABASE.child("Users/Students");
-    student_database_reference.child(class_name + "/" + new_student_id).set(username);
-    var student_id_reference = student_database_reference.child("All Students/" + new_student_id);
+    FIREBASE_DATABASE.child("Users/Administrators/" + this.admin_firebase_id + "/Classes/" + class_name + '/' + new_student_id).set(username);
+    var student_id_reference = FIREBASE_DATABASE.child("Users/Students/All Students/" + new_student_id);
     student_id_reference.child("Account Type").set("Student");
     student_id_reference.child("Name").set(username);
     student_id_reference.child("Classes/0").set(class_type);
+    student_id_reference.child("Instructors/0").set(this.admin_firebase_id);
+    student_id_reference.child("Date of Creation").set(DATE);
   }
 
   add_existing_student_to_new_class(student_id, username, class_name, class_type)
   {
-    var student_database_reference = FIREBASE_DATABASE.child("Users/Students");
-    student_database_reference.child(class_name + "/" + student_id).set(username);
-    var student_classes_reference = student_database_reference.child("All Students/" + student_id + "/Classes");
-    var student_data = get_data(student_classes_reference, false);
+    FIREBASE_DATABASE.child("Users/Administrators/" + this.admin_firebase_id + "/Classes/" + class_name + '/' + student_id).set(username);
+    var student_reference = FIREBASE_DATABASE.child("Users/Students/All Students/" + student_id);
+    var student_data = get_data(student_reference, false);
     student_data.then(
-      function(classes)
+      function(student)
       {
-        for(var class_number in classes)
+        for(var class_number in student["Classes"])
         {
           //console.log(class_number);
           var new_class_number = (parseInt(class_number) + 1).toString();
-          if(classes[class_number] !== class_type)
+          if(student["Classes"][class_number] !== class_type)
           {
-            if(classes[new_class_number] === undefined)
+            if(student["Classes"][new_class_number] === undefined)
             {
-              student_classes_reference.child(new_class_number).set(class_type);
+              student_reference.child("Classes/" + new_class_number).set(class_type);
+            }
+          }
+          else
+          {
+            break;
+          }
+        }
+        for(var instructor_number in student["Instructors"])
+        {
+          var new_instructor_number = (parseInt(instructor_number) + 1).toString();
+          if(student["Instructors"][instructor_number] !== this.admin_firebase_id)
+          {
+            if(student["Instructors"][instructor_number] === undefined)
+            {
+              student_reference.child("Instructors/" + new_instructor_number).set(this.admin_firebase_id);
             }
           }
           else
@@ -571,6 +588,62 @@ class Admin_User
         }
       }
     );
+  }
+
+  append_class_folders()
+  {
+    if(this.admin_nodes.hasChild("Classes"))
+    {
+      var class_counter = 0;
+      for(var admin_class in this.admin_data["Classes"])
+      {
+        $("section#left-subconsole div.sub-console-content-inner-liner").append(class_folder);
+        $("div.class-folder").eq(class_counter).attr("id", "class-" + class_counter.toString());
+        var $folder_arrow = $("div#class-" + class_counter.toString()).find(".folder-arrow");
+        $folder_arrow.attr("id", "folder-arrow-" + class_counter.toString());
+        var $name_tag = $folder_arrow.find("span.name-tag");
+        $name_tag.text(admin_class);
+        this.classes_folder_array.push(new JTIC_Folder(
+          "750", "ms", "0", "ms", "px", "15px", $folder_arrow.attr("id"), "classes-container", [class_folder_content], []
+        ));
+        this.classes_folder_array[class_counter].class = admin_class;
+        this.classes_folder_array[class_counter].student_clickbox_array = [];
+        this.classes_folder_array[class_counter].$folder_expand_collapse_handle.on("click",
+          function(event)
+          {
+            var folder_number = global_get_object_number($(event.target).closest("div.class-folder").attr("id"));
+            if(!this.classes_folder_array[folder_number].main_code_expanded)
+            {
+              this.classes_folder_array[folder_number].main_code_expanded = true;
+              var student_number = 0;
+              for(var student in this.admin_data["Classes"][this.classes_folder_array[folder_number].class])
+              {
+                //this.classes_folder_array[folder_number].$widget_body.find("ul.students-list").append(student_clickbox_content);
+                this.classes_folder_array[folder_number].$widget_body.find("ul.students-list").append(student_clickbox_content);
+                this.classes_folder_array[folder_number].student_clickbox_array.splice(student_number, 0, new JTIC_Clickbox(
+                  "750", "ms", "0", "ms", "px", "5px", this.classes_folder_array[folder_number].$widget_body.find("li.folder-item").eq(student_number), [student_clickbox_remove_button],
+                  student_number, [this.classes_folder_array[folder_number]]
+                ));
+                student_number++;
+              }
+              this.classes_folder_array[folder_number].expand_widget_contents(false, 0, "15px");
+            }
+          }.bind(this)
+        );
+        class_counter++;
+      }
+    }
+  }
+
+  add_student_clickboxes(class_to_add_to)
+  {
+    var students_in_class = this.admin_data["Classes"][admin_class].length;
+    let i = 0;
+    while(i < students_in_class)
+    {
+      $("div#class-" + class_counter).find("ul.students-list").append(student_clickbox_content);
+      i++;
+    }
   }
 
   bind_adobe_creative_portfolio_events()
@@ -638,7 +711,7 @@ class Admin_User
                       var save_theme_info_box = new Info_Box(
                         "Jr Tech Notification: Saving Theme", "Processing: Jr Tech is saving your theme so your students may use it in their portfolio.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has stored your project.", false, true, "admin.html"
                       );
-                      this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Web", file_path)
+                      this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Web", file_path, null)
                       setTimeout(
                         function()
                         {
@@ -648,7 +721,7 @@ class Admin_User
                     }
                     else
                     {
-                      this.adobe_creative_portfolio_options_folder.$web_theme_error.text("Photo URL does not exist.");
+                      this.adobe_creative_portfolio_options_folder.$web_theme_error.text("Photo does does not exist at URL.");
                       transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", true);
                     }
                   }.bind(this)
@@ -670,7 +743,7 @@ class Admin_User
                 this.add_adobe_theme_photo_to_storage(storage_reference, file).then(
                   function(storage_url)
                   {
-                    this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Storage", storage_url);
+                    this.add_adobe_theme_data_to_database(this.adobe_creative_portfolio_options_folder.$rgb_picker.val(), "Storage", storage_url, file.name);
                     setTimeout(
                       function()
                       {
@@ -710,6 +783,8 @@ class Admin_User
       {
         this.adobe_creative_portfolio_options_folder.$themes_container.append(theme_box);
         var $list_item = this.adobe_creative_portfolio_options_folder.$themes_container.find("li.theme").eq(theme);
+        $list_item.attr("id", theme);
+        var $image_remove_button = $list_item.find("button.remove");
         var $image_object = $list_item.find("img.theme-image");
         $image_object.attr("src", all_themes[theme]["File Path"]);
         $list_item.on("mouseenter",
@@ -729,6 +804,10 @@ class Admin_User
         $list_item.on("click",
           function()
           {
+            var $original_image_overlay = $(this).find("div.overlay");
+            var $original_image_remove_button = $(this).find("button.remove");
+            $original_image_overlay.css("visibility", "hidden");
+            $original_image_remove_button.css("visibility", "hidden");
             $("body").prepend("<div id = 'window-overlay'></div>");
             $("body").prepend(expanded_theme_container);
             var $screen_overlay = $("#window-overlay");
@@ -743,7 +822,6 @@ class Admin_User
             $expanded_theme_container_relative_content.append("<img id = 'preview-theme' src = '" + theme_image_url + "' />");
             var global_offsets = $original_image_object.offset();
             $expanded_theme_container.css("top", (parseInt(global_offsets.top) - $original_image_object.height()).toString() + "px").css("left", global_offsets.left);
-
             $expanded_theme_container.addClass("large-theme-preview");
             setTimeout(
               function()
@@ -765,6 +843,7 @@ class Admin_User
                 $expanded_theme_container.on("transitionend",
                   function()
                   {
+                    $original_image_overlay.css("visibility", "visible");
                     $original_image_object.css("visibility", "visible");
                     $(this).remove();
                   }
@@ -779,6 +858,29 @@ class Admin_User
             );
           }
         );
+        $image_remove_button.on("click",
+          function(event)
+          {
+            event.stopPropagation();
+            var theme_number = $(event.target).closest("li.theme").attr("id");
+            var web_or_storage = this.get_location_type(theme_number);
+            if(web_or_storage === "Web")
+            {
+              this.remove_adobe_theme_data_from_database(theme_number);
+            }
+            else
+            {
+              var file_name = this.admin_data["Adobe-Creative-Portfolio-Themes"][theme_number]["File Name"];
+              console.log(file_name);
+              this.remove_adobe_theme_photo_from_storage("Administrators/" + this.admin_firebase_id + "/Adobe-Creative-Portfolio-Themes/" + file_name).then(
+                function()
+                {
+                  this.remove_adobe_theme_data_from_database(theme_number);
+                }.bind(this)
+              );
+            }
+          }.bind(this)
+        );
       }
       this.adobe_creative_portfolio_options_folder.expand_widget_contents(false, 0, "15px");
     }
@@ -790,12 +892,28 @@ class Admin_User
     return await FIREBASE_STORAGE.ref(storage_reference + file.name).getDownloadURL();
   }
 
-  remove_adobe_theme_photo_to_storage()
+  remove_adobe_theme_photo_from_storage(storage_reference)
   {
-
+    return new Promise(
+      function(resolve, reject)
+      {
+        FIREBASE_STORAGE.ref(storage_reference).delete().then(
+          function()
+          {
+            resolve("OK");
+          }
+        ).catch(
+          function(error)
+          {
+            console.log(error);
+            reject(error);
+          }
+        );
+      }
+    );
   }
 
-  add_adobe_theme_data_to_database(rgb_scheme, save_type, file_path)
+  add_adobe_theme_data_to_database(rgb_scheme, save_type, file_path, file_name)
   {
     transition_error_messages(this.adobe_creative_portfolio_options_folder.$web_theme_error, "red", false);
     if(this.admin_nodes.hasChild("Adobe-Creative-Portfolio-Themes"))
@@ -818,11 +936,62 @@ class Admin_User
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/Save Type").set(save_type);
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/File Path").set(file_path);
     DATABASE_ADMIN_BRANCH.child(theme_reference + "/RGB Scheme").set(rgb_scheme);
+    DATABASE_ADMIN_BRANCH.child(theme_reference + "/File Name").set(file_name);
   }
 
-  remove_adobe_theme_data_to_database()
+  get_location_type(theme_number)
   {
+    var file_path = this.admin_data["Adobe-Creative-Portfolio-Themes"][theme_number]["File Path"];
+    if(file_path.indexOf("jr-tech-innovation-center.appspot.com") !== -1)
+    {
+      return "Storage";
+    }
+    else
+    {
+      return "Web";
+    }
+  }
 
+  remove_adobe_theme_data_from_database(original_theme_number)
+  {
+    delete this.admin_data["Adobe-Creative-Portfolio-Themes"][original_theme_number];
+    var database_reference = this.admin_firebase_id + "/Adobe-Creative-Portfolio-Themes/";
+    DATABASE_ADMIN_BRANCH.child(database_reference).remove();
+    for(var theme in this.admin_data["Adobe-Creative-Portfolio-Themes"])
+    {
+      if(parseInt(theme) < parseInt(original_theme_number))
+      {
+        if(this.admin_nodes.hasChild("Adobe-Creative-Portfolio-Themes/" + theme + "/File Name"))
+        {
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/File Path").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Path"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/RGB Scheme").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["RGB Scheme"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/Save Type").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["Save Type"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/File Name").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Name"]);
+        }
+        else
+        {
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/File Path").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Path"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/RGB Scheme").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["RGB Scheme"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + theme + "/Save Type").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["Save Type"]);
+        }
+      }
+      else
+      {
+        if(this.admin_nodes.hasChild("Adobe-Creative-Portfolio-Themes/" + theme + "/File Name"))
+        {
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/File Path").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Path"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/RGB Scheme").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["RGB Scheme"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/Save Type").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["Save Type"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/File Name").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Name"]);
+        }
+        else
+        {
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/File Path").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["File Path"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/RGB Scheme").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["RGB Scheme"]);
+          DATABASE_ADMIN_BRANCH.child(database_reference + parseInt(theme - 1).toString() + "/Save Type").set(this.admin_data["Adobe-Creative-Portfolio-Themes"][theme]["Save Type"]);
+        }
+      }
+    }
   }
 
   rgb_format_parser(rgb_value)
@@ -943,6 +1112,7 @@ const FIREBASE_AUTHENTICATION = firebase.auth();
 const FIREBASE_STORAGE = firebase.storage();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
+const DATE = get_date(new Date());
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH.child("All Students"));
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
   async function(JTIC_user)

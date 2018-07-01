@@ -23,16 +23,6 @@ REVIEW: All styling rules below do the following:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 /*----- STUDENT "PROJECT" AND "HTML 5 GAME BOX RULES -----------------------------------------------------------------------------------------------------------------------------------------*/
-li.folder-item > div.data-box-info{
-  /*
-  This positions the data held inside student project and game boxes such as the project's/game's tile, upload date or views.
-  Specifically, it positions the data at the top of the project/game box and spaces it from the image.
-  */
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 4px;
-}
-
 textarea.define-form-textarea-dimensions{
   /*Re-adjust the textarea in the "New Project" form and set a height for it.*/
   height: 100px;
@@ -50,10 +40,6 @@ div.project-menu{
 
 .root-folder-selector{
   margin-bottom: 15px;
-}
-
-a.download-project{
-  text-decoration: none;
 }
 
 p.project-description-paragraph{

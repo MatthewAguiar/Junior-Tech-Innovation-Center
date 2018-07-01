@@ -170,7 +170,7 @@ var current_themes_field =
 var theme_box =
 `
 <li class = "theme">
-  <button class = "remove theme-remove general-button-format">x</button>
+  <button class = "remove theme-remove general-button-format" type = "button">x</button>
   <div class = "overlay"></div>
   <img src = "" class = "theme-image"/>
 </li>
@@ -181,5 +181,54 @@ var expanded_theme_container =
 <div id = "expanded-theme">
   <div id = "expanded-theme-relative-position">
   </div>
+</div>
+`;
+
+
+//CLASSES!!!!!!!!!!!
+ var class_folder =
+ `
+ <div style = "margin-top: 15px;" class = "class-folder root-folder-selector">
+   <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span class = "name-tag">Class</span></h4>
+   <div id = "classes-container" style = "margin-top: 15px;">
+
+   </div>
+ </div>
+ `;
+
+ var class_folder_content =
+ `
+ <div style = "margin-top: 0;" class = "new-form-content">
+   <ul class = "students-list">
+
+   </ul>
+   <div class = "student-add-container">
+     <div class = "new-student-add">
+       <h6 class = "small-label-format">New Student:</h6>
+       <button id = "add-student-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+     </div>
+   </div>
+ </div>
+ `;
+
+ var student_clickbox_content =
+ `
+ <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
+   <div class = "main-content">
+     <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
+     <div class = "data-box-info">
+       <h6 class = "data-box-text-format pointer-mouse-type">Default Name</h6>
+       <h6 class = "data-box-text-format pointer-mouse-type">Default Date</h6>
+     </div>
+     <button class = "view-student STEM-blue-background blue-to-green-button general-button-format" type="button">View Console</button>
+   </div>
+ </li>
+ `;
+
+ var student_clickbox_remove_button =
+
+`
+<div style = "margin: 10px 10px 0px 10px;" class = "remove-container">
+  <button style = "font-size: 11px; padding: 7px 8px;" class = "remove general-button-format" type="button">Remove</button>
 </div>
 `;

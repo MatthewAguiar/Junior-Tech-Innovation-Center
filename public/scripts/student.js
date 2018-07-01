@@ -175,6 +175,7 @@ class Student_User
       {
         if(this.mode !== folder_object.class_name)
         {
+          this.mode = folder_object.class_name;
           this.setup_right_subconsole(folder_object.class_name);
         }
         if(!folder_object.main_code_expanded)
@@ -567,7 +568,6 @@ FIREBASE_AUTHENTICATION.onAuthStateChanged(
       var student_nodes = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid), true); //Get Nodes
       var student = new Student_User(JTIC_user.uid, student_data, student_nodes, "master-project-list");
       //alert("1LOGGED IN AS: " + JTIC_user.uid);
-      );
     }
     else
     {

@@ -210,3 +210,12 @@ input#font-theme{
   background-color: white;
   transition: background-color 500ms ease;
 }
+
+button.view-student{ /*NOTE: SIMILAR TO FILE DOWNLOAD!!*/
+  position: absolute;
+  top: 50%;
+  left: 72%;
+  transform: translate(0%, -50%);
+  padding: 7px 8px;
+  font-size: 11px;
+}

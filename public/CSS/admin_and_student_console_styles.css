@@ -91,6 +91,23 @@ div#console *::-webkit-scrollbar-track{
   background-color: rgba(225, 225, 225, 0.75);
 }
 /*
+CLICKBOXES TODO: REORGANIZE!
+
+*/
+li.folder-item > div.data-box-info{
+  /*
+  This positions the data held inside student project and game boxes such as the project's/game's tile, upload date or views.
+  Specifically, it positions the data at the top of the project/game box and spaces it from the image.
+  */
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 4px;
+}
+
+a.download-project{
+  text-decoration: none;
+}
+/*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ SUB-CONSOLE RULES ------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -330,7 +347,7 @@ div.main-content{
   position: relative;
 }
 
-div.main-content > img.project-thumbnail{
+img.project-thumbnail{
   /*Make the image icon inside of student boxes small and space them from the left of the box.*/
   width: 9%;
   height: auto;

@@ -124,6 +124,25 @@ function has_text(string)
   return false;
 }
 
+function global_get_object_number(string)
+{
+  var number_string = "0123456789";
+  var i = string.length - 1;
+  while(i > 0)
+  {
+    if(number_string.indexOf(string[i]) !== -1)
+    {
+      i--;
+    }
+    else
+    {
+      i++;
+      break;
+    }
+  }
+  return parseInt(string.substring(i, string.length));
+}
+
 function check_file_extension(file_name, allowed_file_extension_array)
 {
   file_name = file_name.toLowerCase();

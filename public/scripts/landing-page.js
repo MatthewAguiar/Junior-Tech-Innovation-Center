@@ -54,7 +54,12 @@ SUBMIT_BUTTON.addEventListener("click",
         console.log(user_type);
         if(user_type !== "null")
         {
-          FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).catch(
+          FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).then(
+            function()
+            {
+              window.localStorage.setItem("Password", password_input);
+            }
+          ).catch(
             function(error)
             {
               incorrect_credentials_message.id = "show";

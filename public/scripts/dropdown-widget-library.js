@@ -497,6 +497,14 @@ class Folder extends Dropdown_Widget
   }
 }
 
+class Clickbox_Collection extends Dropdown_Widget
+{
+  constructor(widget_array)
+  {
+
+  }
+}
+
 class Clickbox extends Dropdown_Widget
 {
   constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
