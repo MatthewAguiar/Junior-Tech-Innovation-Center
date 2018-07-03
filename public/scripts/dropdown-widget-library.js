@@ -198,8 +198,8 @@ class Dropdown_Widget
     {
       let expand_height = this.array_of_parents[i].expanded_height + (this.expanded_height - this.previous_height);
       this.array_of_parents[i].expand_widget_contents(true, expand_height, "0px"); //Use the calculated expand_height above and use it as a fixed_expanded_height to expand to!
-      console.log(this.expanded_height, this.previous_height);
-      console.log(this.array_of_parents[i].expanded_height, this.array_of_parents[i].previous_height);
+      //console.log(this.expanded_height, this.previous_height);
+      //console.log(this.array_of_parents[i].expanded_height, this.array_of_parents[i].previous_height);
       /*console.log(this.array_of_parents[i].$widget_body.attr("id") + "'s height previously was " + this.array_of_parents[i].previous_height.toString() + " pixels.");
       console.log(this.array_of_parents[i].$widget_body.attr("id") + "'s height is now " + this.array_of_parents[i].expanded_height.toString() + " pixels.");
       console.log(this.array_of_parents[i].$widget_body.attr("id") + " was increased in height by: " + (this.expanded_height - this.previous_height).toString() + " pixels.");*/
@@ -224,25 +224,6 @@ class Dropdown_Widget
       console.log(this.array_of_parents[i].$widget_body.attr("id") + "'s height is now " + this.array_of_parents[i].expanded_height.toString() + " pixels.");
       console.log(this.array_of_parents[i].$widget_body.attr("id") + " was decreased in height by: " + (this.previous_height - this.expanded_height).toString() + " pixels.");*/
     }
-  }
-
-  get_clickbox_number(clickbox_id)
-  {
-    var number_string = "0123456789";
-    var i = clickbox_id.length - 1;
-    while(i > 0)
-    {
-      if(number_string.indexOf(clickbox_id[i]) !== -1)
-      {
-        i--;
-      }
-      else
-      {
-        i++;
-        break;
-      }
-    }
-    return parseInt(clickbox_id.substring(i, clickbox_id.length));
   }
 }
 /*
@@ -497,11 +478,150 @@ class Folder extends Dropdown_Widget
   }
 }
 
-class Clickbox_Collection extends Dropdown_Widget
+class Clickbox_Collection
 {
   constructor(widget_array)
   {
+    this.widget_array = widget_array;
+    this.clickbox_array = [];
+    this.global_clickbox_counter = 0;
+    if(this.widget_array.length > 0)
+    {
+      this.initialize_clickbox_variables();
+    }
+  }
 
+  initialize_clickbox_variables(widget_object)
+  {
+    for(var i = 0; i < this.widget_array.length; i++)
+    {
+      this.widget_array[i].clickbox_number_array = [];
+      this.widget_array[i].local_clickbox_counter = 0;
+    }
+  }
+
+  append_clickbox(widget_object, transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
+  {
+    var index_of_widget_object = this.widget_array.indexOf(widget_object);
+    console.log(index_of_widget_object);
+    this.clickbox_array.splice(clickbox_number, 0,
+      new Clickbox(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
+    );
+    this.widget_array[index_of_widget_object].clickbox_number_array.push(this.clickbox_array[clickbox_number].clickbox_number);
+  }
+
+  get_starting_clickbox_number(widget_object)
+  {
+    var index_of_clickbox_holder = this.widget_array.indexOf(widget_object);
+    if(this.widget_array.length > 1 && index_of_clickbox_holder !== this.widget_array.length - 1)
+    {
+      if(index_of_clickbox_holder === 0)
+      {
+        return 0;
+      }
+      else
+      {
+        for(let i = index_of_clickbox_holder - 1; i >= 0; i--)
+        {
+          if(this.widget_array[i].main_code_expanded)
+          {
+            return this.widget_array[i].clickbox_number_array[this.widget_array[i].clickbox_number_array.length - 1] + 1;
+          }
+        }
+        for(let i = index_of_clickbox_holder + 1; i < this.widget_array.length; i++)
+        {
+          if(this.widget_array[i].main_code_expanded)
+          {
+            return this.widget_array[i].clickbox_number_array[0];
+          }
+        }
+        return 0;
+      }
+    }
+    else if(index_of_clickbox_holder === this.widget_array.length - 1)
+    {
+      return this.global_clickbox_counter;
+    }
+  }
+
+  get_clickbox_number(clickbox_id)
+  {
+    var number_string = "0123456789";
+    var i = clickbox_id.length - 1;
+    while(i > 0)
+    {
+      if(number_string.indexOf(clickbox_id[i]) !== -1)
+      {
+        i--;
+      }
+      else
+      {
+        i++;
+        break;
+      }
+    }
+    return parseInt(clickbox_id.substring(i, clickbox_id.length));
+  }
+
+  renumber_clickbox_ids(starting_index)
+  {
+    //console.log(starting_index);
+    for(let i = starting_index; i < this.clickbox_array.length; i++)
+    {
+      this.clickbox_array[i].$widget_body.attr("id", "clickbox-" + i.toString());
+      this.clickbox_array[i].clickbox_number = i;
+    }
+  }
+
+  adjust_widgets_clickbox_numbers(add_clickboxes_bool, widget_object)
+  {
+    if(add_clickboxes_bool)
+    {
+      widget_object.$widget_body.off("transitionend");
+      var number_of_boxes_added = widget_object.local_clickbox_counter;
+      for(let i = this.widget_array.indexOf(widget_object) + 1; i < this.widget_array.length; i++)
+      {
+        for(let j = 0; j < this.widget_array[i].clickbox_number_array.length; j++)
+        {
+          if(this.widget_array[i].clickbox_number_array.length > 0)
+          {
+            this.widget_array[i].clickbox_number_array[j] += number_of_boxes_added;
+          }
+        }
+      }
+    }
+    else
+    {
+      console.log(this.clickbox_array);
+      widget_object.$widget_body.on("transitionend",
+        function()
+        {
+          if(!widget_object.main_code_expanded)
+          {
+            for(let i = 0; i < widget_object.clickbox_number_array.length; i++)
+            {
+              this.global_clickbox_counter--;
+            }
+            var number_of_boxes_removed = widget_object.local_clickbox_counter;
+            for(let i = this.widget_array.indexOf(widget_object) + 1; i < this.widget_array.length; i++)
+            {
+              for(let j = 0; j < this.widget_array[i].clickbox_number_array.length; j++)
+              {
+                if(this.widget_array[i].clickbox_number_array.length > 0)
+                {
+                  this.widget_array[i].clickbox_number_array[j] -= number_of_boxes_removed;
+                }
+              }
+            }
+            var renumbering_starting_index = widget_object.clickbox_number_array[0];
+            this.clickbox_array.splice(renumbering_starting_index, widget_object.clickbox_number_array.length);
+            this.renumber_clickbox_ids(renumbering_starting_index);
+            widget_object.clickbox_number_array = [];
+            widget_object.local_clickbox_counter = 0;
+          }
+        }.bind(this)
+      );
+    }
   }
 }
 
@@ -525,16 +645,5 @@ class Clickbox extends Dropdown_Widget
         this.manage_widget_state(true, this.fixed_collapsed_height + parseInt(this.$widget_body.css("padding-bottom")), false, 0);
       }.bind(this)
     );
-  }
-
-  static renumber_clickbox_ids(starting_index, array_of_clickboxes)
-  {
-    //console.log(starting_index);
-    for(let i = starting_index; i < array_of_clickboxes.length; i++)
-    {
-      array_of_clickboxes[i].$widget_body.attr("id", "clickbox-" + i.toString());
-      array_of_clickboxes[i].clickbox_number = i;
-    }
-    return array_of_clickboxes;
   }
 }
