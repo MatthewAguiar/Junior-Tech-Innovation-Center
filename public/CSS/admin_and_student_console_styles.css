@@ -366,7 +366,7 @@ div.data-box-info > h6.data-box-text-format, li.student-project > h6.data-box-te
   margin-bottom: 4px;
 }
 
-li.hover-shade-dark-tan:hover{
+.hover-shade-dark-tan:hover{
   /*When each student project box is hovered over, change the background to a darker tan.*/
   background-color: rgb(255, 248, 210);
 }

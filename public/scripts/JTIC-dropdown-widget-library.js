@@ -14,9 +14,9 @@ Copyright (C) 2018 Matthew Aguiar
 */
 class JTIC_Single_Dropdown_Menu extends Single_Dropdown_Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parent_menus)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, menu_collapse_handle_id, menu_body_id_or_object, menu_content_array, array_of_parent_menus)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parent_menus);
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, menu_collapse_handle_id, menu_body_id_or_object, menu_content_array, array_of_parent_menus);
     this.$menu_expand_handle.on("click", this.update_expand_handle_styles.bind(this));
   }
 
@@ -44,17 +44,17 @@ class JTIC_Single_Dropdown_Menu extends Single_Dropdown_Menu
 
 class JTIC_Cummulative_Menu extends Cummulative_Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id_or_object, menu_body_id_or_object, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents);
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id_or_object, menu_body_id_or_object, item_box_class, item_box_cancel_class, item_box_content, array_of_parents);
   }
 }
 
 class JTIC_Folder extends Folder
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id, folder_body_id, folder_content_array, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id_or_object, folder_body_id_or_object, folder_content_array, array_of_parents)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id, folder_body_id, folder_content_array, array_of_parents);
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id_or_object, folder_body_id_or_object, folder_content_array, array_of_parents);
     this.$folder_arrow_icon = this.$folder_expand_collapse_handle.find(".expand-arrow");
     this.$folder_expand_collapse_handle.on("click", this.change_arrow_states.bind(this));
   }
@@ -74,10 +74,18 @@ class JTIC_Folder extends Folder
   }
 }
 
-class JTIC_Clickbox extends Clickbox
+class JTIC_Item_Box_Collection extends Item_Box_Collection
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
+  constructor(cummulative_menu_array)
   {
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents);
+    super(cummulative_menu_array);
+  }
+}
+
+class JTIC_Clickbox_Collection extends Clickbox_Collection
+{
+  constructor(widget_array)
+  {
+    super(widget_array);
   }
 }

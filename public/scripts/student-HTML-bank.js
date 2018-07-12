@@ -64,7 +64,7 @@ var gamemaker_add_project_menu_content =
     <legend>New Project</legend>
     <div class = "new-form-content">
       <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
-      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
+      <textarea class = "define-form-textarea-dimensions project-add-textarea" name = "name"></textarea>
       <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "gamemaker-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "gamemaker-upload-button-selector">
@@ -128,7 +128,7 @@ var python_add_project_menu_content =
     <legend>New Project</legend>
     <div class = "new-form-content">
       <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
-      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
+      <textarea class = "define-form-textarea-dimensions project-add-textarea" name = "name"></textarea>
       <span style = "display: block; margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "python-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "python-upload-button-selector">
@@ -225,7 +225,7 @@ var cpp_add_project_menu_content =
     <legend>New Project</legend>
     <div class = "new-form-content">
       <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
-      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
+      <textarea class = "define-form-textarea-dimensions project-add-textarea" name = "name"></textarea>
       <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "cpp-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "cpp-upload-button-selector">
@@ -305,7 +305,7 @@ var adobe_add_project_menu_content =
     <legend>New Project</legend>
     <div class = "new-form-content">
       <label class = "small-label-format" for = "define-form-textarea-dimensions">Project Description:</label>
-      <textarea class = "define-form-textarea-dimensions" name = "name"></textarea>
+      <textarea class = "define-form-textarea-dimensions project-add-textarea" name = "name"></textarea>
       <span style = "display: block;  margin-left: 5px;" class = "warning-message">Please add a description.</span>
       <input class = "real-file-upload-hide" id = "adobe-upload-button-selector" type = "file" name = "" value = "">
       <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "adobe-upload-button-selector">

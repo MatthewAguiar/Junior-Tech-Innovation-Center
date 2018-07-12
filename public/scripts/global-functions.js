@@ -225,6 +225,149 @@ function get_date(date_object)
   return month + " " + date + ", " + year;
 }
 
+class User
+{
+  constructor(user_id, profile_photo_link, user_data, user_nodes)
+  {
+    this.user_data = user_data;
+    this.user_nodes = user_nodes;
+    this.user_id = user_id;
+    $("h2#welcome-message > span").text("Welcome " + this.user_data["Name"]);
+    this.profile_photo_link = profile_photo_link;
+    this.$sign_out_button = $("button#user-sign-out-button");
+    this.$sign_out_button_image = this.$sign_out_button.find("img#user-sign-out-image");
+    this.$sign_out_button_image.attr("src", this.profile_photo_link);
+    this.sign_out_dropdown_object = new Dropdown_Widget("350", "ms", "0", "ms", "px", "0px", "sign-out-menu-holder", [sign_out_menu], []);
+    this.change_profile_image_dropdown_object;
+    this.sign_out_clicked = false;
+    this.change_photo_clicked = false;
+    this.sign_out_dropdown_object.$widget_body.css("border-bottom", "none");
+    this.$sign_out_button.on("click",
+      function(event)
+      {
+        event.stopPropagation();
+        this.sign_out_dropdown_object.manage_widget_state(false, 0, false, 0);
+        $(window).on("click",
+          function()
+          {
+            this.sign_out_dropdown_object.collapse_widget_contents(false, 0);
+            this.sign_out_dropdown_object.expanded = false;
+            this.sign_out_dropdown_object.manage_collapse_transitionend(this.sign_out_dropdown_object.$widget_body.children());
+            this.sign_out_clicked = false;
+            this.change_photo_clicked = false;
+            this.sign_out_dropdown_object.$sign_out_image_overlay.off("click");
+            $(window).off("click");
+            this.sign_out_dropdown_object.$widget_body.off("click");
+            this.sign_out_dropdown_object.$sign_out_button.off("click");
+          }.bind(this)
+        );
+        this.sign_out_dropdown_object.$widget_body.find("*").on("click",
+          function(event)
+          {
+            event.stopPropagation();
+          }
+        );
+        if(!this.sign_out_clicked)
+        {
+          this.sign_out_clicked = true;
+          this.sign_out_dropdown_object.$sign_out_menu = $("div#sign-out-menu");
+          this.sign_out_dropdown_object.$sign_out_menu_image = this.sign_out_dropdown_object.$sign_out_menu.find("div#sign-out-image-container > img");
+          this.sign_out_dropdown_object.$sign_out_menu_image.attr("src", this.profile_photo_link);
+          this.sign_out_dropdown_object.$sign_out_image_overlay = this.sign_out_dropdown_object.$sign_out_menu.find("div#sign-out-image-overlay");
+          this.sign_out_dropdown_object.$sign_out_image_overlay_text = $("div#sign-out-image-overlay > span#change-text");
+          this.sign_out_dropdown_object.$sign_out_username = this.sign_out_dropdown_object.$sign_out_menu.find("span#sign-out-username");
+          this.sign_out_dropdown_object.$sign_out_username.text(user_data["Name"]);
+          this.sign_out_dropdown_object.$sign_out_date_of_creation = this.sign_out_dropdown_object.$sign_out_menu.find("span#sign-out-date-joined");
+          this.sign_out_dropdown_object.$sign_out_date_of_creation.text("Joined: " + user_data["Date of Creation"]);
+          this.sign_out_dropdown_object.$sign_out_button = this.sign_out_dropdown_object.$sign_out_menu.find("button#sign-out-button");
+          this.change_profile_image_dropdown_object = new Dropdown_Widget("350", "ms", "0", "ms", "px", "0px", "change-profile-image-container", [sign_out_new_profile_image_menu], [this.sign_out_dropdown_object]);
+          this.change_profile_image_dropdown_object.$widget_body.css("border-bottom", "none");
+          this.sign_out_dropdown_object.$sign_out_image_overlay.on("mouseover",
+            function()
+            {
+              this.sign_out_dropdown_object.$sign_out_image_overlay_text.text("Change");
+            }.bind(this)
+          );
+          this.sign_out_dropdown_object.$sign_out_image_overlay.on("mouseleave",
+            function()
+            {
+              this.sign_out_dropdown_object.$sign_out_image_overlay_text.text("");
+            }.bind(this)
+          );
+          this.sign_out_dropdown_object.$sign_out_image_overlay.add(this.sign_out_dropdown_object.$sign_out_image_overlay_text).on("click",
+            function()
+            {
+              this.change_profile_image_dropdown_object.manage_widget_state(false, 0, false, 0);
+              if(!this.change_photo_clicked)
+              {
+                this.change_photo_clicked = true;
+                this.change_profile_image_dropdown_object.$upload_from_web_input = this.change_profile_image_dropdown_object.$widget_body.find("input#profile-photo-url");
+                this.change_profile_image_dropdown_object.$save_web_address_button = this.change_profile_image_dropdown_object.$widget_body.find("button#add-profile-from-web-button");
+                this.change_profile_image_dropdown_object.$web_photo_error = this.change_profile_image_dropdown_object.$widget_body.find("span#web-photo-error");
+                this.change_profile_image_dropdown_object.$upload_from_PC = this.change_profile_image_dropdown_object.$widget_body.find("input#profile-image-uploader");
+                this.change_profile_image_dropdown_object.$upload_from_PC_error = this.change_profile_image_dropdown_object.$widget_body.find("span#PC-image-error");
+                this.change_profile_image_dropdown_object.$save_web_address_button.on("click",
+                  function()
+                  {
+                    var file_path = this.change_profile_image_dropdown_object.$upload_from_web_input.val();
+                    verify_web_image_path(file_path,
+                      async function(path_exists)
+                      {
+                        if(path_exists)
+                        {
+                          transition_error_messages(this.change_profile_image_dropdown_object.$web_photo_error, "red", false);
+                          if(this.user_data["Account Type"] === "Administrator")
+                          {
+                            FIREBASE_DATABASE.child("Users/Administrators/" + this.user_id + "/Profile Photo").set(file_path);
+                          }
+                          else
+                          {
+                            FIREBASE_DATABASE.child("Users/Students/All Students/" + this.user_id + "/Profile Photo").set(file_path);
+                          }
+                          this.$sign_out_button_image.attr("src", file_path);
+                          this.sign_out_dropdown_object.$sign_out_menu_image.attr("src", file_path);
+                          this.profile_photo_link = file_path;
+                        }
+                        else
+                        {
+                          this.change_profile_image_dropdown_object.$web_photo_error.text("Photo does does not exist at URL.");
+                          transition_error_messages(this.change_profile_image_dropdown_object.$web_photo_error, "red", true);
+                        }
+                      }.bind(this)
+                    );
+                  }.bind(this)
+                );
+              }
+              else
+              {
+                this.change_profile_image_dropdown_object.manage_collapse_transitionend(this.change_profile_image_dropdown_object.$widget_body.children());
+                this.change_photo_clicked = false;
+              }
+            }.bind(this)
+          );
+          this.sign_out_dropdown_object.$sign_out_button.on("click",
+            function()
+            {
+              GLOBAL_SIGN_OUT_LOCATION = "index.html";
+              FIREBASE_AUTHENTICATION.signOut();
+            }.bind(this)
+          );
+        }
+        else
+        {
+          this.sign_out_dropdown_object.manage_collapse_transitionend(this.sign_out_dropdown_object.$widget_body.children());
+          this.sign_out_clicked = false;
+          this.change_photo_clicked = false;
+          this.sign_out_dropdown_object.$sign_out_image_overlay.off("click");
+          $(window).off("click");
+          this.sign_out_dropdown_object.$widget_body.off("click");
+          this.sign_out_dropdown_object.$sign_out_button.off("click");
+        }
+      }.bind(this)
+    );
+  }
+}
+
 class Info_Box
 {
   constructor(description, content, firebase_mode, firebase_finished_description, firebase_finished_content, yes_no_mode, reload_bool, reload_location)

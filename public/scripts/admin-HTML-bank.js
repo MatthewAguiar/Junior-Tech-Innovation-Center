@@ -59,7 +59,7 @@ var new_class_form =
       <legend class = "bold-heading">Add Students:</legend>
       <div class = "SUB-fieldset-content">
         <div class = "student-add-container">
-          <div id = "students-box">
+          <div id = "students-box" class = "students-box">
 
           </div>
           <div class = "new-student-add">
@@ -190,7 +190,7 @@ var expanded_theme_container =
  `
  <div style = "margin-top: 15px;" class = "class-folder root-folder-selector">
    <h4 class = "folder-arrow pointer-mouse-type"><span class = "expand-arrow">►</span> <img class = "root-folder-selector-image" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt=""><span class = "name-tag">Class</span></h4>
-   <div id = "classes-container" style = "margin-top: 15px;">
+   <div class = "students" style = "margin-top: 15px;">
 
    </div>
  </div>
@@ -198,14 +198,17 @@ var expanded_theme_container =
 
  var class_folder_content =
  `
- <div style = "margin-top: 0;" class = "new-form-content">
+ <div style = "margin-top: 0;" class = "class-folder-content new-form-content">
    <ul class = "students-list">
 
    </ul>
    <div class = "student-add-container">
      <div class = "new-student-add">
-       <h6 class = "small-label-format">New Student:</h6>
-       <button id = "add-student-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+       <h6 class = "small-label-format">Add Students:</h6>
+       <button class = "add-student-single-dropdown-button add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+     </div>
+     <div style = "margin-top: 15px;" id = "add-class" class = "add-student-single-dropdown-menu">
+
      </div>
    </div>
  </div>
@@ -215,10 +218,10 @@ var expanded_theme_container =
  `
  <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
    <div class = "main-content">
-     <img class = "project-thumbnail" src = "Images/Coding Logos/GameMaker/yoyo-games-logo.png" alt = "">
+     <img class = "user-photo project-thumbnail" alt = "">
      <div class = "data-box-info">
-       <h6 class = "data-box-text-format pointer-mouse-type">Default Name</h6>
-       <h6 class = "data-box-text-format pointer-mouse-type">Default Date</h6>
+       <h6 class = "student-name namedata-box-text-format pointer-mouse-type">Default Name</h6>
+       <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
      </div>
      <button class = "view-student STEM-blue-background blue-to-green-button general-button-format" type="button">View Console</button>
    </div>
@@ -226,9 +229,26 @@ var expanded_theme_container =
  `;
 
  var student_clickbox_remove_button =
-
 `
 <div style = "margin: 10px 10px 0px 10px;" class = "remove-container">
   <button style = "font-size: 11px; padding: 7px 8px;" class = "remove general-button-format" type="button">Remove</button>
+</div>
+`;
+
+var new_student_single_dropdown_menu =
+`
+<div class = "new-form-content">
+  <div class = "add-student-cummulative-menu">
+
+  </div>
+  <div class = "add-student-controls">
+    <h6 class = "small-label-format">New Student:</h6>
+    <button class = "add-student-cummulative-dropdown-button add-new STEM-blue-background blue-to-green-button general-button-format" type = "button">+</button>
+  </div>
+  <div>
+  <div style = "margin-top: 10px;">
+    <button style = "font-size: 12px; padding: 8px 6px;" class = "create-students STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">Create Students</button>
+    <button style="font-size: 12px; padding: 6px; margin: auto 0px auto 4px" id = "cancel-add-additional-student" class = "remove general-button-format" type="button">Cancel</button>
+  </div>
 </div>
 `;

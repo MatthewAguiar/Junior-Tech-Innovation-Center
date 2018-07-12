@@ -25,7 +25,7 @@ REVIEW: List of CONSTRUCTOR parameters!
 4) delay_units - A string that accepts CSS units as to what unit the widget's "transition_delay" should last for. Example: "ms" or "s". DATATYPE: STRING! DATATYPE: STRING!
 5) height_units - This is a string representing the CSS unit of height the widget should use when expanding. Example: "px", "pc", "em", "rem", "%", etc. DATATYPE: STRING!
 6) expanded_spacing - A value indicating how much extra spacing a widget should give when dropping down. MUST HAVE CSS UNITS!!! DATATYPE: STRING ONLY!
-7) widget_body_id - The HTML id of the container you wish to make into a dropdown widget. DATATYPE: STRING!(Must be HTML id WITHOUT # character in front)!
+7) widget_body_id_or_object - The HTML id of the container you wish to make into a dropdown widget. DATATYPE: STRING!(Must be HTML id WITHOUT # character in front)!
 8) widget_content_array - An array of HTML code blocks that you wish to append to the widget's body when expanded. DATATYPE: ARRAY!
 9) array_of_parents - An array representing parent widgets. For example, a widget within another widget must have an array_or_parents with that outermost widget object in it in order to expand
 both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
@@ -35,7 +35,7 @@ its array_of_parents.
 */
 class Dropdown_Widget
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, widget_body_id, widget_content_array, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, widget_body_id_or_object, widget_content_array, array_of_parents)
   {
     //RETURNS: NOTHING.
     //Instance variables created with ALL widgets!!!
@@ -46,16 +46,26 @@ class Dropdown_Widget
     this.widget_content_show = false; //Is only true as soon as widget begins openING and turns back to false once widget is FULLY CLOSED.
     this.expanded = false; //Changes to "true" everytime a widget begins openING and to false when it is closING. Does NOT wait until transition finishes.
     this.main_code_expanded = false; //This variable is only used in the check_expanded method below and is used to control program flow in your main code. See check_expanded() for more!
-    this.setup_widget_body(widget_body_id, transition_duration, duration_units, transition_delay, delay_units); //SEE directly below ↓↓↓↓↓↓↓↓
+    this.setup_widget_body(widget_body_id_or_object, transition_duration, duration_units, transition_delay, delay_units); //SEE directly below ↓↓↓↓↓↓↓↓
   }
 
-  setup_widget_body(widget_body_id, transition_duration, duration_units, transition_delay, delay_units)
+  setup_widget_body(widget_body_id_or_object, transition_duration, duration_units, transition_delay, delay_units)
   {
     //RETURNS: NOTHING.
     //This method takes the same parameters passed to the constructor.
     try
     {
-      this.$widget_body = $('#' + widget_body_id); //Creates a jQuery object representing the body of the widget.
+      if(typeof widget_body_id_or_object === "object")
+      {
+        if(widget_body_id_or_object.length === 1)
+        {
+          this.$widget_body = widget_body_id_or_object;
+        }
+      }
+      else
+      {
+        this.$widget_body = $('#' + widget_body_id_or_object); //Creates a jQuery object representing the body of the widget.
+      }
       var starting_height = this.$widget_body.height();
       this.previous_height = starting_height;
       this.expanded_height = starting_height;
@@ -161,6 +171,10 @@ class Dropdown_Widget
     {
       var current_height = this.$widget_body.height();
       this.expanded_height = this.$widget_body.css("height", "auto").height() + parseInt(expanded_spacing);
+      console.log(this.expanded_height);
+      this.expanded_height = this.expanded_height + parseInt(this.$widget_body.children("*").css("margin-top")) + parseInt(this.$widget_body.children("*").css("margin-bottom")) +
+      parseInt(this.$widget_body.children("*").css("padding-top")) + parseInt(this.$widget_body.children("*").css("padding-bottom"));
+      console.log(this.expanded_height);
       this.$widget_body.height(current_height);
     }
     var expand_height = this.expanded_height.toString() + this.height_units; //Then, take whatever this.expanded_height came out to be and format it as a string, with units, in order to be used as CSS.
@@ -234,7 +248,7 @@ REVIEW: List of CONSTRUCTOR parameters!
 1 - 6) transition_duration through expanded_spacing parameters are the exact same as the "Dropdown_Widget" class. DATATYPES: SAME AS "Dropdown_Widget".
 7) menu_expand_handle_id - This is a string representing the HTML id of the button you would like as the open button for the menu. DATATYPE: STRING.
 8) menu_collapse_handle_id - A string representing the button which will close the menu once it is open. DATATYPE: STRING.
-9) menu_body_id - The HTML id representing the $widget_body of the menu widget. DATATYPE: STRING.
+9) menu_body_id_or_object - The HTML id representing the $widget_body of the menu widget ir jQuery object. DATATYPE: STRING OR JQUERY OBJECT.
 10) menu_content_array - An array with the HTML content to be added to the menu. DATATYPE: ARRAY.
 11) array_of_parents - An array representing parent widgets. For example, a menu within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
 both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
@@ -242,13 +256,58 @@ its array_of_parents. DATATYPE: ARRAY.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-class Menu extends Dropdown_Widget //Inherits all instance variables and methods from Dropdown_Widget.
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------ FOLDER CLASS -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REVIEW: List of CONSTRUCTOR parameters!
+1 - 5) transition_duration through expanded_spacing - Same as previous classes. DATATYPES: Also same as previous classes.
+6) expand_and_collapse_handle_id - Similar to the menu system this is a handlebar HTML id which will control the exapanding and contracting of folders. DATATYPE: STRING.
+7) menu_body_id_or_object - The HTML id of the container representing the folder body. DATATYPE: STRING.
+8) folder_content_array - An array of HTML content that should be appended the the folder's widget body. DATATYPE: ARRAY.
+9) array_of_parents - An array representing parent widgets. For example, a folder within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
+both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
+its array_of_parents. DATATYPE: ARRAY.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+class Folder extends Dropdown_Widget
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id_or_object, folder_body_id_or_object, folder_content_array, array_of_parents)
   {
     //RETURNS: NOTHING.
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_body_id, menu_content_array, array_of_parents); //Call the constructor of the Dropdown_Widget class.
-    this.$menu_expand_handle = $('#' + menu_expand_handle_id); //Make a jQuery object out of the menu_expand_handle_id so it may be used later to detect clicks.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, folder_body_id_or_object, folder_content_array, array_of_parents); //Call constructor of "Dropdown_Widget".
+    this.$folder_expand_collapse_handle = $('#' + expand_and_collapse_handle_id_or_object); //Make the expand_and_collapse_handle_id_or_object into a jQuery object.
+    this.$folder_expand_collapse_handle.on("click", //When the folder handle is clicked, do the following...
+      function()
+      {
+        if(this.expanded) //If the menu is already expanded get ready to collapse it.
+        {
+          this.manage_collapse_transitionend(this.$widget_body.children());
+        }
+        this.manage_widget_state(false, 0, false, 0);
+      }.bind(this)
+    );
+  }
+}
+
+class Menu extends Dropdown_Widget //Inherits all instance variables and methods from Dropdown_Widget.
+{
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, menu_collapse_handle_id, menu_body_id_or_object, menu_content_array, array_of_parents)
+  {
+    //RETURNS: NOTHING.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_body_id_or_object, menu_content_array, array_of_parents); //Call the constructor of the Dropdown_Widget class.
+    if(typeof menu_expand_handle_id_or_object === "object")
+    {
+      if(menu_expand_handle_id_or_object.length === 1)
+      {
+        this.$menu_expand_handle = menu_expand_handle_id_or_object;
+      }
+    }
+    else
+    {
+      this.$menu_expand_handle = $('#' + menu_expand_handle_id_or_object); //Make a jQuery object out of the menu_expand_handle_id_or_object so it may be used later to detect clicks.
+    }
     this.$menu_collapse_handle; //This is an undefined instance variable which will EVENTUALLY hold a jQuery object of the menu_collapse_handle_id once the menu has been opened. NOTE: Would be best to put collapse button inside of menu!
     this.expand_handle_active = true; //A boolean to keep track of whether the expand button is active and the menu is ready to be dropped down.
   }
@@ -264,10 +323,10 @@ REVIEW: List of CONSTRUCTOR parameters!
 */
 class Single_Dropdown_Menu extends Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, menu_collapse_handle_id, menu_body_id_or_object, menu_content_array, array_of_parents)
   {
     //RETURNS: NOTHING.
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, menu_collapse_handle_id, menu_body_id, menu_content_array, array_of_parents); //Call "Menu" class constructor.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, menu_collapse_handle_id, menu_body_id_or_object, menu_content_array, array_of_parents); //Call "Menu" class constructor.
     this.$menu_expand_handle.on("click", //When the open menu jQuery object is clicked do the following.
       function()
       {
@@ -283,6 +342,7 @@ class Single_Dropdown_Menu extends Menu
               {
                 this.expand_handle_active = true; //Set it to true.
                 this.manage_widget_state(false, 0, false, 0); //Mange the widget's state.
+                console.log(this.$widget_body);
                 this.manage_collapse_transitionend(this.$widget_body.children()); //Trigger the transitionend listener and when the menu fully collapse remove the menu's inner content/children.
               }
             }.bind(this)
@@ -301,7 +361,7 @@ REVIEW: List of CONSTRUCTOR parameters!
 1 - 6) transition_duration through expanded_spacing parameters are the exact same as the "Dropdown_Widget" and "Menu" classes. DATATYPES: SAME AS "Dropdown_Widget" and "Menu".
 7) item_box_transition_properties_array - Because cummulative menus append boxes of HTML and since those boxes also collapse with a transition, this array holds the following parameters for the "Item_Box" class below:
 [transition_duration(String, Int or Float), duration_units(String), transition_delay(String, Int or Float), delay_units(String), height_units(String)]. DATATYPE: ARRAY.
-8 - 10) menu_expand_handle_id through menu_body_id parameters are the same as in the "Menu" class above. DATATYPE: Same as "Menu" class. DATATYPE: Same as ancestor classes.
+8 - 10) menu_expand_handle_id_or_object through menu_body_id_or_object parameters are the same as in the "Menu" class above. DATATYPE: Same as "Menu" class. DATATYPE: Same as ancestor classes.
 11) item_box_class - This is the HTML class name for the item boxes which will be appended in later methods. DATATYPE: String.
 12) item_box_cancel_class - This is the HTML class name for the cancel button/delete button which will remove item boxes from the cummulative menu. Again see later methods to see how this class is implemented. DATATYPE: String.
 13) item_box_content - NOT and array. Just a single chunk of HTML which will represent each item box which is appended to the menu. DATATYPE: STRING FULL OF HTML CONTENT.
@@ -313,10 +373,10 @@ its array_of_parents. DATATYPE: ARRAY.
 */
 class Cummulative_Menu extends Menu
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id, menu_body_id, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
+  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, item_box_transition_properties_array, menu_expand_handle_id_or_object, menu_body_id_or_object, item_box_class, item_box_cancel_class, item_box_content, array_of_parents)
   {
     //RETURNS: NOTHING.
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id, "", menu_body_id, item_box_content, array_of_parents); //Call parent class constructor.
+    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, menu_expand_handle_id_or_object, "", menu_body_id_or_object, item_box_content, array_of_parents); //Call parent class constructor.
     this.item_box_class = item_box_class;
     this.item_box_cancel_class = item_box_cancel_class;
     this.item_box_content = item_box_content;
@@ -334,6 +394,8 @@ class Cummulative_Menu extends Menu
   manage_widget_state(fixed_collapsed_height_bool, fixed_collapsed_height, fixed_expanded_height_bool, fixed_expanded_height)
   {
     //RETURNS: NOTHING.
+    this.widget_content_show = true;
+    this.expanded = true;
     this.$widget_body.append(this.item_box_content); //Before actually creating an item box object when the $menu_expand_handle is clicked, actually append the HTML first so the next line can properly create the "Item_Box".
     this.item_box_array.push(new Item_Box(
         this.item_box_transition_properties_array[0], this.item_box_transition_properties_array[1], this.item_box_transition_properties_array[2], this.item_box_transition_properties_array[3],
@@ -417,12 +479,26 @@ class Item_Box extends Dropdown_Widget
         this.menu_object.item_box_array.splice(this.item_box_number, 1); //Remove this particular item box from the "Cummulative_Menu" item_box_array.
         this.menu_object.renumber_item_box_ids(this.item_box_number); //Renumber all other item boxes starting at the one removed.
         this.menu_object.current_number_of_item_boxes--; //Subtract one from the "Cummulative_Menu" current_number_of_item_boxes variable.
+        this.menu_object.expanded = false;
         this.collapse_widget_contents(false, 0, this.expanded_spacing);
         if(this.array_of_parents.length > 0) //As with expanding, if the widget has any ancestor widgets its nested inside of, then expand those as well with the "collapse_parent_widgets" method.
         {
           this.collapse_parent_widgets();
         }
         this.manage_collapse_transitionend(this.$widget_body);
+        if(this.menu_object.item_box_array.length < 1)
+        {
+          this.menu_object.$widget_body.on("transitionend",
+            function(event)
+            {
+              if(event.target.id === this.menu_object.$widget_body.attr("id"))
+              {
+                this.menu_object.widget_content_show = false;
+                this.menu_object.$widget_body.off("transitionend");
+              }
+            }.bind(this)
+          );
+        }
       }.bind(this)
     );
   }
@@ -443,114 +519,23 @@ class Item_Box extends Dropdown_Widget
     this.$widget_body.css("height", this.expanded_height.toString() + "px");
   }
 }
-/*
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------- FOLDER CLASS -----------------------------------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-REVIEW: List of CONSTRUCTOR parameters!
-1 - 5) transition_duration through expanded_spacing - Same as previous classes. DATATYPES: Also same as previous classes.
-6) expand_and_collapse_handle_id - Similar to the menu system this is a handlebar HTML id which will control the exapanding and contracting of folders. DATATYPE: STRING.
-7) folder_body_id - The HTML id of the container representing the folder body. DATATYPE: STRING.
-8) folder_content_array - An array of HTML content that should be appended the the folder's widget body. DATATYPE: ARRAY.
-9) array_of_parents - An array representing parent widgets. For example, a folder within ANY OTHER widget must have an array_or_parents with that outermost widget object in it in order to expand
-both itself and the outermost parent widget. You may nest as many widgets as you'd like. Just remember for each level a widget is further nested, each ansestor widget object must be put into
-its array_of_parents. DATATYPE: ARRAY.
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-class Folder extends Dropdown_Widget
+
+class Widget_Collection
 {
-  constructor(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, expand_and_collapse_handle_id, folder_body_id, folder_content_array, array_of_parents)
+  constructor(widget_holder_array)
   {
-    //RETURNS: NOTHING.
-    super(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, folder_body_id, folder_content_array, array_of_parents); //Call constructor of "Dropdown_Widget".
-    this.$folder_expand_collapse_handle = $('#' + expand_and_collapse_handle_id); //Make the expand_and_collapse_handle_id into a jQuery object.
-    this.$folder_expand_collapse_handle.on("click", //When the folder handle is clicked, do the following...
-      function()
-      {
-        if(this.expanded) //If the menu is already expanded get ready to collapse it.
-        {
-          this.manage_collapse_transitionend(this.$widget_body.children());
-        }
-        this.manage_widget_state(false, 0, false, 0);
-      }.bind(this)
-    );
-  }
-}
-
-class Clickbox_Collection
-{
-  constructor(widget_array)
-  {
-    this.widget_array = widget_array;
-    this.clickbox_array = [];
-    this.global_clickbox_counter = 0;
-    if(this.widget_array.length > 0)
-    {
-      this.initialize_clickbox_variables();
-    }
+    this.widget_holder_array = widget_holder_array;
+    this.subwidget_array = [];
+    this.global_subwidget_counter = 0;
   }
 
-  initialize_clickbox_variables(widget_object)
-  {
-    for(var i = 0; i < this.widget_array.length; i++)
-    {
-      this.widget_array[i].clickbox_number_array = [];
-      this.widget_array[i].local_clickbox_counter = 0;
-    }
-  }
-
-  append_clickbox(widget_object, transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
-  {
-    var index_of_widget_object = this.widget_array.indexOf(widget_object);
-    console.log(index_of_widget_object);
-    this.clickbox_array.splice(clickbox_number, 0,
-      new Clickbox(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
-    );
-    this.widget_array[index_of_widget_object].clickbox_number_array.push(this.clickbox_array[clickbox_number].clickbox_number);
-  }
-
-  get_starting_clickbox_number(widget_object)
-  {
-    var index_of_clickbox_holder = this.widget_array.indexOf(widget_object);
-    if(this.widget_array.length > 1 && index_of_clickbox_holder !== this.widget_array.length - 1)
-    {
-      if(index_of_clickbox_holder === 0)
-      {
-        return 0;
-      }
-      else
-      {
-        for(let i = index_of_clickbox_holder - 1; i >= 0; i--)
-        {
-          if(this.widget_array[i].main_code_expanded)
-          {
-            return this.widget_array[i].clickbox_number_array[this.widget_array[i].clickbox_number_array.length - 1] + 1;
-          }
-        }
-        for(let i = index_of_clickbox_holder + 1; i < this.widget_array.length; i++)
-        {
-          if(this.widget_array[i].main_code_expanded)
-          {
-            return this.widget_array[i].clickbox_number_array[0];
-          }
-        }
-        return 0;
-      }
-    }
-    else if(index_of_clickbox_holder === this.widget_array.length - 1)
-    {
-      return this.global_clickbox_counter;
-    }
-  }
-
-  get_clickbox_number(clickbox_id)
+  get_id_number(widget_id)
   {
     var number_string = "0123456789";
-    var i = clickbox_id.length - 1;
+    var i = widget_id.length - 1;
     while(i > 0)
     {
-      if(number_string.indexOf(clickbox_id[i]) !== -1)
+      if(number_string.indexOf(widget_id[i]) !== -1)
       {
         i--;
       }
@@ -560,61 +545,280 @@ class Clickbox_Collection
         break;
       }
     }
-    return parseInt(clickbox_id.substring(i, clickbox_id.length));
+    return parseInt(widget_id.substring(i, widget_id.length));
+  }
+
+  get_starting_subwidget_number(widget_object)
+  {
+    var index_of_widget_holder = this.widget_holder_array.indexOf(widget_object);
+    if(this.widget_holder_array.length > 1 && index_of_widget_holder !== this.widget_holder_array.length - 1)
+    {
+      if(index_of_widget_holder === 0)
+      {
+        return 0;
+      }
+      else
+      {
+        for(let i = index_of_widget_holder - 1; i >= 0; i--)
+        {
+          if(this.widget_holder_array[i].widget_content_show)
+          {
+            return this.widget_holder_array[i].clickbox_number_array[this.widget_holder_array[i].clickbox_number_array.length - 1] + 1;
+          }
+        }
+        for(let i = index_of_widget_holder + 1; i < this.widget_holder_array.length; i++)
+        {
+          if(this.widget_holder_array[i].widget_content_show)
+          {
+            return this.widget_holder_array[i].clickbox_number_array[0];
+          }
+        }
+        return 0;
+      }
+    }
+    else if(index_of_widget_holder === this.widget_holder_array.length - 1)
+    {
+      return this.global_subwidget_counter;
+    }
+  }
+}
+
+class Item_Box_Collection extends Widget_Collection
+{
+  constructor(cummulative_menu_array)
+  {
+    super(cummulative_menu_array);
+    if(this.widget_holder_array.length > 0)
+    {
+      for(let i = 0; i < this.widget_holder_array.length; i++)
+      {
+        this.initialize_item_box_variables(this.widget_holder_array[i], i);
+      }
+    }
+  }
+
+  initialize_item_box_variables(cummulative_menu_object, cummulative_menu_number)
+  {
+    for(let i = 0; i < cummulative_menu_object.item_box_array.length; i++)
+    {
+      this.subwidget_array.push(cummulative_menu_object.item_box_array[i]);
+      this.subwidget_array[i].item_box_number = i;
+    }
+    cummulative_menu_object.$widget_body.attr("id", "item-box-holder-" + cummulative_menu_number.toString());
+    cummulative_menu_object.item_box_holder_number = cummulative_menu_number;
+    cummulative_menu_object.item_box_number_array = [];
+  }
+
+  renumber_item_box_holder_ids(starting_index)
+  {
+    for(let i = starting_index; i < this.widget_holder_array.length; i++)
+    {
+      this.widget_holder_array[i].$widget_body.attr("id", "item-box-holder-" + i.toString());
+      this.widget_holder_array[i].item_box_holder_number = i;
+    }
+  }
+
+  renumber_item_box_ids(starting_index)
+  {
+    //console.log(starting_index);
+    for(let i = starting_index; i < this.subwidget_array.length; i++)
+    {
+      this.subwidget_array[i].$widget_body.attr("id", "item-box-" + i.toString());
+      this.subwidget_array[i].item_box_number = i;
+    }
+  }
+
+  increment_item_box_numbers(cummulative_menu_object)
+  {
+    if(cummulative_menu_object.expanded)
+    {
+      cummulative_menu_object.$widget_body.off("transitionend");
+      if(cummulative_menu_object.item_box_array.length > 1)
+      {
+        var index_of_splice = cummulative_menu_object.item_box_number_array[cummulative_menu_object.item_box_number_array.length - 1] + 1;
+      }
+      else
+      {
+        var index_of_splice = this.get_starting_subwidget_number(cummulative_menu_object);
+      }
+      console.log("Adding Item Box at index:", index_of_splice);
+      this.subwidget_array.splice(index_of_splice, 0, cummulative_menu_object.item_box_array[cummulative_menu_object.item_box_array.length - 1]);
+      this.subwidget_array[index_of_splice].item_box_number = index_of_splice;
+      cummulative_menu_object.item_box_number_array.push(index_of_splice);
+      console.log("Here is the item box array:", this.subwidget_array);
+      console.log("Here is the number array for " + cummulative_menu_object.$widget_body.attr("id") + ':', cummulative_menu_object.item_box_number_array);
+      this.global_subwidget_counter++;
+      this.renumber_item_box_ids(cummulative_menu_object.item_box_number_array[cummulative_menu_object.item_box_number_array.length - 1]);
+      for(let i = this.widget_holder_array.indexOf(cummulative_menu_object) + 1; i < this.widget_holder_array.length; i++)
+      {
+        for(let j = 0; j < this.widget_holder_array[i].item_box_number_array.length; j++)
+        {
+          if(this.widget_holder_array[i].item_box_number_array.length > 0)
+          {
+            this.widget_holder_array[i].item_box_number_array[j]++;
+          }
+        }
+        console.log("Number array for " + this.widget_holder_array[i].$widget_body.attr("id") + ":", this.widget_holder_array[i].item_box_number_array);
+      }
+    }
+  }
+
+  decrement_item_box_numbers(cummulative_menu_object, item_box_remove_index)
+  {
+    if(!cummulative_menu_object.expanded)
+    {
+      cummulative_menu_object.$widget_body.on("transitionend",
+        function()
+        {
+          if(event.target.id === cummulative_menu_object.$widget_body.attr("id"))
+          {
+            console.log("Removing Item Box at index:", item_box_remove_index);
+            var item_box_number_array_remove_index = cummulative_menu_object.item_box_number_array.indexOf(item_box_remove_index);
+            console.log("Corresponding to index " + item_box_remove_index.toString() + " in: " + cummulative_menu_object.$widget_body.attr("id") + " number array.");
+            cummulative_menu_object.item_box_number_array.splice(item_box_number_array_remove_index, 1);
+            this.subwidget_array.splice(item_box_remove_index, 1);
+            this.renumber_item_box_holder_ids(item_box_remove_index);
+            this.global_subwidget_counter--;
+            console.log("Here is the item box array:", this.subwidget_array);
+            if(!cummulative_menu_object.widget_content_show)
+            {
+              if(this.widget_holder_array.indexOf(cummulative_menu_object) + 1 === this.widget_holder_array.length)
+              {
+                var i = this.widget_holder_array.length;
+              }
+              else
+              {
+                var i = this.widget_holder_array.indexOf(cummulative_menu_object) + 1;
+              }
+            }
+            else
+            {
+              var i = this.widget_holder_array.indexOf(cummulative_menu_object);
+            }
+            while(i < this.widget_holder_array.length)
+            {
+              if(i === this.widget_holder_array.indexOf(cummulative_menu_object))
+              {
+                var j = item_box_number_array_remove_index;
+              }
+              else
+              {
+                var j = 0;
+              }
+              while(j < this.widget_holder_array[i].item_box_number_array.length)
+              {
+                if(this.widget_holder_array[i].item_box_number_array.length > 0)
+                {
+                  this.widget_holder_array[i].item_box_number_array[j]--;
+                }
+                j++;
+              }
+              console.log("Here is the number array for " + this.widget_holder_array[i].$widget_body.attr("id") + ':', this.widget_holder_array[i].item_box_number_array);
+              i++
+            }
+            cummulative_menu_object.$widget_body.off("transitionend")
+          }
+        }.bind(this)
+      );
+    }
+  }
+}
+
+class Clickbox_Collection extends Widget_Collection
+{
+  constructor(widget_holder_array)
+  {
+    super(widget_holder_array);
+    if(this.widget_holder_array.length > 0)
+    {
+      for(let i = 0; i < this.widget_holder_array.length; i++)
+      {
+        this.initialize_clickbox_variables(this.widget_holder_array[i], i);
+      }
+    }
+  }
+
+  initialize_clickbox_variables(clickbox_holder_object, clickbox_holder_number)
+  {
+    clickbox_holder_object.$widget_body.attr("id", "clickbox-holder-" + clickbox_holder_number.toString());
+    clickbox_holder_object.clickbox_number_array = [];
+    clickbox_holder_object.local_clickbox_counter = 0;
+    clickbox_holder_object.clickbox_holder_number = clickbox_holder_number;
+  }
+
+  append_clickbox(widget_object, transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
+  {
+    var index_of_widget_object = this.widget_holder_array.indexOf(widget_object);
+    this.subwidget_array.splice(clickbox_number, 0,
+      new Clickbox(transition_duration, duration_units, transition_delay, delay_units, height_units, expanded_spacing, $clickbox, expansion_content_array, clickbox_number, array_of_parents)
+    );
+    this.widget_holder_array[index_of_widget_object].clickbox_number_array.push(this.subwidget_array[clickbox_number].clickbox_number);
+    this.global_subwidget_counter++;
+    widget_object.local_clickbox_counter++;
+  }
+
+  renumber_clickbox_holder_ids(starting_index)
+  {
+    //console.log(starting_index);
+    for(let i = starting_index; i < this.widget_holder_array.length; i++)
+    {
+      this.widget_holder_array[i].$widget_body.attr("id", "clickbox-holder-" + i.toString());
+      this.widget_holder_array[i].clickbox_holder_number = i;
+    }
   }
 
   renumber_clickbox_ids(starting_index)
   {
     //console.log(starting_index);
-    for(let i = starting_index; i < this.clickbox_array.length; i++)
+    for(let i = starting_index; i < this.subwidget_array.length; i++)
     {
-      this.clickbox_array[i].$widget_body.attr("id", "clickbox-" + i.toString());
-      this.clickbox_array[i].clickbox_number = i;
+      this.subwidget_array[i].$widget_body.attr("id", "clickbox-" + i.toString());
+      this.subwidget_array[i].clickbox_number = i;
     }
   }
 
-  adjust_widgets_clickbox_numbers(add_clickboxes_bool, widget_object)
+  update_widget_clickbox_numbers(widget_object)
   {
-    if(add_clickboxes_bool)
+    if(widget_object.expanded)
     {
       widget_object.$widget_body.off("transitionend");
+      this.renumber_clickbox_ids(widget_object.clickbox_number_array[widget_object.clickbox_number_array.length - 1]);
       var number_of_boxes_added = widget_object.local_clickbox_counter;
-      for(let i = this.widget_array.indexOf(widget_object) + 1; i < this.widget_array.length; i++)
+      for(let i = this.widget_holder_array.indexOf(widget_object) + 1; i < this.widget_holder_array.length; i++)
       {
-        for(let j = 0; j < this.widget_array[i].clickbox_number_array.length; j++)
+        for(let j = 0; j < this.widget_holder_array[i].clickbox_number_array.length; j++)
         {
-          if(this.widget_array[i].clickbox_number_array.length > 0)
+          if(this.widget_holder_array[i].clickbox_number_array.length > 0)
           {
-            this.widget_array[i].clickbox_number_array[j] += number_of_boxes_added;
+            this.widget_holder_array[i].clickbox_number_array[j] += number_of_boxes_added;
           }
         }
       }
     }
     else
     {
-      console.log(this.clickbox_array);
       widget_object.$widget_body.on("transitionend",
         function()
         {
-          if(!widget_object.main_code_expanded)
+          if(!widget_object.widget_content_show)
           {
             for(let i = 0; i < widget_object.clickbox_number_array.length; i++)
             {
-              this.global_clickbox_counter--;
+              this.global_subwidget_counter--;
             }
             var number_of_boxes_removed = widget_object.local_clickbox_counter;
-            for(let i = this.widget_array.indexOf(widget_object) + 1; i < this.widget_array.length; i++)
+            for(let i = this.widget_holder_array.indexOf(widget_object) + 1; i < this.widget_holder_array.length; i++)
             {
-              for(let j = 0; j < this.widget_array[i].clickbox_number_array.length; j++)
+              for(let j = 0; j < this.widget_holder_array[i].clickbox_number_array.length; j++)
               {
-                if(this.widget_array[i].clickbox_number_array.length > 0)
+                if(this.widget_holder_array[i].clickbox_number_array.length > 0)
                 {
-                  this.widget_array[i].clickbox_number_array[j] -= number_of_boxes_removed;
+                  this.widget_holder_array[i].clickbox_number_array[j] -= number_of_boxes_removed;
                 }
               }
             }
             var renumbering_starting_index = widget_object.clickbox_number_array[0];
-            this.clickbox_array.splice(renumbering_starting_index, widget_object.clickbox_number_array.length);
+            this.subwidget_array.splice(renumbering_starting_index, widget_object.clickbox_number_array.length);
             this.renumber_clickbox_ids(renumbering_starting_index);
             widget_object.clickbox_number_array = [];
             widget_object.local_clickbox_counter = 0;

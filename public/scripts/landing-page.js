@@ -22,6 +22,59 @@ USER_LOGIN.catch(function(error){
 });
 */
 
+function sign_in_to_firebase()
+{
+  var username_input = USERNAME_INPUT_FIELD.value;
+  var password_input = PASSWORD_INPUT_FIELD.value;
+  user_2D_array.then(
+    function(array)
+    {
+      console.log(array);
+      user_type = get_student_or_admin(username_input, array);
+      console.log(user_type);
+      if(user_type !== "null")
+      {
+        FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).then(
+          function()
+          {
+            window.localStorage.setItem("Password", password_input);
+            FIREBASE_AUTHENTICATION.onAuthStateChanged(
+              function(JTIC_user)
+              {
+                if(JTIC_user)
+                {
+                  console.log(JTIC_user);
+                  if(user_type === "Administrator")
+                  {
+                    document.location.href = "admin.html";
+                  }
+                  else if(user_type === "Student")
+                  {
+                    document.location.href = "student.html";
+                  }
+                }
+                else
+                {
+                  console.log("Not logged in!");
+                }
+              }
+            );
+          }
+        ).catch(
+          function(error)
+          {
+            incorrect_credentials_message.id = "show";
+          }
+        );
+      }
+      else
+      {
+        incorrect_credentials_message.id = "show";
+      }
+    }
+  );
+}
+
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
 const USERNAME_INPUT_FIELD = document.getElementById("username-input");
@@ -33,66 +86,21 @@ const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students/All Students");
 var user_type;
 
-FIREBASE_AUTHENTICATION.signOut().then(
+/*FIREBASE_AUTHENTICATION.signOut().then(
   function(error)
   {
     console.log(error);
   }
-);
+);*/
 
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH);
-SUBMIT_BUTTON.addEventListener("click",
-  function()
+SUBMIT_BUTTON.addEventListener("click", sign_in_to_firebase);
+window.addEventListener("keydown",
+  function(event)
   {
-    var username_input = USERNAME_INPUT_FIELD.value;
-    var password_input = PASSWORD_INPUT_FIELD.value;
-    user_2D_array.then(
-      function(array)
-      {
-        console.log(array);
-        user_type = get_student_or_admin(username_input, array);
-        console.log(user_type);
-        if(user_type !== "null")
-        {
-          FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(username_input), password_input).then(
-            function()
-            {
-              window.localStorage.setItem("Password", password_input);
-            }
-          ).catch(
-            function(error)
-            {
-              incorrect_credentials_message.id = "show";
-            }
-          );
-        }
-        else
-        {
-          incorrect_credentials_message.id = "show";
-        }
-      }
-    );
-  }
-);
-
-FIREBASE_AUTHENTICATION.onAuthStateChanged(
-  function(JTIC_user)
-  {
-    if(JTIC_user)
+    if(event.keyCode === 13)
     {
-      console.log(JTIC_user);
-      if(user_type === "Administrator")
-      {
-        document.location.href = "admin.html";
-      }
-      else if(user_type === "Student")
-      {
-        document.location.href = "student.html";
-      }
-    }
-    else
-    {
-      console.log("Not logged in!");
+      sign_in_to_firebase();
     }
   }
 );
