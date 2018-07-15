@@ -18,6 +18,10 @@ class Student_User extends User
   constructor(student_id, student_data, student_nodes, master_projects_list_id)
   {
     super(student_id, student_data["Profile Photo"], student_data, student_nodes);
+    if(VIEWING_MODE)
+    {
+      $("h2#welcome-message > span").text("Now Viewing: " + this.user_data["Name"]);
+    }
     this.$master_projects_list = $('#' + master_projects_list_id);
     this.array_of_project_html_frameworks = [
                                               [gamemaker_folder, python_folder, cpp_folder, adobe_folder],
@@ -38,7 +42,7 @@ class Student_User extends User
     this.python_folder_array_of_content = [python_project_folder_content];
     this.python_project_descriptions_array = [];
     this.python_download_url_array = [];
-    this.python_allowed_array_of_file_extensions = [".py"];
+    this.python_allowed_array_of_file_extensions = [".pyc"];
     //C++ Instance Variables.
     this.cpp_project_folder;
     this.cpp_project_collection;
@@ -321,20 +325,138 @@ class Student_User extends User
 
   setup_right_subconsole(class_mode)
   {
-
-    switch (class_mode) {
+    this.$right_subconsole_label_element.css("visibility", "visible");
+    this.$right_subconsole.html("");
+    switch(class_mode)
+    {
       case "GameMaker-Studio":
+        this.$right_subconsole_label_element.text("HTML 5 Games:");
+        this.$right_subconsole.append("<p style = 'font-size: 18pt; text-align: center;'>Coming Soon!<p>");
         break;
 
       case "Python":
+        this.add_notes_menu(class_mode);
         break;
 
       case "C++":
+        this.add_notes_menu(class_mode);
         break;
 
       case "Adobe":
         this.add_adobe_creative_portfolio();
     }
+  }
+
+  add_notes_menu(class_name)
+  {
+    this.$right_subconsole_label_element.text("Notes:");
+    this.$right_subconsole.append(python_and_cpp_note_html);
+    this.new_note_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "5px", "new-note-button", "remove-new-note-button", "add-note-menu", [new_note_content], []);
+    if(this.user_nodes.hasChild("Notes/" + class_name + " Notes"))
+    {
+      this.$right_subconsole.append(notes_list);
+      for(var note_number in this.user_data["Notes"][class_name + " Notes"])
+      {
+        this.$right_subconsole.find("ul#notes-list").append(note_item);
+        var note_title = Object.keys(this.user_data["Notes"][class_name + " Notes"][note_number])[0];
+        this.$right_subconsole.find("li.note-item").eq(parseInt(note_number)).find("h5.note-title").text(note_title + ':');
+        this.$right_subconsole.find("li.note-item").eq(parseInt(note_number)).find("p.note-content").text(this.user_data["Notes"][class_name + " Notes"][note_number][note_title]);
+        this.$right_subconsole.find("li.note-item").eq(parseInt(note_number)).attr("id", "note-" + note_number);
+        this.$right_subconsole.find("li.note-item").eq(parseInt(note_number)).find("button.remove-note").on("click",
+          function(event)
+          {
+            var note_to_remove = global_get_object_number($(event.target).closest("li.note-item").attr("id"));
+            this.remove_note_from_database(note_to_remove.toString(), class_name);
+          }.bind(this)
+        );
+        if(!this.user_nodes.hasChild("Notes/" + class_name + " Notes/" + (parseInt(note_number) + 1).toString()))
+        {
+          this.$right_subconsole.find("li.note-item").eq(parseInt(note_number)).css("margin-bottom", "0px").css("padding-bottom", "0px").css("border-bottom", "none");
+        }
+      }
+    }
+    this.new_note_menu.$menu_expand_handle.on("click",
+      function()
+      {
+        if(!this.new_note_menu.main_code_expanded)
+        {
+          this.new_note_menu.main_code_expanded = true;
+          this.new_note_menu.$new_note_title = this.new_note_menu.$widget_body.find("input#new-note-title");
+          this.new_note_menu.$new_note_content = this.new_note_menu.$widget_body.find("textarea");
+          this.new_note_menu.$create_new_note_button = this.new_note_menu.$widget_body.find("button#create-note-button");
+          this.new_note_menu.$new_note_error = this.new_note_menu.$widget_body.find("span.warning-message");
+          this.new_note_menu.$create_new_note_button.on("click",
+            function()
+            {
+              if(has_text(this.new_note_menu.$new_note_title.val()) && has_text(this.new_note_menu.$new_note_content.val()))
+              {
+                var note_add_info_box = new Info_Box(
+                  "Jr Tech Notification: Saving Note", "Processing: Jr Tech is currently saving your note.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has saved your note.", false, true, "student.html"
+                );
+                transition_error_messages(this.new_note_menu.$new_note_error, "red", false);
+                this.save_note_to_database(this.new_note_menu.$new_note_title.val(), this.new_note_menu.$new_note_content.val(), class_name);
+                setTimeout(
+                  function()
+                  {
+                    note_add_info_box.firebase_mode_confirm_completion();
+                  }, 3000
+                );
+              }
+              else
+              {
+                transition_error_messages(this.new_note_menu.$new_note_error, "red", true);
+              }
+            }.bind(this)
+          );
+        }
+      }.bind(this)
+    );
+  }
+
+  save_note_to_database(note_title, note_content, class_name)
+  {
+    if(this.user_nodes.hasChild("Notes/" + class_name + " Notes"))
+    {
+      var next_note;
+      for(var note_number in this.user_data["Notes"][class_name + " Notes"])
+      {
+        if(!this.user_nodes.hasChild("Notes/" + class_name + " Notes/" + (parseInt(note_number) + 1).toString()))
+        {
+          next_note = (parseInt(note_number) + 1).toString();
+        }
+      }
+      DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Notes/" + class_name + " Notes/" + next_note + "/" + note_title).set(note_content);
+    }
+    else
+    {
+      DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Notes/" + class_name + " Notes/0/" + note_title).set(note_content);
+    }
+  }
+
+  remove_note_from_database(note_to_remove, class_name)
+  {
+    var note_remove_info_box = new Info_Box(
+      "Jr Tech Notification: Removing Note", "Processing: Jr Tech is currently removing your note.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has removed your note.", false, true, "student.html"
+    );
+    DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Notes/" + class_name + " Notes").remove();
+    for(var note in this.user_data["Notes"][class_name + " Notes"])
+    {
+      var note_title = Object.keys(this.user_data["Notes"][class_name + " Notes"][note])[0];
+      if(parseInt(note) < parseInt(note_to_remove))
+      {
+        DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Notes/" + class_name + " Notes/" + note + "/" + note_title).set(this.user_data["Notes"][class_name + " Notes"][note][note_title]);
+      }
+      else if(parseInt(note) > parseInt(note_to_remove))
+      {
+        DATABASE_STUDENT_BRANCH.child("All Students/" + this.user_id + "/Notes/" + class_name + " Notes/" + (parseInt(note) - 1).toString() + "/" + note_title).set(this.user_data["Notes"][class_name + " Notes"][note][note_title]);
+      }
+    }
+    setTimeout(
+      function()
+      {
+        note_remove_info_box.firebase_mode_confirm_completion();
+      }, 3000
+    );
   }
 
   add_adobe_creative_portfolio()
@@ -435,13 +557,16 @@ class Student_User extends User
     }
     else
     {
-      for(var file in this.user_data["Projects"][class_folder_name])
+      if(this.user_nodes.hasChild("Projects/" + class_folder_name))
       {
-        if(manipulate_file_extension_for_database(file, false) === file_name)
+        for(var file in this.user_data["Projects"][class_folder_name])
         {
-          project_menu_instance.$error_message.text("The file '" + file_name + "' already exists.");
-          transition_error_messages(project_menu_instance.$error_message, "red", true);
-          return false;
+          if(manipulate_file_extension_for_database(file, false) === file_name)
+          {
+            project_menu_instance.$error_message.text("The file '" + file_name + "' already exists.");
+            transition_error_messages(project_menu_instance.$error_message, "red", true);
+            return false;
+          }
         }
       }
       transition_error_messages(project_menu_instance.$error_message, "red", false);
@@ -482,6 +607,8 @@ const FIREBASE_STORAGE = firebase.storage();
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
 const DATE = get_date(new Date());
+GLOBAL_SIGN_OUT_LOCATION = "404.html";
+var VIEWING_MODE = false;
 console.log(DATE);
 
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
@@ -492,12 +619,40 @@ FIREBASE_AUTHENTICATION.onAuthStateChanged(
       console.log(JTIC_user);
       var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid), false); //Get Data.
       var student_nodes = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + JTIC_user.uid), true); //Get Nodes
-      var student = new Student_User(JTIC_user.uid, student_data, student_nodes, "master-project-list");
+      if(student_data === null)
+      {
+        var admin_data = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), false); //Get Data.
+        if(admin_data["Viewing Mode"] !== "")
+        {
+          VIEWING_MODE = true;
+          var student_to_view = admin_data["Viewing Mode"];
+          var viewing_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + student_to_view), false); //Get Data.
+          var viewing_nodes = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + student_to_view), true); //Get Nodes
+          //console.log(viewing_data["Viewing Mode"]);
+          var virtual_student = new Student_User(student_to_view, viewing_data, viewing_nodes, "master-project-list");
+        }
+        else
+        {
+          document.location.href = "admin.html";
+        }
+      }
+      else
+      {
+        var student = new Student_User(JTIC_user.uid, student_data, student_nodes, "master-project-list");
+      }
       //alert("1LOGGED IN AS: " + JTIC_user.uid);
     }
     else
     {
-      //alert("LOGGED OUT");
+      setTimeout(
+        function()
+        {
+          if(GLOBAL_SIGN_OUT_LOCATION !== null)
+          {
+            document.location.href = GLOBAL_SIGN_OUT_LOCATION;
+          }
+        }, 150
+      );
     }
   }
 );

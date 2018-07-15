@@ -120,6 +120,53 @@ ul.image-flex-box img.favicon{
   width: 64px;
   height: 64px;
 }
+
+div#add-note-menu{
+  margin-top: 15px;
+}
+
+div#new-note-title{
+  margin-bottom: 10px;
+}
+
+div#notes{
+  margin-top: 15px;
+}
+
+h5#notes-label{
+  font-size: 11pt;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+ul#notes-list{
+  padding: 15px 20px;
+  border: 1px solid rgba(102, 102, 102, 0.6);
+  border-radius: 5px;
+}
+
+li.note-item{
+  position: relative;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(102, 102, 102, 0.6);
+  margin-bottom: 15px;
+}
+
+h5.note-title{
+  font-size: 10pt;
+  margin-bottom: 5px;
+}
+
+p.note-content{
+  font-size: 9pt;
+}
+
+button.remove-note{
+  position: absolute;
+  top: 40%;
+  right: 5%;
+  transform: translate(-50%, -50%);
+}
 /*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------ ADOBE CREATIVE PORTFOLIO FORM RULES ------------------------------------------------------------------------------------------------------------------------------------------

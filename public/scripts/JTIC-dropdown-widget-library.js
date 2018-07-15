@@ -74,14 +74,6 @@ class JTIC_Folder extends Folder
   }
 }
 
-class JTIC_Item_Box_Collection extends Item_Box_Collection
-{
-  constructor(cummulative_menu_array)
-  {
-    super(cummulative_menu_array);
-  }
-}
-
 class JTIC_Clickbox_Collection extends Clickbox_Collection
 {
   constructor(widget_array)

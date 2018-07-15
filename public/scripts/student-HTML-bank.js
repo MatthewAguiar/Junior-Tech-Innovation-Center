@@ -86,7 +86,7 @@ var gamemaker_download_box_expansion_content =
   </div>
   <div class = "project-management-buttons">
     <input class = "update-project real-file-upload-hide" id = "update-gamemaker-project" type = "file" name = "" value = "">
-    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-gamemaker-project">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-gamemaker-project" autocomplete = "off">
         <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
         <span>Upload New Version</span>
     </label>
@@ -113,11 +113,13 @@ var python_folder =
 var python_project_folder_content =
 `
 <li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-python-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-python-project-menu" class = "project-menu">
+  <div style = "margin-bottom: 15px;">
+    <h6 class = "small-label-format">New Project:</h6>
+    <button id = "add-python-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  </div>
+  <div id = "add-python-project-menu" class = "project-menu">
 
+  </div>
 </li>
 `;
 
@@ -151,7 +153,7 @@ var python_project_download_box =
       <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
     </div>
     <a class = "download-project STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-download" download>
-      <img src = "Images/Portfolio Images/Download-Icon.svg" alt="">
+      <img src = "Images/Portfolio Images/Download-Icon.svg" alt = "">
       <span>Download Project</span>
     </a>
   </div>
@@ -167,7 +169,7 @@ var python_download_box_expansion_content =
   </div>
   <div class = "project-management-buttons">
     <input class = "update-project real-file-upload-hide" id = "update-python-project" type = "file" name = "" value = "">
-    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-python-project">
+    <label class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "update-python-project" autocomplete = "off">
         <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
         <span>Upload New Version</span>
     </label>
@@ -194,10 +196,13 @@ var cpp_folder =
 var cpp_project_folder_content =
 `
 <li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-cpp-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-cpp-project-menu" class = "project-menu">
+  <div style = "margin-bottom: 15px;">
+    <h6 class = "small-label-format">New Project:</h6>
+    <button id = "add-cpp-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  </div>
+  <div id = "add-cpp-project-menu" class = "project-menu">
+
+  </div>
 </li>
 `;
 
@@ -274,10 +279,13 @@ var adobe_folder =
 var adobe_project_folder_content =
 `
 <li class = "new-project-add">
-  <h6 class = "small-label-format">New Project:</h6>
-  <button id = "add-adobe-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
-</li>
-<li id = "add-adobe-project-menu" class = "project-menu">
+  <div style = "margin-bottom: 15px;">
+    <h6 class = "small-label-format">New Project:</h6>
+    <button id = "add-adobe-project-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  </div>
+  <div id = "add-adobe-project-menu" class = "project-menu">
+
+  </div>
 </li>
 `;
 
@@ -418,6 +426,61 @@ var themes =
   </li>
 </ul>
 <button style = "font-size: 12px; padding: 6px; margin-left: 13px; margin-top: 15px;" id = "collapse-themes-menu-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+`;
+
+//////////////// Python and C++ Notes /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var python_and_cpp_note_html =
+`
+<div id = "notes-container">
+  <div id = "add-notes-button-container">
+    <h6 class = "small-label-format">New Note:</h6>
+    <button id = "new-note-button" class = "add-new STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "add_class">+</button>
+  </div>
+  <div id = "add-note-menu">
+
+  </div>
+</div>
+`;
+
+var notes_list =
+`
+<div id = "notes">
+  <h5 id = "notes-label">My Notes:</h5>
+  <ul id = "notes-list">
+
+  </ul>
+</div>
+`;
+
+var note_item =
+`
+<li class = "note-item">
+  <h5 class = "note-title"></h5>
+  <p class = "note-content"></p>
+  <button class = "remove-note remove general-button-format" type = "button">x</button>
+</li>
+`;
+
+var new_note_content =
+`
+<form id = "add-note-content" class = "new-form-content" style = "margin-top: 0">
+  <fieldset class = "border-color-and-radius">
+    <legend>Add Note</legend>
+    <div class = "new-form-content">
+      <div id = "new-note-title">
+        <h6 class = "small-label-format">Title:</h6>
+        <input id = "new-note-title" class = "input-half-width input-height-and-font" type = "text" autocomplete = "off">
+      </div>
+      <div id = "new-note-body">
+        <h6 class = "small-label-format">Details:</h6>
+        <textarea class = "define-form-textarea-dimensions"></textarea>
+      </div>
+      <button style = "font-size: 12px; padding: 6px; margin: 10px 0px auto 0px" id = "create-note-button" class = "STEM-blue-background blue-to-green-button general-button-format" type = "button">Add</button>
+      <button style = "font-size: 12px; padding: 6px; margin: 10px 0px 0px 0px" id = "remove-new-note-button" class = "remove general-button-format" type = "button" name = "add_class">Cancel</button>
+      <span style = "margin-left: 5px;" class = "warning-message">Please fill out all fields.</span>
+    </div>
+  </fieldset>
+</form>
 `;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

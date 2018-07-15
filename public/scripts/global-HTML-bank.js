@@ -26,14 +26,33 @@ var sign_out_menu =
         <span id = "sign-out-date-joined"></span>
       </div>
     </div>
-    <div id = "change-profile-image-container">
+    <div id = "sign-out-additional-container">
 
     </div>
     <div id = "sign-out-button-container">
-      <button id = "sign-out-button">Sign Out</button>
+      <button id = "sign-out-button" class = "sign-out-button-type">Sign Out</button>
+      <button id = "remove-account-button" class = "sign-out-button-type">Remove Account</button>
     </div>
   </div>
 </div>
+`;
+
+var remove_account_mini_form =
+`
+<form>
+  <fieldset>
+    <div>
+      <label class = "small-label-format" for = "confirm-remove-username">Confirm Username:</label>
+      <input id = "confirm-remove-username" class = "input-fill-width input-height-and-font" type = "text" autocomplete = "off">
+    </div>
+    <div style = "margin-top: 10px;">
+      <label class = "small-label-format" for = "confirm-remove-password">Confirm Password:</label>
+      <input id = "confirm-remove-password" class = "input-fill-width input-height-and-font" type = "password" autocomplete = "off">
+    </div>
+    <button id = "remove-account-button-final" class = "remove general-button-format" type = "button" style = "margin-top: 15px;">Delete</button>
+    <span style = "display: block; margin-top: 2px;" id = "" class = "warning-message">Credentials are not correct.</span>
+  </fieldset>
+</form>
 `;
 
 var sign_out_new_profile_image_menu =
@@ -41,7 +60,7 @@ var sign_out_new_profile_image_menu =
 <div id = "change-profile-image-content">
   <h6 class = "small-label-format">Photo Upload or Web:</h6>
   <div style = "margin-bottom: 5px;" id = "sign-out-change-photo-contianer">
-    <input id = "profile-photo-url" class = "input-half-width input-height-and-font" type = "text">
+    <input id = "profile-photo-url" class = "input-half-width input-height-and-font" type = "text" autocomplete = "off">
     <button id = "add-profile-from-web-button" style = "display: inline; vertical-align: top; margin-top: 0;" class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button">Add from Web</button>
     <span style = "display: block; margin-top: 2px;" id = "web-photo-error" class = "warning-message">Default</span>
   </div>

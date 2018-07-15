@@ -238,9 +238,9 @@ class User
     this.$sign_out_button_image = this.$sign_out_button.find("img#user-sign-out-image");
     this.$sign_out_button_image.attr("src", this.profile_photo_link);
     this.sign_out_dropdown_object = new Dropdown_Widget("350", "ms", "0", "ms", "px", "0px", "sign-out-menu-holder", [sign_out_menu], []);
-    this.change_profile_image_dropdown_object;
+    this.inner_sign_out_widget;
     this.sign_out_clicked = false;
-    this.change_photo_clicked = false;
+    this.inner_sign_out_widget_active = false;
     this.sign_out_dropdown_object.$widget_body.css("border-bottom", "none");
     this.$sign_out_button.on("click",
       function(event)
@@ -254,7 +254,7 @@ class User
             this.sign_out_dropdown_object.expanded = false;
             this.sign_out_dropdown_object.manage_collapse_transitionend(this.sign_out_dropdown_object.$widget_body.children());
             this.sign_out_clicked = false;
-            this.change_photo_clicked = false;
+            this.inner_sign_out_widget_active = false;
             this.sign_out_dropdown_object.$sign_out_image_overlay.off("click");
             $(window).off("click");
             this.sign_out_dropdown_object.$widget_body.off("click");
@@ -279,9 +279,10 @@ class User
           this.sign_out_dropdown_object.$sign_out_username.text(user_data["Name"]);
           this.sign_out_dropdown_object.$sign_out_date_of_creation = this.sign_out_dropdown_object.$sign_out_menu.find("span#sign-out-date-joined");
           this.sign_out_dropdown_object.$sign_out_date_of_creation.text("Joined: " + user_data["Date of Creation"]);
+          this.sign_out_dropdown_object.$delete_account_button = this.sign_out_dropdown_object.$sign_out_menu.find("button#remove-account-button");
           this.sign_out_dropdown_object.$sign_out_button = this.sign_out_dropdown_object.$sign_out_menu.find("button#sign-out-button");
-          this.change_profile_image_dropdown_object = new Dropdown_Widget("350", "ms", "0", "ms", "px", "0px", "change-profile-image-container", [sign_out_new_profile_image_menu], [this.sign_out_dropdown_object]);
-          this.change_profile_image_dropdown_object.$widget_body.css("border-bottom", "none");
+          this.inner_sign_out_widget = new Dropdown_Widget("350", "ms", "0", "ms", "px", "0px", "sign-out-additional-container", [sign_out_new_profile_image_menu], [this.sign_out_dropdown_object]);
+          this.inner_sign_out_widget.$widget_body.css("border-bottom", "none");
           this.sign_out_dropdown_object.$sign_out_image_overlay.on("mouseover",
             function()
             {
@@ -297,25 +298,26 @@ class User
           this.sign_out_dropdown_object.$sign_out_image_overlay.add(this.sign_out_dropdown_object.$sign_out_image_overlay_text).on("click",
             function()
             {
-              this.change_profile_image_dropdown_object.manage_widget_state(false, 0, false, 0);
-              if(!this.change_photo_clicked)
+              this.inner_sign_out_widget.widget_content_array = [sign_out_new_profile_image_menu];
+              this.inner_sign_out_widget.manage_widget_state(false, 0, false, 0);
+              if(!this.inner_sign_out_widget_active)
               {
-                this.change_photo_clicked = true;
-                this.change_profile_image_dropdown_object.$upload_from_web_input = this.change_profile_image_dropdown_object.$widget_body.find("input#profile-photo-url");
-                this.change_profile_image_dropdown_object.$save_web_address_button = this.change_profile_image_dropdown_object.$widget_body.find("button#add-profile-from-web-button");
-                this.change_profile_image_dropdown_object.$web_photo_error = this.change_profile_image_dropdown_object.$widget_body.find("span#web-photo-error");
-                this.change_profile_image_dropdown_object.$upload_from_PC = this.change_profile_image_dropdown_object.$widget_body.find("input#profile-image-uploader");
-                this.change_profile_image_dropdown_object.$upload_from_PC_error = this.change_profile_image_dropdown_object.$widget_body.find("span#PC-image-error");
-                this.change_profile_image_dropdown_object.$save_web_address_button.on("click",
+                this.inner_sign_out_widget_active = true;
+                this.inner_sign_out_widget.$upload_from_web_input = this.inner_sign_out_widget.$widget_body.find("input#profile-photo-url");
+                this.inner_sign_out_widget.$save_web_address_button = this.inner_sign_out_widget.$widget_body.find("button#add-profile-from-web-button");
+                this.inner_sign_out_widget.$web_photo_error = this.inner_sign_out_widget.$widget_body.find("span#web-photo-error");
+                this.inner_sign_out_widget.$upload_from_PC = this.inner_sign_out_widget.$widget_body.find("input#profile-image-uploader");
+                this.inner_sign_out_widget.$upload_from_PC_error = this.inner_sign_out_widget.$widget_body.find("span#PC-image-error");
+                this.inner_sign_out_widget.$save_web_address_button.on("click",
                   function()
                   {
-                    var file_path = this.change_profile_image_dropdown_object.$upload_from_web_input.val();
+                    var file_path = this.inner_sign_out_widget.$upload_from_web_input.val();
                     verify_web_image_path(file_path,
                       async function(path_exists)
                       {
                         if(path_exists)
                         {
-                          transition_error_messages(this.change_profile_image_dropdown_object.$web_photo_error, "red", false);
+                          transition_error_messages(this.inner_sign_out_widget.$web_photo_error, "red", false);
                           if(this.user_data["Account Type"] === "Administrator")
                           {
                             FIREBASE_DATABASE.child("Users/Administrators/" + this.user_id + "/Profile Photo").set(file_path);
@@ -330,8 +332,8 @@ class User
                         }
                         else
                         {
-                          this.change_profile_image_dropdown_object.$web_photo_error.text("Photo does does not exist at URL.");
-                          transition_error_messages(this.change_profile_image_dropdown_object.$web_photo_error, "red", true);
+                          this.inner_sign_out_widget.$web_photo_error.text("Photo does does not exist at URL.");
+                          transition_error_messages(this.inner_sign_out_widget.$web_photo_error, "red", true);
                         }
                       }.bind(this)
                     );
@@ -340,8 +342,78 @@ class User
               }
               else
               {
-                this.change_profile_image_dropdown_object.manage_collapse_transitionend(this.change_profile_image_dropdown_object.$widget_body.children());
-                this.change_photo_clicked = false;
+                this.inner_sign_out_widget.manage_collapse_transitionend(this.inner_sign_out_widget.$widget_body.children());
+                this.inner_sign_out_widget_active = false;
+              }
+            }.bind(this)
+          );
+          this.sign_out_dropdown_object.$delete_account_button.on("click",
+            function()
+            {
+              this.inner_sign_out_widget.widget_content_array = [remove_account_mini_form];
+              this.inner_sign_out_widget.manage_widget_state(false, 0, false, 0);
+              if(!this.inner_sign_out_widget_active)
+              {
+                this.inner_sign_out_widget_active = true;
+                this.inner_sign_out_widget.$final_delete_username =  this.inner_sign_out_widget.$widget_body.find("input#confirm-remove-username");
+                this.inner_sign_out_widget.$final_delete_password =  this.inner_sign_out_widget.$widget_body.find("input#confirm-remove-password");
+                this.inner_sign_out_widget.$final_delete_button = this.inner_sign_out_widget.$widget_body.find("button#remove-account-button-final");
+                this.inner_sign_out_widget.$final_delete_button.on("click",
+                  function()
+                  {
+                    FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(this.inner_sign_out_widget.$final_delete_username.val()), this.inner_sign_out_widget.$final_delete_password.val()).then(
+                      function()
+                      {
+                        if(this.user_data["Account Type"] === "Student")
+                        {
+                          var warning = new Info_Box(
+                            "Jr Tech Warning: DELETING USER", "Question: Are you sure you would like to remove your profile forever?", false, "", "", true, true, "student.html"
+                          );
+                        }
+                        else
+                        {
+                          var warning = new Info_Box(
+                            "Jr Tech Warning: DELETING USER", "Question: Are you sure you would like to remove your profile forever?", false, "", "", true, true, "admin.html"
+                          );
+                        }
+                        warning.$yes_button.on("click",
+                          function()
+                          {
+                            GLOBAL_SIGN_OUT_LOCATION = null;
+                            this.complete_student_removal(FIREBASE_AUTHENTICATION.currentUser, this.user_id, true).then(
+                              function()
+                              {
+                                document.location.href = "index.html";
+                              }
+                            ).catch(
+                              function(error)
+                              {
+                                console.log(error);
+                              }
+                            );
+                          }.bind(this)
+                        );
+                        warning.$no_button.on("click",
+                          function()
+                          {
+                            warning.remove_self();
+                            warning = {};
+                          }
+                        );
+                      }.bind(this)
+                    ).catch(
+                      function()
+                      {
+
+                      }
+                    );
+                  }.bind(this)
+                );
+              }
+              else
+              {
+                this.inner_sign_out_widget.manage_collapse_transitionend(this.inner_sign_out_widget.$widget_body.children());
+                this.inner_sign_out_widget_active = false;
               }
             }.bind(this)
           );
@@ -357,7 +429,7 @@ class User
         {
           this.sign_out_dropdown_object.manage_collapse_transitionend(this.sign_out_dropdown_object.$widget_body.children());
           this.sign_out_clicked = false;
-          this.change_photo_clicked = false;
+          this.inner_sign_out_widget_active = false;
           this.sign_out_dropdown_object.$sign_out_image_overlay.off("click");
           $(window).off("click");
           this.sign_out_dropdown_object.$widget_body.off("click");
@@ -365,6 +437,173 @@ class User
         }
       }.bind(this)
     );
+  }
+
+  complete_student_removal(firebase_user_to_remove, user_id, remove_self)
+  {
+    return new Promise(
+      async function(resolve, reject)
+      {
+        await this.remove_student_storage_refs(user_id)
+        await this.remove_ALL_student_database_refs(user_id)
+        await this.remove_auth_account(firebase_user_to_remove, remove_self)
+        resolve();
+      }.bind(this)
+    );
+  }
+
+  remove_auth_account(firebase_user_to_remove, remove_self)
+  {
+    return new Promise(
+      function(resolve, reject)
+      {
+        if(remove_self)
+        {
+          firebase_user_to_remove.delete().then(
+            function()
+            {
+              resolve();
+            }
+          ).catch(
+            function(error)
+            {
+              reject(error);
+            }
+          );
+        }
+      }
+    );
+  }
+
+  remove_ALL_student_database_refs(user_id)
+  {
+    return new Promise(
+      async function(resolve, reject)
+      {
+        var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + user_id), false);
+        var instructor_array = [[],[]];
+        var instructor_classes_array = [];
+        for(var instructor in student_data["Instructors"])
+        {
+          instructor_array[0].push(instructor);
+          for(var instructor_class in student_data["Instructors"][instructor]["Classes"])
+          {
+            instructor_classes_array.push(student_data["Instructors"][instructor]["Classes"][instructor_class]);
+          }
+          instructor_array[1].push(instructor_classes_array);
+          instructor_classes_array = [];
+        }
+        //console.log("Array to be sent to remova", instructor_array);
+        await this.remove_data_from_ALL_instructor_classes(user_id, instructor_array, 0, 0);
+        DATABASE_STUDENT_BRANCH.child("All Students/" + user_id).remove().then(
+          function()
+          {
+            resolve();
+          }
+        ).catch(
+          function(error)
+          {
+            reject(error);
+          }
+        );
+      }.bind(this)
+    );
+  }
+
+  async remove_data_from_ALL_instructor_classes(user_id, array_of_instructors_and_classes, instructor_counter, class_counter)
+  {
+    if(instructor_counter < array_of_instructors_and_classes[0].length)
+    {
+      if(class_counter < array_of_instructors_and_classes[1][instructor_counter].length)
+      {
+        DATABASE_ADMIN_BRANCH.child(array_of_instructors_and_classes[0][instructor_counter] + "/Classes/" + array_of_instructors_and_classes[1][instructor_counter][class_counter] + '/' + user_id).remove().then(
+          async function()
+          {
+            //console.log(array_of_instructors_and_classes[1][instructor_counter][class_counter], instructor_counter, class_counter);
+            var update_nodes = await get_data(DATABASE_ADMIN_BRANCH.child(array_of_instructors_and_classes[0][instructor_counter]), true);
+            if(!update_nodes.hasChild("Classes/" + array_of_instructors_and_classes[1][instructor_counter][class_counter]))
+            {
+              DATABASE_ADMIN_BRANCH.child(array_of_instructors_and_classes[0][instructor_counter] + "/Class Types/" + array_of_instructors_and_classes[1][instructor_counter][class_counter]).remove().then(
+                function()
+                {
+                  this.remove_data_from_ALL_instructor_classes(user_id, array_of_instructors_and_classes, instructor_counter, class_counter + 1);
+                }.bind(this)
+              )
+            }
+            else
+            {
+              this.remove_data_from_ALL_instructor_classes(user_id, array_of_instructors_and_classes, instructor_counter, class_counter + 1);
+            }
+          }.bind(this)
+        );
+      }
+      else
+      {
+        this.remove_data_from_ALL_instructor_classes(user_id, array_of_instructors_and_classes, instructor_counter + 1, 0);
+      }
+    }
+  }
+
+  remove_student_storage_refs(user_id)
+  {
+    return new Promise(
+      async function(resolve, reject)
+      {
+        var student_nodes = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + user_id), true);
+        if(student_nodes.hasChild("Projects"))
+        {
+          var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students/" + user_id), false);
+          var projects_array = [[],[]];
+          var files_array = [];
+          for(var student_class in student_data["Projects"])
+          {
+            projects_array[0].push(student_class);
+            for(var file in student_data["Projects"][student_class])
+            {
+              files_array.push(manipulate_file_extension_for_database(file, false));
+            }
+            projects_array[1].push(files_array);
+            files_array = [];
+          }
+          this.remove_student_files(user_id, projects_array, 0, 0).then(
+            function()
+            {
+              resolve();
+            }
+          ).catch(
+            function(error)
+            {
+              reject(error)
+            }
+          );
+        }
+        else
+        {
+          resolve();
+        }
+      }.bind(this)
+    );
+  }
+
+  async remove_student_files(user_id, projects_array, class_counter, file_counter)
+  {
+    if(class_counter < projects_array[0].length)
+    {
+      if(file_counter < projects_array[1][class_counter].length)
+      {
+        //console.log(projects_array);
+        FIREBASE_STORAGE.ref("Students/" + user_id + "/Projects/" + projects_array[0][class_counter] + '/' + projects_array[1][class_counter][file_counter]).delete().then(
+          function()
+          {
+            this.remove_student_files(user_id, projects_array, class_counter, file_counter + 1);
+          }.bind(this)
+        );
+      }
+      else
+      {
+        this.remove_student_files(user_id, projects_array, class_counter + 1, 0);
+      }
+    }
   }
 }
 

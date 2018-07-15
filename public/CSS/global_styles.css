@@ -535,12 +535,12 @@ div#sign-out-button-container{
   position: relative;
 }
 
-div#change-profile-image-container{
+div#sign-out-additional-container{
   /*margin-top: 15px;*/
   padding: 10px 20px 0px 20px;
 }
 
-button#sign-out-button{
+button.sign-out-button-type{
   background-color: rgb(248, 248, 248);
   border: 1px solid rgb(198, 198, 198);
   width: 25%;
@@ -552,12 +552,23 @@ button#sign-out-button{
   transform: translate(0%, -50%);
 }
 
-button#sign-out-button:hover{
+button#remove-account-button{
+  width: auto;
+  top: 49%;
+  left: 15px;
+}
+
+button.sign-out-button-type:hover{
   cursor: pointer;
   background-color: rgb(252, 252, 252);
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 }
 
-button#sign-out-button:active{
+button.sign-out-button-type:active{
   background-color: white;
+}
+
+button#remove-account-button-final{
+  font-size: 11pt;
+  padding: 5px;
 }

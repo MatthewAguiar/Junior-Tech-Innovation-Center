@@ -23,7 +23,7 @@ class Admin_User extends User
   {
     super(admin_firebase_id, admin_data["Profile Photo"], admin_data, admin_nodes);
     this.student_data = student_data;
-    this.add_class_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "15px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
+    this.add_class_menu = new JTIC_Single_Dropdown_Menu("750", "ms", "0", "ms", "px", "20px", "add-class-button", "remove-class-button", "add-class-form-container", [new_class_form], []);
     this.adobe_creative_portfolio_options_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "15px", "adobe-arrow", "adobe-themes-folder", [adobe_creative_portfolio_folder_contents], []);
     this.add_class_menu.student_add_button_active = false;
     this.add_class_menu.$class_name_element;
@@ -32,7 +32,7 @@ class Admin_User extends User
     this.add_class_menu.$class_type_error;
     this.add_class_menu.$general_credentials_error;
     this.add_student_menu;
-    this.item_box_collection = new JTIC_Item_Box_Collection([]);
+    //this.item_box_collection = new JTIC_Item_Box_Collection([]);
     this.classes_clickbox_collection = new JTIC_Clickbox_Collection([]);
     this.$left_subconsole = $("section#left-subconsole div.sub-console-content-inner-liner");
     this.bind_class_menu_click_events();
@@ -57,18 +57,21 @@ class Admin_User extends User
           this.add_student_menu = new JTIC_Cummulative_Menu(
             "750", "ms", "0", "ms", "px", "15px", ["750", "ms", "0", "ms", "px", "0px"], "add-student-button", "students-box", "js-student-box", "remove-student", add_student_mini_field, [this.add_class_menu]
           );
-          this.item_box_collection.widget_holder_array.unshift(this.add_student_menu);
-          this.item_box_collection.initialize_item_box_variables(this.item_box_collection.widget_holder_array[0], 0);
+          //this.item_box_collection.widget_holder_array.unshift(this.add_student_menu);
+          //this.item_box_collection.initialize_item_box_variables(this.item_box_collection.widget_holder_array[0], 0);
+          /*
           if(this.item_box_collection.widget_holder_array.length > 0)
           {
             this.item_box_collection.renumber_item_box_holder_ids(1);
           }
+          */
           this.add_student_menu.$menu_expand_handle.on("click",
             function(event)
             {
-              var cummulative_menu_number = this.item_box_collection.get_id_number($(event.target).closest("div.student-add-container").find("div.students-box").attr("id"));
-              this.item_box_collection.increment_item_box_numbers(this.item_box_collection.widget_holder_array[cummulative_menu_number]);
+              //var cummulative_menu_number = this.item_box_collection.get_id_number($(event.target).closest("div.student-add-container").find("div.students-box").attr("id"));
+              //this.item_box_collection.increment_item_box_numbers(this.item_box_collection.widget_holder_array[cummulative_menu_number]);
               this.bind_student_box_click_events(this.add_student_menu, this.add_student_menu.item_box_array);
+              /*
               this.add_student_menu.item_box_array[this.add_student_menu.item_box_array.length - 1].$item_box_cancel_button.on("click",
                 function(event)
                 {
@@ -78,13 +81,14 @@ class Admin_User extends User
                   this.item_box_collection.decrement_item_box_numbers(this.item_box_collection.widget_holder_array[cummulative_menu_number], item_box_remove_index);
                 }.bind(this)
               );
+              */
             }.bind(this)
           );
           this.add_class_menu.student_add_button_active = true;
           this.add_class_menu.$menu_collapse_handle.on("click",
             function()
             {
-              this.item_box_collection.widget_holder_array.splice(0, 1);
+              //this.item_box_collection.widget_holder_array.splice(0, 1);
               this.add_class_menu.radio_button_array = [];
               this.add_class_menu.$widget_body.on("transitionend",
                 function(event)
@@ -118,6 +122,17 @@ class Admin_User extends User
   {
     var box_index = item_box_array.length - 1;
     this.initialize_student_box_variables(item_box_array[box_index]);
+    item_box_array[box_index].$item_box_cancel_button.on("click",
+      function(event)
+      {
+        var starting_index = global_get_object_number($(event.target).closest("div.js-student-box").attr("id"));
+        for(var i = starting_index; i < cummulative_menu.item_box_array.length; i++)
+        {
+          item_box_array[i].$label.text("Student " + (i + 1).toString());
+        }
+      }.bind(this)
+    );
+    item_box_array[box_index].$label.text("Student " + (box_index + 1).toString());
     item_box_array[box_index].$search_existing_student_button.on("click",
       function(event)
       {
@@ -175,6 +190,7 @@ class Admin_User extends User
 
   initialize_student_box_variables(item_box_object)
   {
+    item_box_object.$label = item_box_object.$widget_body.find("h6.small-label-format");
     item_box_object.$confirm_student_button = item_box_object.$widget_body.find("button.confirm-student-info");
     item_box_object.$search_existing_student_field = item_box_object.$widget_body.find("input.existing-student-input");
     item_box_object.$search_existing_student_error_element = item_box_object.$widget_body.find("span.existing-student-warning");
@@ -396,6 +412,7 @@ class Admin_User extends User
       var processing_students_notification = new Info_Box(
         "Jr Tech Notification: Creating Students", "Processing: Jr Tech is currently processing your new student accounts. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has created your students.", false, true, "admin.html"
       );
+      CREATING_STUDENTS_MODE = true;
       this.setup_student(i, class_type, processing_students_notification);
     }
   }
@@ -545,6 +562,7 @@ class Admin_User extends User
     }
     else
     {
+      FIREBASE_DATABASE.child("Users/Administrators/" + this.user_id + "/Class Types/" + class_name).set(class_type);
       var admin_username = this.user_data["Name"];
       var admin_password = window.localStorage.getItem("Password");
       //alert("Signing in admin!");
@@ -552,6 +570,7 @@ class Admin_User extends User
       FIREBASE_AUTHENTICATION.signInWithEmailAndPassword(convert_username_to_dummy_email(admin_username), admin_password).then(
         function()
         {
+          CREATING_STUDENTS_MODE = false;
           notification_box.firebase_mode_confirm_completion();
           //document.location.href = "admin.html";
         }
@@ -572,7 +591,7 @@ class Admin_User extends User
     student_id_reference.child("Account Type").set("Student");
     student_id_reference.child("Name").set(username);
     student_id_reference.child("Classes/0").set(class_type);
-    student_id_reference.child("Instructors/0").set(this.user_id);
+    student_id_reference.child("Instructors/" + this.user_id + "/Classes/0").set(class_name);
     student_id_reference.child("Date of Creation").set(DATE);
     student_id_reference.child("Profile Photo").set("Images/user-placeholder-image.png");
   }
@@ -601,22 +620,21 @@ class Admin_User extends User
             break;
           }
         }
-        for(var instructor_number in student["Instructors"])
+        if(student["Instructors"][this.user_id] !== undefined)
         {
-          var new_instructor_number = (parseInt(instructor_number) + 1).toString();
-          if(student["Instructors"][instructor_number] !== this.user_id)
+          for(var admin_class_number in student["Instructors"][this.user_id]["Classes"])
           {
-            if(student["Instructors"][instructor_number] === undefined)
+            if(student["Instructors"][this.user_id]["Classes"][(parseInt(admin_class_number) + 1).toString()] === undefined)
             {
-              student_reference.child("Instructors/" + new_instructor_number).set(this.user_id);
+              student_reference.child("Instructors/" + this.user_id + "/Classes/" + (parseInt(admin_class_number) + 1).toString()).set(class_name);
             }
           }
-          else
-          {
-            break;
-          }
         }
-      }
+        else
+        {
+          student_reference.child("Instructors/" + this.user_id + "/Classes/0").set(class_name);
+        }
+      }.bind(this)
     );
   }
 
@@ -627,11 +645,12 @@ class Admin_User extends User
     {
       this.$left_subconsole.append(class_folder);
       var $folder_arrow = this.$left_subconsole.find("div.class-folder").eq(class_counter).find("h4.folder-arrow").attr("id", "class-arrow-" + class_counter.toString());
+      this.change_folder_icon(this.user_data["Class Types"][admin_class], $folder_arrow);
       var $name_tag = $folder_arrow.find("span.name-tag");
       $name_tag.text(admin_class);
       var $student_container = this.$left_subconsole.find("div.class-folder").eq(class_counter).find("div.students").attr("id", "student-list-" + class_counter.toString());
       this.classes_clickbox_collection.widget_holder_array.push(new JTIC_Folder(
-        "750", "ms", "0", "ms", "px", "15px", $folder_arrow.attr("id"), $student_container.attr("id"), [class_folder_content], []
+        "750", "ms", "0", "ms", "px", "0px", $folder_arrow.attr("id"), $student_container.attr("id"), [class_folder_content], []
       ));
       this.classes_clickbox_collection.initialize_clickbox_variables(this.classes_clickbox_collection.widget_holder_array[class_counter], class_counter);
       this.classes_clickbox_collection.widget_holder_array[class_counter].class = admin_class;
@@ -658,14 +677,53 @@ class Admin_User extends User
               );
               this.classes_clickbox_collection.subwidget_array[clickbox_number].student = student;
               this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_photo = this.classes_clickbox_collection.subwidget_array[clickbox_number].$widget_body.find("img.user-photo");
-              this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_photo.attr("src", "Images/user-placeholder-image.png");
+              this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_photo.attr("src", this.student_data[student]["Profile Photo"]);
               this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_name = this.classes_clickbox_collection.subwidget_array[clickbox_number].$widget_body.find("h6.student-name");
-              this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_name.text(this.student_data[student]["Name"]);
+              this.classes_clickbox_collection.subwidget_array[clickbox_number].$student_name.text("Name: " + this.student_data[student]["Name"]);
               this.classes_clickbox_collection.subwidget_array[clickbox_number].$date_uploaded = this.classes_clickbox_collection.subwidget_array[clickbox_number].$widget_body.find("h6.date-uploaded");
-              this.classes_clickbox_collection.subwidget_array[clickbox_number].$date_uploaded.text(this.student_data[student]["Date of Creation"]);
+              this.classes_clickbox_collection.subwidget_array[clickbox_number].$date_uploaded.text("Joined: " + this.student_data[student]["Date of Creation"]);
+              this.classes_clickbox_collection.subwidget_array[clickbox_number].$view_portfolio = this.classes_clickbox_collection.subwidget_array[clickbox_number].$widget_body.find("button.view-student");
+              this.classes_clickbox_collection.subwidget_array[clickbox_number].$view_portfolio.on("click",
+                function(event)
+                {
+                  event.stopPropagation();
+                  var clickbox_index = this.classes_clickbox_collection.get_id_number($(event.target).closest("li.folder-item").attr("id"));
+                  console.log(clickbox_index);
+                  DATABASE_ADMIN_BRANCH.child(this.user_id + "/Viewing Mode").set(this.classes_clickbox_collection.subwidget_array[clickbox_index].student);
+                  document.location.href = "student.html";
+                }.bind(this)
+              );
+              /*this.classes_clickbox_collection.subwidget_array[clickbox_number].$widget_body.on("click",
+                function()
+                {
+                  var clickbox_index = this.classes_clickbox_collection.get_id_number($(event.target).closest("li.folder-item").attr("id"));
+                  if(!this.classes_clickbox_collection.subwidget_array[clickbox_index].main_code_expanded)
+                  {
+                    this.classes_clickbox_collection.subwidget_array[clickbox_index].main_code_expanded = true;
+                    //this.classes_clickbox_collection.subwidget_array[clickbox_index].$remove_student_button = this.classes_clickbox_collection.subwidget_array[clickbox_index].$widget_body.find("button.remove");
+                    this.classes_clickbox_collection.subwidget_array[clickbox_index].$remove_student_button.on("click",
+                      async function()
+                      {
+                        var clickbox_index = this.classes_clickbox_collection.get_id_number($(event.target).closest("li.folder-item").attr("id"));
+                        var folder_index = this.classes_clickbox_collection.get_id_number($(event.target).closest("div.students").attr("id"));
+                        alert(folder_index);
+                        var class_name = this.classes_clickbox_collection.widget_holder_array[folder_index].class;
+                        var remove_user_info_box = new Info_Box(
+                          "Jr Tech Notification: Removing Student", "Processing: Jr Tech is currently removing a student account. Note - This may take a while.", true, "Jr Tech Notification: All done!", "Finished: Jr Tech has removed your student.", false, true, "admin.html"
+                        );
+                        await this.remove_user_from_firebase_auth(this.classes_clickbox_collection.subwidget_array[clickbox_index].student);
+                        this.remove_student_data(class_name, this.classes_clickbox_collection.subwidget_array[clickbox_index].student, true);
+                        await this.remove_student_storage(this.classes_clickbox_collection.subwidget_array[clickbox_index].student);
+                        remove_user_info_box.firebase_mode_confirm_completion();
+                      }.bind(this)
+                    );
+                  }
+                }.bind(this)
+              );*/
               clickbox_number++;
             }
             folder_object.expand_widget_contents(false, 0, "20px");
+            /*
             folder_object.add_students_single_dropdown_menu = new JTIC_Single_Dropdown_Menu(
               "750", "ms", "0", "ms", "px", "10px", folder_object.$widget_body.find("button.add-student-single-dropdown-button"), "cancel-add-additional-student", folder_object.$widget_body.find("div.add-student-single-dropdown-menu"), [new_student_single_dropdown_menu], [folder_object]
             );
@@ -681,13 +739,29 @@ class Admin_User extends User
                   );
                   if(this.item_box_collection.widget_holder_array.length > 0)
                   {
+                    var folder_number_of_just_added_cummulative_menu = this.item_box_collection.get_id_number(folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu.$widget_body.closest("div.students").attr("id"));
+                    var cummulative_menu_counter = 0;
+                    for(let i = 0; i < this.classes_clickbox_collection.widget_holder_array.length; i++)
+                    {
+                      if(i !== folder_number_of_just_added_cummulative_menu && this.classes_clickbox_collection.widget_holder_array[i].widget_content_show)
+                      {
+                        if(this.classes_clickbox_collection.widget_holder_array[i].add_students_single_dropdown_menu.widget_content_show)
+                        {
+                          cummulative_menu_counter++;
+                        }
+                      }
+                      else if(i === folder_number_of_just_added_cummulative_menu)
+                      {
+                        break;
+                      }
+                    }
                     if(this.item_box_collection.widget_holder_array[0].$widget_body.attr("class") !== "students-box")
                     {
-                      var cummulative_menu_index = this.item_box_collection.get_id_number(folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu.$widget_body.closest("div.students").attr("id"));
+                      var cummulative_menu_index = cummulative_menu_counter;
                     }
                     else
                     {
-                      var cummulative_menu_index = this.item_box_collection.get_id_number(folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu.$widget_body.closest("div.students").attr("id")) + 1;
+                      var cummulative_menu_index = cummulative_menu_counter + 1;
                     }
                   }
                   else
@@ -696,8 +770,9 @@ class Admin_User extends User
                   }
                   this.item_box_collection.widget_holder_array.splice(cummulative_menu_index, 0, folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu);
                   console.log("Widget Holder Array:", this.item_box_collection.widget_holder_array);
+                  console.log("CUM MENU INDEX:", cummulative_menu_index);
                   this.item_box_collection.initialize_item_box_variables(this.item_box_collection.widget_holder_array[cummulative_menu_index], cummulative_menu_index); //TODO: FIND BETTER WAY
-                  if(folder_object_index + 1 !== this.item_box_collection.widget_holder_array.length)
+                  if(cummulative_menu_index + 1 !== this.item_box_collection.widget_holder_array.length) //TODO
                   {
                     console.log("LAST HOLDER IN ARRAY.");
                     this.item_box_collection.renumber_item_box_holder_ids(cummulative_menu_index + 1);
@@ -707,7 +782,7 @@ class Admin_User extends User
                     {
                       var cummulative_menu_number = this.item_box_collection.get_id_number($(event.target).closest("div.add-student-controls").prev().attr("id"));
                       this.item_box_collection.increment_item_box_numbers(this.item_box_collection.widget_holder_array[cummulative_menu_number]);
-                      this.bind_student_box_click_events(folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu, folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu.item_box_array);
+                      //this.bind_student_box_click_events(folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu, folder_object.add_students_single_dropdown_menu.cummulative_dropdown_menu.item_box_array);
                       this.item_box_collection.subwidget_array[this.item_box_collection.subwidget_array.length - 1].$item_box_cancel_button.one("click",
                         function(event)
                         {
@@ -740,11 +815,83 @@ class Admin_User extends User
                 }
               }.bind(this)
             );
+            */
           }
           this.classes_clickbox_collection.update_widget_clickbox_numbers(folder_object);
         }.bind(this)
       );
     }
+  }
+
+  change_folder_icon(class_type, $folder_arrow_object)
+  {
+    var $folder_image = $folder_arrow_object.find("img.root-folder-selector-image");
+    switch(class_type)
+    {
+      case "gamemaker-student":
+        $folder_image.attr("src", "Images/Coding Logos/GameMaker/yoyo-games-logo.png");
+        break;
+
+      case "python-student":
+        $folder_image.attr("src", "Images/Coding Logos/Python/python-logo.png");
+        break;
+
+      case "c++-student":
+        $folder_image.attr("src", "Images/Coding Logos/C++/cpp-logo.png");
+        break;
+
+      case "adobe-student":
+        $folder_image.attr("src", "Images/Coding Logos/Adobe/adobe.png");
+        break;
+    }
+  }
+
+  remove_user_from_firebase_auth(user_id_to_remove)
+  {
+    return new Promise(
+      function(resolve, reject)
+      {
+        ADMIN_TOOLS.auth().deleteUser(user_id_to_remove).then(
+          function()
+          {
+            resolve();
+          }
+        ).catch(
+          function(error)
+          {
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
+  remove_student_data(class_name, user_id_to_remove, global_remove)
+  {
+    if(global_remove)
+    {
+      DATABASE_ADMIN_BRANCH.child(this.user_id + "/Classes/" + class_name + '/' + user_id_to_remove).remove();
+      DATABASE_STUDENT_BRANCH.child("All Students/" + user_id_to_remove).remove();
+    }
+    else
+    {
+      DATABASE_ADMIN_BRANCH.child(this.user_id + "/Classes/" + class_name + '/' + user_id_to_remove).remove();
+    }
+  }
+
+  remove_student_storage(user_id_to_remove)
+  {
+    return new Promise(
+      function(resolve, reject)
+      {
+        FIREBASE_STORAGE.ref("Students/" + user_id_to_remove).delete().then(
+          function()
+          {
+            resolve();
+          }
+        );
+      }
+    );
   }
 
   add_additional_students()
@@ -1224,6 +1371,8 @@ class Admin_User extends User
 ------------------ MAIN CODE --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
+//var ADMIN_TOOLS = require('firebase-admin');
+
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
 const FIREBASE_STORAGE = firebase.storage();
@@ -1232,21 +1381,34 @@ const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students");
 const DATE = get_date(new Date());
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH.child("All Students"));
 var GLOBAL_SIGN_OUT_LOCATION = "404.html";
+var CREATING_STUDENTS_MODE = false;
 FIREBASE_AUTHENTICATION.onAuthStateChanged(
   async function(JTIC_user)
   {
     if(JTIC_user)
     {
-      console.log(JTIC_user);
-      var admin_data = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), false); //Get Dictionary.
-      var admin_nodes = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), true); //Get Nodes.
-      var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students"), false); //Get students!
-      console.log(student_data);
-      var admin = new Admin_User(JTIC_user.uid, admin_data, admin_nodes, student_data);
+      if(!CREATING_STUDENTS_MODE)
+      {
+        console.log(JTIC_user);
+        var admin_data = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), false); //Get Dictionary.
+        var admin_nodes = await get_data(DATABASE_ADMIN_BRANCH.child(JTIC_user.uid), true); //Get Nodes.
+        var student_data = await get_data(DATABASE_STUDENT_BRANCH.child("All Students"), false); //Get students!
+        console.log(student_data);
+        DATABASE_ADMIN_BRANCH.child(JTIC_user.uid + "/Viewing Mode").set("");
+        var admin = new Admin_User(JTIC_user.uid, admin_data, admin_nodes, student_data);
+      }
     }
     else
     {
-      document.location.href = GLOBAL_SIGN_OUT_LOCATION;
+      setTimeout(
+        function()
+        {
+          if(!CREATING_STUDENTS_MODE && GLOBAL_SIGN_OUT_LOCATION !== null)
+          {
+            document.location.href = GLOBAL_SIGN_OUT_LOCATION;
+          }
+        }, 150
+      );
     }
   }
 );

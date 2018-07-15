@@ -21,14 +21,14 @@ Copyright (C) 2018 Matthew Aguiar
 var new_class_form =
 `
 <form id = "new-class-form">
-  <fieldset id = "add-class-form-content" class = "border-color-and-radius">
+  <fieldset id = "add-class-form-content" class = "border-color-and-radius shrink-and-center-SUB-fieldset" style = "margin-top: 0;">
     <legend>New Class</legend>
     <fieldset class = "shrink-and-center-SUB-fieldset form-vertical-spacing-rule">
       <legend class = "bold-heading">Class Setup</legend>
       <div class = "SUB-fieldset-content">
         <div>
           <label class = "small-label-format" for = "class-name">Class Name:</label>
-          <input class = "input-half-width input-height-and-font"  id = "class-name" type = "text">
+          <input class = "input-half-width input-height-and-font"  id = "class-name" type = "text" autocomplete = "off">
           <span style = "display: block;" id = "class-name-warning" class = "name-warning warning-message">Please enter a class name.</span>
         </div>
         <div class = "choose-class-type">
@@ -47,8 +47,8 @@ var new_class_form =
               <input class = "inline-checkbox" id = "c++-student" type = "radio" name = "course_type">
             </div>
             <div>
-              <label class = "inline-label" for = "adobe-animate-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe.png" alt=""></label>
-              <input class = "inline-checkbox" id = "adobe-animate-student" type = "radio" name = "course_type">
+              <label class = "inline-label" for = "adobe-student"><img class = "course-icons" src = "Images/Coding Logos/Adobe/adobe.png" alt=""></label>
+              <input class = "inline-checkbox" id = "adobe-student" type = "radio" name = "course_type">
             </div>
           </div>
           <span style = "display: block;" id = "class-type-warning" class = "warning-message">Please choose one class.</span>
@@ -87,7 +87,7 @@ var add_student_mini_field =
     <div class = "student-activate-input-box existing-student-field-seperator">
       <label class = "small-label-format" for = "student-name">Search Existing Student:</label>
       <div>
-        <input class = "existing-student-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+        <input class = "existing-student-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "" autocomplete = "off">
         <button class = "search-student STEM-blue-background blue-to-green-button general-button-format" type = "button" name = "search_student"><img src = "Images/Admin/Add-Existing-Student.svg" alt = ""></button>
         <span style = "display: block;" class = "existing-student-warning warning-message">Student not found.</span>
       </div>
@@ -95,12 +95,12 @@ var add_student_mini_field =
     <div class = "new-student-info">
       <div class = "student-activate-input-box form-vertical-spacing-rule">
         <label class = "small-label-format" for = "student-name">New Student Name:</label>
-        <input class = "student-name-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "">
+        <input class = "student-name-input input-half-width input-height-and-font"  id = "student-name" type = "text" name = "student_add" value = "" autocomplete = "off">
         <span style = "display: block;" class = "name-warning warning-message">Please enter a username.</span>
       </div>
       <div class = "student-activate-input-box" style = "margin-top: 7px;">
         <label class = "small-label-format" for = "student-password">New Student Password:</label>
-        <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "">
+        <input class = "student-password-input input-half-width input-height-and-font"  id = "student-password" type = "text" name = "student_add" value = "" autocomplete = "off">
         <span style = "display: block;" class = "password-warning warning-message">Please enter a password.</span>
       </div>
     </div>
@@ -123,7 +123,7 @@ var adobe_creative_portfolio_folder_contents =
           <div style = "margin-top: 15px;">
             <label class = "small-label-format" for = "font-theme">RGB color code:</label>
             <span>rgb(</span>
-            <input id = "font-theme" class = "input-half-width input-height-and-font rgb-input-resize" type = "text" placeholder = "250, 25, 160">
+            <input id = "font-theme" class = "input-half-width input-height-and-font rgb-input-resize" type = "text" placeholder = "250, 25, 160" autocomplete = "off">
             <span>)</span>
           </div>
           <div>
@@ -136,13 +136,13 @@ var adobe_creative_portfolio_folder_contents =
           <div class = "">
             <label class = "small-label-format" for = "theme-url">Web Image URL:</label>
             <div class = "">
-              <input id = "theme-url" class = "input-height-and-font" type = "text">
+              <input id = "theme-url" class = "input-height-and-font" type = "text" autocomplete = "off">
               <button id = "add-from-web-button" style = "display: inline; vertical-align: top; margin-top: 0;" class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format" type = "button">Add from Web</button>
               <span display: inline;" id = "theme-error" class = "warning-message">Default</span>
             </div>
           </div>
           <div class = "">
-            <input class = "real-file-upload-hide" id = "image-upload-button-selector" type = "file">
+            <input class = "real-file-upload-hide" id = "image-upload-button-selector" type = "file" autocomplete = "off">
             <label style = "padding: 6px 5px; margin-top: 3px;  margin-bottom: 10px;" class = "STEM-blue-background blue-to-green-button general-button-format general-file-manipulation-button-format file-upload" for = "image-upload-button-selector">
                 <img src = "Images/Portfolio Images/Upload-Icon.svg" alt="">
                 <span>Upload Theme</span>
@@ -202,6 +202,7 @@ var expanded_theme_container =
    <ul class = "students-list">
 
    </ul>
+   <!--
    <div class = "student-add-container">
      <div class = "new-student-add">
        <h6 class = "small-label-format">Add Students:</h6>
@@ -211,17 +212,19 @@ var expanded_theme_container =
 
      </div>
    </div>
+   -->
  </div>
  `;
 
+//EVERYTHING FROM HERE ON DOWN IS NOT IMPLEMENTED YET!!!
  var student_clickbox_content =
  `
  <li class = "folder-item hover-shade-dark-tan pointer-mouse-type">
    <div class = "main-content">
      <img class = "user-photo project-thumbnail" alt = "">
      <div class = "data-box-info">
-       <h6 class = "student-name namedata-box-text-format pointer-mouse-type">Default Name</h6>
-       <h6 class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
+       <h6 class = "student-name pointer-mouse-type">Default Name</h6>
+       <h6 style = "margin-top: 3px" class = "date-uploaded data-box-text-format pointer-mouse-type">Default Date</h6>
      </div>
      <button class = "view-student STEM-blue-background blue-to-green-button general-button-format" type="button">View Console</button>
    </div>

@@ -1,0 +1,22 @@
+{
+  "name": "admin-tools",
+  "version": "1.0.0",
+  "description": "Admin tools for managing Firebase Users.",
+  "main": "public\\scripts\\firebase-link.js",
+  "scripts": {
+    "test": "Hello World"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatthewAguiar/Junior-Tech-Innovation-Center.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatthewAguiar/Junior-Tech-Innovation-Center/issues"
+  },
+  "homepage": "https://github.com/MatthewAguiar/Junior-Tech-Innovation-Center#readme",
+  "dependencies": {
+    "firebase-admin": "^5.12.1"
+  }
+}

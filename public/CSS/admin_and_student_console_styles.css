@@ -349,8 +349,8 @@ div.main-content{
 
 img.project-thumbnail{
   /*Make the image icon inside of student boxes small and space them from the left of the box.*/
-  width: 9%;
-  height: auto;
+  width: 36px;
+  height: 36px;
   margin-left: 10px;
 }
 

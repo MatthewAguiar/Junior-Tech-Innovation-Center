@@ -75,6 +75,7 @@ function sign_in_to_firebase()
   );
 }
 
+//Main Code!!!
 const FIREBASE_DATABASE = firebase.database().ref();
 const FIREBASE_AUTHENTICATION = firebase.auth();
 const USERNAME_INPUT_FIELD = document.getElementById("username-input");
@@ -85,13 +86,6 @@ var incorrect_credentials_message = document.getElementsByTagName("output")[0];
 const DATABASE_ADMIN_BRANCH = FIREBASE_DATABASE.child("Users/Administrators");
 const DATABASE_STUDENT_BRANCH = FIREBASE_DATABASE.child("Users/Students/All Students");
 var user_type;
-
-/*FIREBASE_AUTHENTICATION.signOut().then(
-  function(error)
-  {
-    console.log(error);
-  }
-);*/
 
 var user_2D_array = organize_all_users(DATABASE_ADMIN_BRANCH, DATABASE_STUDENT_BRANCH);
 SUBMIT_BUTTON.addEventListener("click", sign_in_to_firebase);

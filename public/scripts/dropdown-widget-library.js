@@ -172,8 +172,8 @@ class Dropdown_Widget
       var current_height = this.$widget_body.height();
       this.expanded_height = this.$widget_body.css("height", "auto").height() + parseInt(expanded_spacing);
       console.log(this.expanded_height);
-      this.expanded_height = this.expanded_height + parseInt(this.$widget_body.children("*").css("margin-top")) + parseInt(this.$widget_body.children("*").css("margin-bottom")) +
-      parseInt(this.$widget_body.children("*").css("padding-top")) + parseInt(this.$widget_body.children("*").css("padding-bottom"));
+      //this.expanded_height = this.expanded_height + parseInt(this.$widget_body.children("*").css("margin-top")) + parseInt(this.$widget_body.children("*").css("margin-bottom")) +
+      //parseInt(this.$widget_body.children("*").css("padding-top")) + parseInt(this.$widget_body.children("*").css("padding-bottom"));
       console.log(this.expanded_height);
       this.$widget_body.height(current_height);
     }
@@ -579,147 +579,6 @@ class Widget_Collection
     else if(index_of_widget_holder === this.widget_holder_array.length - 1)
     {
       return this.global_subwidget_counter;
-    }
-  }
-}
-
-class Item_Box_Collection extends Widget_Collection
-{
-  constructor(cummulative_menu_array)
-  {
-    super(cummulative_menu_array);
-    if(this.widget_holder_array.length > 0)
-    {
-      for(let i = 0; i < this.widget_holder_array.length; i++)
-      {
-        this.initialize_item_box_variables(this.widget_holder_array[i], i);
-      }
-    }
-  }
-
-  initialize_item_box_variables(cummulative_menu_object, cummulative_menu_number)
-  {
-    for(let i = 0; i < cummulative_menu_object.item_box_array.length; i++)
-    {
-      this.subwidget_array.push(cummulative_menu_object.item_box_array[i]);
-      this.subwidget_array[i].item_box_number = i;
-    }
-    cummulative_menu_object.$widget_body.attr("id", "item-box-holder-" + cummulative_menu_number.toString());
-    cummulative_menu_object.item_box_holder_number = cummulative_menu_number;
-    cummulative_menu_object.item_box_number_array = [];
-  }
-
-  renumber_item_box_holder_ids(starting_index)
-  {
-    for(let i = starting_index; i < this.widget_holder_array.length; i++)
-    {
-      this.widget_holder_array[i].$widget_body.attr("id", "item-box-holder-" + i.toString());
-      this.widget_holder_array[i].item_box_holder_number = i;
-    }
-  }
-
-  renumber_item_box_ids(starting_index)
-  {
-    //console.log(starting_index);
-    for(let i = starting_index; i < this.subwidget_array.length; i++)
-    {
-      this.subwidget_array[i].$widget_body.attr("id", "item-box-" + i.toString());
-      this.subwidget_array[i].item_box_number = i;
-    }
-  }
-
-  increment_item_box_numbers(cummulative_menu_object)
-  {
-    if(cummulative_menu_object.expanded)
-    {
-      cummulative_menu_object.$widget_body.off("transitionend");
-      if(cummulative_menu_object.item_box_array.length > 1)
-      {
-        var index_of_splice = cummulative_menu_object.item_box_number_array[cummulative_menu_object.item_box_number_array.length - 1] + 1;
-      }
-      else
-      {
-        var index_of_splice = this.get_starting_subwidget_number(cummulative_menu_object);
-      }
-      console.log("Adding Item Box at index:", index_of_splice);
-      this.subwidget_array.splice(index_of_splice, 0, cummulative_menu_object.item_box_array[cummulative_menu_object.item_box_array.length - 1]);
-      this.subwidget_array[index_of_splice].item_box_number = index_of_splice;
-      cummulative_menu_object.item_box_number_array.push(index_of_splice);
-      console.log("Here is the item box array:", this.subwidget_array);
-      console.log("Here is the number array for " + cummulative_menu_object.$widget_body.attr("id") + ':', cummulative_menu_object.item_box_number_array);
-      this.global_subwidget_counter++;
-      this.renumber_item_box_ids(cummulative_menu_object.item_box_number_array[cummulative_menu_object.item_box_number_array.length - 1]);
-      for(let i = this.widget_holder_array.indexOf(cummulative_menu_object) + 1; i < this.widget_holder_array.length; i++)
-      {
-        for(let j = 0; j < this.widget_holder_array[i].item_box_number_array.length; j++)
-        {
-          if(this.widget_holder_array[i].item_box_number_array.length > 0)
-          {
-            this.widget_holder_array[i].item_box_number_array[j]++;
-          }
-        }
-        console.log("Number array for " + this.widget_holder_array[i].$widget_body.attr("id") + ":", this.widget_holder_array[i].item_box_number_array);
-      }
-    }
-  }
-
-  decrement_item_box_numbers(cummulative_menu_object, item_box_remove_index)
-  {
-    if(!cummulative_menu_object.expanded)
-    {
-      cummulative_menu_object.$widget_body.on("transitionend",
-        function()
-        {
-          if(event.target.id === cummulative_menu_object.$widget_body.attr("id"))
-          {
-            console.log("Removing Item Box at index:", item_box_remove_index);
-            var item_box_number_array_remove_index = cummulative_menu_object.item_box_number_array.indexOf(item_box_remove_index);
-            console.log("Corresponding to index " + item_box_remove_index.toString() + " in: " + cummulative_menu_object.$widget_body.attr("id") + " number array.");
-            cummulative_menu_object.item_box_number_array.splice(item_box_number_array_remove_index, 1);
-            this.subwidget_array.splice(item_box_remove_index, 1);
-            this.renumber_item_box_holder_ids(item_box_remove_index);
-            this.global_subwidget_counter--;
-            console.log("Here is the item box array:", this.subwidget_array);
-            if(!cummulative_menu_object.widget_content_show)
-            {
-              if(this.widget_holder_array.indexOf(cummulative_menu_object) + 1 === this.widget_holder_array.length)
-              {
-                var i = this.widget_holder_array.length;
-              }
-              else
-              {
-                var i = this.widget_holder_array.indexOf(cummulative_menu_object) + 1;
-              }
-            }
-            else
-            {
-              var i = this.widget_holder_array.indexOf(cummulative_menu_object);
-            }
-            while(i < this.widget_holder_array.length)
-            {
-              if(i === this.widget_holder_array.indexOf(cummulative_menu_object))
-              {
-                var j = item_box_number_array_remove_index;
-              }
-              else
-              {
-                var j = 0;
-              }
-              while(j < this.widget_holder_array[i].item_box_number_array.length)
-              {
-                if(this.widget_holder_array[i].item_box_number_array.length > 0)
-                {
-                  this.widget_holder_array[i].item_box_number_array[j]--;
-                }
-                j++;
-              }
-              console.log("Here is the number array for " + this.widget_holder_array[i].$widget_body.attr("id") + ':', this.widget_holder_array[i].item_box_number_array);
-              i++
-            }
-            cummulative_menu_object.$widget_body.off("transitionend")
-          }
-        }.bind(this)
-      );
     }
   }
 }
