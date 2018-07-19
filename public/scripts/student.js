@@ -35,6 +35,7 @@ class Student_User extends User
     this.gamemaker_folder_array_of_content = [gamemaker_project_folder_content];
     this.gamemaker_project_descriptions_array = [];
     this.gamemaker_download_url_array = [];
+    this.gamemaker_file_location_url_array = [];
     this.gamemaker_allowed_array_of_file_extensions = [".gmz", ".yyz"];
     //Python Instance Variables!
     this.python_project_folder;
@@ -42,13 +43,15 @@ class Student_User extends User
     this.python_folder_array_of_content = [python_project_folder_content];
     this.python_project_descriptions_array = [];
     this.python_download_url_array = [];
-    this.python_allowed_array_of_file_extensions = [".pyc"];
+    this.python_file_location_url_array = [];
+    this.python_allowed_array_of_file_extensions = [".py"];
     //C++ Instance Variables.
     this.cpp_project_folder;
     this.cpp_project_collection;
     this.cpp_folder_array_of_content = [cpp_project_folder_content];
     this.cpp_project_descriptions_array = [];
     this.cpp_download_url_array = [];
+    this.cpp_file_location_url_array = [];
     this.cpp_allowed_array_of_file_extensions = [".zip"];
     //Adobe Animate Variables.
     this.adobe_project_folder;
@@ -56,6 +59,7 @@ class Student_User extends User
     this.adobe_folder_array_of_content = [adobe_project_folder_content];
     this.adobe_project_descriptions_array = [];
     this.adobe_download_url_array = [];
+    this.adobe_file_location_url_array = [];
     this.adobe_allowed_array_of_file_extensions = [".ai", ".fla"];
     this.adobe_project_folder;
     ////////////////////////////
@@ -88,7 +92,7 @@ class Student_User extends User
             this.gamemaker_project_collection =  [];
           }
           console.log(this.gamemaker_project_collection);
-          this.save_database_data_into_arrays(gamemaker_project_download_box, this.gamemaker_project_collection, this.gamemaker_folder_array_of_content, this.gamemaker_project_descriptions_array, this.gamemaker_download_url_array);
+          this.save_database_data_into_arrays(gamemaker_project_download_box, this.gamemaker_project_collection, this.gamemaker_folder_array_of_content, this.gamemaker_project_descriptions_array, this.gamemaker_download_url_array, this.gamemaker_file_location_url_array);
           this.gamemaker_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "gamemaker-arrow", "gamemaker-student-projects-folder", this.gamemaker_folder_array_of_content, []);
           this.gamemaker_project_folder.class_name = "GameMaker-Studio";
           this.folder_array.push(this.gamemaker_project_folder);
@@ -97,7 +101,7 @@ class Student_User extends User
           console.log(this.clickbox_collection.widget_holder_array.length);
           this.manage_project_folder(
             this.gamemaker_project_folder, "add-gamemaker-project-button", "remove-gamemaker-project-button", "add-gamemaker-project-menu", gamemaker_add_project_menu_content, gamemaker_download_box_expansion_content,
-            this.gamemaker_project_collection, this.gamemaker_project_folder.class_name, this.gamemaker_download_url_array, this.gamemaker_project_descriptions_array, this.gamemaker_allowed_array_of_file_extensions
+            this.gamemaker_project_collection, this.gamemaker_project_folder.class_name, this.gamemaker_download_url_array, this.gamemaker_file_location_url_array, this.gamemaker_project_descriptions_array, this.gamemaker_allowed_array_of_file_extensions
           );
           break;
 
@@ -111,7 +115,7 @@ class Student_User extends User
           {
             this.python_project_collection = [];
           }
-          this.save_database_data_into_arrays(python_project_download_box, this.python_project_collection, this.python_folder_array_of_content, this.python_project_descriptions_array, this.python_download_url_array);
+          this.save_database_data_into_arrays(python_project_download_box, this.python_project_collection, this.python_folder_array_of_content, this.python_project_descriptions_array, this.python_download_url_array, this.python_file_location_url_array);
           this.python_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "python-arrow", "python-student-projects-folder", this.python_folder_array_of_content, []);
           this.python_project_folder.class_name = "Python";
           this.folder_array.push(this.python_project_folder);
@@ -119,7 +123,7 @@ class Student_User extends User
           this.clickbox_collection.initialize_clickbox_variables(this.python_project_folder, this.clickbox_collection.widget_holder_array.indexOf(this.python_project_folder));
           this.manage_project_folder(
             this.python_project_folder, "add-python-project-button", "remove-python-project-button", "add-python-project-menu", python_add_project_menu_content, python_download_box_expansion_content,
-            this.python_project_collection, this.python_project_folder.class_name, this.python_download_url_array, this.python_project_descriptions_array, this.python_allowed_array_of_file_extensions
+            this.python_project_collection, this.python_project_folder.class_name, this.python_download_url_array, this.python_file_location_url_array, this.python_project_descriptions_array, this.python_allowed_array_of_file_extensions
           );
           break;
 
@@ -133,7 +137,7 @@ class Student_User extends User
           {
             this.cpp_project_collection = [];
           }
-          this.save_database_data_into_arrays(cpp_project_download_box, this.cpp_project_collection, this.cpp_folder_array_of_content, this.cpp_project_descriptions_array, this.cpp_download_url_array);
+          this.save_database_data_into_arrays(cpp_project_download_box, this.cpp_project_collection, this.cpp_folder_array_of_content, this.cpp_project_descriptions_array, this.cpp_download_url_array, this.cpp_file_location_url_array);
           this.cpp_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "cpp-arrow", "cpp-student-projects-folder", this.cpp_folder_array_of_content, []);
           this.cpp_project_folder.class_name = "C++";
           this.folder_array.push(this.cpp_project_folder);
@@ -141,7 +145,7 @@ class Student_User extends User
           this.clickbox_collection.initialize_clickbox_variables(this.cpp_project_folder, this.clickbox_collection.widget_holder_array.indexOf(this.cpp_project_folder));
           this.manage_project_folder(
             this.cpp_project_folder, "add-cpp-project-button", "remove-cpp-project-button", "add-cpp-project-menu", cpp_add_project_menu_content, cpp_download_box_expansion_content,
-            this.cpp_project_collection, this.cpp_project_folder.class_name, this.cpp_download_url_array, this.cpp_project_descriptions_array, this.cpp_allowed_array_of_file_extensions
+            this.cpp_project_collection, this.cpp_project_folder.class_name, this.cpp_download_url_array, this.cpp_file_location_url_array, this.cpp_project_descriptions_array, this.cpp_allowed_array_of_file_extensions
           );
           break;
 
@@ -155,7 +159,7 @@ class Student_User extends User
           {
             this.adobe_project_collection = [];
           }
-          this.save_database_data_into_arrays(adobe_project_download_box, this.adobe_project_collection, this.adobe_folder_array_of_content, this.adobe_project_descriptions_array, this.adobe_download_url_array);
+          this.save_database_data_into_arrays(adobe_project_download_box, this.adobe_project_collection, this.adobe_folder_array_of_content, this.adobe_project_descriptions_array, this.adobe_download_url_array, this.adobe_file_location_url_array);
           this.adobe_project_folder = new JTIC_Folder("750", "ms", "0", "ms", "px", "30px", "adobe-arrow", "adobe-student-projects-folder", this.adobe_folder_array_of_content, []);
           this.adobe_project_folder.class_name = "Adobe";
           this.folder_array.push(this.adobe_project_folder);
@@ -163,7 +167,7 @@ class Student_User extends User
           this.clickbox_collection.initialize_clickbox_variables(this.adobe_project_folder, this.clickbox_collection.widget_holder_array.indexOf(this.adobe_project_folder));
           this.manage_project_folder(
             this.adobe_project_folder, "add-adobe-project-button", "remove-adobe-project-button", "add-adobe-project-menu", adobe_add_project_menu_content, adobe_download_box_expansion_content,
-            this.adobe_project_collection, this.adobe_project_folder.class_name, this.adobe_download_url_array, this.adobe_project_descriptions_array, this.adobe_allowed_array_of_file_extensions
+            this.adobe_project_collection, this.adobe_project_folder.class_name, this.adobe_download_url_array, this.adobe_file_location_url_array, this.adobe_project_descriptions_array, this.adobe_allowed_array_of_file_extensions
           );
       }
     }
@@ -174,17 +178,18 @@ class Student_User extends User
     this.$master_projects_list.append(html_folder_content);
   }
 
-  save_database_data_into_arrays(download_box, project_collection, folder_array_of_content, project_descriptions_array, download_url_array)
+  save_database_data_into_arrays(download_box, project_collection, folder_array_of_content, project_descriptions_array, download_url_array, location_url_array)
   {
     for(var project in project_collection)
     {
       folder_array_of_content.push(download_box);
       project_descriptions_array.push(project_collection[project]["Description"]);
       download_url_array.push(project_collection[project]["Download Link"]);
+      location_url_array.push(project_collection[project]["Storage Location"]);
     }
   }
 
-  manage_project_folder(folder_object, expand_new_project_button_id, collapse_new_project_button_id, new_project_menu_body_id, new_project_menu_html_content, clickbox_expansion_content, project_collection, class_name, download_url_array, project_descriptions_array, allowed_array_of_file_extensions)
+  manage_project_folder(folder_object, expand_new_project_button_id, collapse_new_project_button_id, new_project_menu_body_id, new_project_menu_html_content, clickbox_expansion_content, project_collection, class_name, download_url_array, location_url_array, project_descriptions_array, allowed_array_of_file_extensions)
   {
     /*
     if(folder_object.$widget_body.attr("id") === "gamemaker-student-projects-folder")
@@ -221,13 +226,34 @@ class Student_User extends User
             this.clickbox_collection.subwidget_array[clickbox_number].$project_name_element.text("Name: " + this.clickbox_collection.subwidget_array[clickbox_number].project_name);
             this.clickbox_collection.subwidget_array[clickbox_number].$date_uploaded_element.text("Uploaded on: " + project_collection[project]["Date Uploaded"]);
             this.clickbox_collection.subwidget_array[clickbox_number].$download_button = this.clickbox_collection.subwidget_array[clickbox_number].$widget_body.find("a.download-project");
-            this.clickbox_collection.subwidget_array[clickbox_number].$download_button.attr("href", download_url_array[folder_object.local_clickbox_counter - 1]);
+            if(allowed_array_of_file_extensions.indexOf(".py") === -1)
+            {
+              alert("HI");
+              this.clickbox_collection.subwidget_array[clickbox_number].$download_button.attr("href", download_url_array[clickbox_index]);
+            }
             this.clickbox_collection.subwidget_array[clickbox_number].$download_button.on("click",
               function(event)
               {
                 event.stopPropagation();
-              }
+                var clickbox_index = this.clickbox_collection.get_id_number($(event.target).closest("li.folder-item").attr("id"));
+                if(allowed_array_of_file_extensions.indexOf(".py") !== -1)
+                {
+                  $.ajax(
+                    {
+                      url: download_url_array[clickbox_index],
+
+                      success: function(data){
+                        //console.log(data);
+                        var file_download_name = manipulate_file_extension_for_database(get_file_name_from_storage_url(location_url_array[clickbox_index]), false);
+                        this.clickbox_collection.subwidget_array[clickbox_index].$download_button.attr("download", file_download_name);
+                        this.clickbox_collection.subwidget_array[clickbox_index].$download_button.attr("href", "data:text/plain," + encodeURIComponent(data));
+                      }.bind(this)
+                    }
+                  );
+                }
+              }.bind(this)
             );
+            this.clickbox_collection.subwidget_array[clickbox_number].$download_button.click();
             this.clickbox_collection.subwidget_array[clickbox_number].$widget_body.on("click",
               function(event)
               {

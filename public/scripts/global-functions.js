@@ -186,7 +186,7 @@ function get_file_extension(file_name)
     if(file_name[i] === ".")
     {
       //console.log("TRUE");
-      return extension_from_file;
+      return "." + extension_from_file;
     }
     extension_from_file = file_name[i] + extension_from_file;
   }
@@ -223,6 +223,11 @@ function get_date(date_object)
   var date = date_object.getDate();
   var year = date_object.getFullYear();
   return month + " " + date + ", " + year;
+}
+
+function get_file_name_from_storage_url(storage_url)
+{
+  return storage_url.substring(storage_url.lastIndexOf("/") + 1, storage_url.length);
 }
 
 class User

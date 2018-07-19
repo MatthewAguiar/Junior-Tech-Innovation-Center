@@ -235,7 +235,7 @@ h1#title{
   Break the "Junior Tech Innovation Center" title out of the document flow and position in the middle of the div tag contained in the main title bar.
   */
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 800;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -501,6 +501,7 @@ div#sign-out-user-info{
   display: inline-block;
   vertical-align: top;
   margin-left: 20px;
+  max-width: 46%;
 }
 
 span#sign-out-username{
